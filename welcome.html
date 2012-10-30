@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>
+Welcome to Roadster!
+</title>
+
+<!-- Meta Tags -->
+<meta charset="utf-8">
+<meta name="robots" content="index, follow">
+
+<!-- CSS -->
+<link href="css/structure.css" rel="stylesheet">
+<link href="css/form.css" rel="stylesheet">
+
+<!-- JavaScript -->
+<script src="scripts/welcome.js"></script>
+<script src="scripts/jquery-1.8.1.min.js"></script>
+
+<!-- Code used from http://wufoo.com/gallery/templates/forms/meeting-form/ -->
+</head>
+
+<body id="public">
+<div id="container" class="ltr">
+
+<h1 id="logo">
+</h1>
+
+<form id="trip_form" name="trip_form" class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate
+action="">
+
+<header id="header" class="info">
+<h2>Welcome to Roadster!</h2>
+<div>Begin by choosing a start location, and fill in any other information you want.</div>
+</header>
+
+<ul>
+
+<li id="foli0" class="notranslate      ">
+<label class="desc" id="title0" for="Field0">
+Start Location (Required)
+</label>
+<div>
+<input id="Field0" name="Field0" type="text" class="field text medium" value="" maxlength="255" tabindex="1" onkeyup="" />
+</div>
+</li><li id="foli2" class="date notranslate      ">
+<label class="desc" id="title2" for="Field2">
+Start Date (Optional)
+</label>
+<span>
+<input id="Field2-1" name="Field2-1" type="text" class="field text" value="" size="2" maxlength="2" tabindex="2" />
+<label for="Field2-1">MM</label>
+</span> 
+<span class="symbol">/</span>
+<span>
+<input id="Field2-2" name="Field2-2" type="text" class="field text" value="" size="2" maxlength="2" tabindex="3" />
+<label for="Field2-2">DD</label>
+</span>
+<span class="symbol">/</span>
+<span>
+ <input id="Field2" name="Field2" type="text" class="field text" value="" size="4" maxlength="4" tabindex="4" />
+<label for="Field2">YYYY</label>
+</span>
+<span id="cal2">
+<img id="pick2" class="datepicker" src="images/calendar.png" alt="Pick a date." />
+</span>
+</li>
+<li id="foli3" class="notranslate      ">
+<label class="desc" id="title3" for="Field3">
+End Location (Optional)
+</label>
+<div>
+<input id="Field3" name="Field3" type="text" class="field text medium" value="" maxlength="255" tabindex="5" onkeyup="" />
+</div>
+</li>
+
+<div>
+<input id="saveForm" name="saveForm" class="btTxt submit" type="submit" value="Start!"/>
+</div>
+
+</ul>
+</form> 
+
+</div><!--container-->
+
+</body>
+
+<script>
+$('#trip_form').submit(function() {
+  document.location.href = "settings.html";
+  return false;
+});
+</script>
+
+</html>

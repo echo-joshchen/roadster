@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>
+Trip Settings
+</title>
+
+<!-- Meta Tags -->
+<meta charset="utf-8">
+
+<!-- CSS -->
+<link href="css/structure.css" rel="stylesheet">
+<link href="css/form.css" rel="stylesheet">
+
+<!-- JavaScript -->
+<script src="scripts/settings.js"></script>
+<script src="scripts/jquery-1.8.1.min.js"></script>
+
+</head>
+
+<body id="public">
+<div id="container" class="ltr">
+
+<form id="settings_form" name="settings_form" class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate
+action="">
+
+<header id="header" class="info">
+<h2>Trip Settings</h2>
+<div></div>
+</header>
+
+<ul>
+
+<li id="foli1" class="notranslate      ">
+<label class="desc" id="title1" for="Field1">
+Name
+<span id="req_1" class="req">*</span>
+</label>
+<span>
+<input id="Field1" name="Field1" type="text" class="field text fn" value="" size="8" tabindex="1" required />
+<label for="Field1">First</label>
+</span>
+<span>
+<input id="Field2" name="Field2" type="text" class="field text ln" value="" size="14" tabindex="2" required />
+<label for="Field2">Last</label>
+</span>
+</li>
+
+<div>
+<span>
+<input id="Field11" name="Field11" type="checkbox" class="field checkbox" value="Bronze - $20" tabindex="13" />
+<label class="choice" for="Field11">Checkbox 1</label>
+</span>
+<span>
+<input id="Field12" name="Field12" type="checkbox" class="field checkbox" value="Silver - $50" tabindex="14" />
+<label class="choice" for="Field12">Checkbox 2</label>
+</span>
+<span>
+<input id="Field13" name="Field13" type="checkbox" class="field checkbox" value="Gold - $100" tabindex="15" />
+<label class="choice" for="Field13">Checkbox 3</label>
+</span>
+</div>
+</fieldset>
+</li><li id="foli111" 
+class="notranslate      "><label class="desc" id="title111" for="Field111">
+Additional Info
+</label>
+
+<div>
+<textarea id="Field111" 
+name="Field111" 
+class="field textarea medium" 
+spellcheck="true" 
+rows="10" cols="50" 
+tabindex="16" 
+onkeyup=""
+ ></textarea>
+
+</div>
+</li> <li class="buttons ">
+<div>
+<input id="saveForm" name="saveForm" class="btTxt submit" type="submit" value="Submit" /></div>
+</li>
+
+</ul>
+</form> 
+
+</div>
+
+<!--container-->
+
+<script>
+$('#settings_form').submit(function() {
+  document.location.href = "map.html";
+  return false;
+});
+</script>
+
+</body>
+</html>
