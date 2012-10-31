@@ -12,10 +12,14 @@
 
 /* ----- Backgrounds ----- */
 html{
-	background-image:none;	background-color:#FFFFFF;
+	background-image:none;	background-color:#FFFFCC;
 }
+
+body{background: #FFFFCC;}
+
+
 #logo{
-	background-image:none;	background-color:#DEDEDE;
+	background-image:none;	background-color:#FFFFCC;
 }
 #container, html.embed{
 	background-color:#FFFFFF;
@@ -26,10 +30,10 @@ html{
 }
 
 .wufoo li.focused{
-	background-color:#FFF7C0;
+	background-color:#FFFFCC;
 }
 .wufoo .instruct{
-	background-color:#F5F5F5;
+	background-color:#FFF7C0;
 }
 
 /* ----- Borders ----- */
@@ -367,3 +371,15 @@ a.powertiny b, a.powertiny em{
 
 /* - - - Custom Theme - - - */
 
+.navbar-inner {
+	@navbarText: @yellow;
+	@navbarLinkColor: #FFFFFF;
+	@navbarLinkColorHover: @yellow;
+	@navbarLinkColorActive: @navbarLinkColorHover;
+	@navbarLinkBackgroundHover: transparent;
+	@navbarLinkBackgroundActive: @navbarBackground;
+
+	@navbarSearchPlaceholderColor: #ccc;
+	@navbarBrandColor: @navbarLinkColor; 
+
+}

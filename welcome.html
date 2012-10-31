@@ -13,15 +13,83 @@ Welcome to Roadster!
 <!-- CSS -->
 <link href="css/structure.css" rel="stylesheet">
 <link href="css/form.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
 
 <!-- JavaScript -->
 <script src="scripts/welcome.js"></script>
 <script src="scripts/jquery-1.8.1.min.js"></script>
 
+<!-- Le styles -->
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="css/theme.css" rel="stylesheet">
+
+<style type="text/css">
+  body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+
+    .form-signin {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  }
+  .form-signin .form-signin-heading,
+  .form-signin .checkbox {
+    margin-bottom: 10px;
+  }
+  .form-signin input[type="text"],
+  .form-signin input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+  }
+</style>
+<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
 <!-- Code used from http://wufoo.com/gallery/templates/forms/meeting-form/ -->
 </head>
 
 <body id="public">
+<script src="bootstrap/jQuery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="welcome.html">Roadster</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="active">
+          	<a href="welcome.html">Home</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="map.html">Map</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+
+
+
 <div id="container" class="ltr">
 
 <h1 id="logo">
@@ -31,6 +99,9 @@ Welcome to Roadster!
 action="">
 
 <header id="header" class="info">
+
+
+
 <h2>Welcome to Roadster!</h2>
 <div>Begin by choosing a start location, and fill in any other information you want.</div>
 </header>
@@ -76,13 +147,15 @@ End Location (Optional)
 </li>
 
 <div>
-<input id="saveForm" name="saveForm" class="btTxt submit" type="submit" value="Start!"/>
+<input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Start!"/>
 </div>
 
 </ul>
 </form> 
 
 </div><!--container-->
+
+
 
 </body>
 
