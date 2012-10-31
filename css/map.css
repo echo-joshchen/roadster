@@ -5,3 +5,22 @@
 	left: 20%;
 	top: 0px;
 }
+#itinerary {
+	position: absolute;
+	width:19.6%;
+	min-width: 100px;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+	border: solid black 4px;
+	padding: 0px;
+}
+#itinerary h2  {
+	text-align: center;
+}
+#itinerary ul {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+	padding-left: 20px;
+}

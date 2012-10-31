@@ -1,8 +1,8 @@
-var SanFrancisco = [37.796763,-122.422234];
-var SanDiego = [32.717977,-117.158993];
-var MBAcquarium = [36.618051,-121.902061];
-var PismoBeach = [35.086115,-120.622912];
-var Disneyland = [33.809391,-117.918924];
+var SanFrancisco = [37.796763,-122.422234,"San Francisco"];
+var SanDiego = [32.717977,-117.158993,"San Diego"];
+var MBAcquarium = [36.618051,-121.902061,"Monterey Bay Aquarium"];
+var PismoBeach = [35.086115,-120.622912,"Pismo Beach"];
+var Disneyland = [33.809391,-117.918924,"Disneyland"];
 var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland];
 var map;
 var path = [SanFrancisco];
@@ -43,6 +43,7 @@ function addPoint(coord) {
 		lng: coord[1],
 	});
 	path.push(coord);
+	document.getElementById("stops").innerHTML += "<li>" + coord[2] + "</li>";
 	renderRoute();
 }
 
@@ -71,6 +72,11 @@ function renderRoute() {
 	});
 }
 
+// Updates the itinerary after a change has been made, like a new point or reordering.
+function updateItinerary() {
+
+}
+
 $(document).ready(function(){
 
 	createMap();
@@ -86,6 +92,13 @@ $(document).ready(function(){
 			// IMPLEMENT SEARCH FUNCTIONALITY
 			alert('Search coming soon');
 		}
+	});
+
+	// Add drag-drop functionality to lists.
+	$("#stops").dragsort({
+		dragSelector: "li",
+		dragBetween: false,
+		placeHolderTemplate: ""
 	});
 
 });
