@@ -5,7 +5,7 @@ var PismoBeach = [35.086115,-120.622912,"Pismo Beach"];
 var Disneyland = [33.809391,-117.918924,"Disneyland"];
 var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland];
 var map;
-var path = [SanFrancisco];
+var path = [];
 
 
 // Creates the initial map from SF to SD.
@@ -50,8 +50,8 @@ function addPoint(coord) {
 // Renders the route.
 function renderRoute() {
 	map.cleanRoute();
-	var origin = path[0];
-	for (var i = 1; i < path.length; i++) {
+	var origin = SanFrancisco;
+	for (var i = 0; i < path.length; i++) {
 		map.drawRoute({
 			origin: origin,
 			destination: path[i],
@@ -72,9 +72,18 @@ function renderRoute() {
 	});
 }
 
-// Updates the itinerary after a change has been made, like a new point or reordering.
-function updateItinerary() {
-
+// Updates the path after reordering.
+function updatePath() {
+	var stops = document.getElementById("stops").children;
+	var newPath = [];
+	for (var i = 0; i < stops.length; i++) {
+		for (var j = 0; j < path.length; j++) {
+			if (stops[i].innerHTML == path[j][2]) {
+				newPath.push(path[j]);
+			}
+		}
+	}
+	path = newPath;
 }
 
 $(document).ready(function(){
@@ -98,6 +107,10 @@ $(document).ready(function(){
 	$("#stops").dragsort({
 		dragSelector: "li",
 		dragBetween: false,
+		dragEnd: function() {
+			updatePath();
+			renderRoute();
+		},
 		placeHolderTemplate: ""
 	});
 
