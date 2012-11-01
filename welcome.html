@@ -54,6 +54,10 @@ Welcome to Roadster!
     margin-bottom: 15px;
     padding: 7px 9px;
   }
+  .date_field {
+    width: 40px;
+    text-align: center;
+  }
 </style>
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -63,9 +67,6 @@ Welcome to Roadster!
 <body id="public">
 <script src="bootstrap/jQuery.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
-
-
-
 
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
@@ -95,75 +96,60 @@ Welcome to Roadster!
 <h1 id="logo">
 </h1>
 
-<form id="trip_form" name="trip_form" class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate
-action="">
+<form id="trip_form" name="trip_form" class="wufoo topLabel page" autocomplete="off" method="get" action="settings.html">
 
 <header id="header" class="info">
-
-
-
 <h2>Welcome to Roadster!</h2>
 <div>Begin by choosing a start location, and fill in any other information you want.</div>
 </header>
 
 <ul>
 
-<li id="foli0" class="notranslate      ">
-<label class="desc" id="title0" for="Field0">
-Start Location (Required)
-</label>
-<div>
-<input id="Field0" name="Field0" type="text" class="field text medium" value="" maxlength="255" tabindex="1" onkeyup="" />
-</div>
-</li><li id="foli2" class="date notranslate      ">
-<label class="desc" id="title2" for="Field2">
-Start Date (Optional)
-</label>
-<span>
-<input id="Field2-1" name="Field2-1" type="text" class="field text" value="" size="2" maxlength="2" tabindex="2" />
-<label for="Field2-1">MM</label>
-</span> 
-<span class="symbol">/</span>
-<span>
-<input id="Field2-2" name="Field2-2" type="text" class="field text" value="" size="2" maxlength="2" tabindex="3" />
-<label for="Field2-2">DD</label>
-</span>
-<span class="symbol">/</span>
-<span>
- <input id="Field2" name="Field2" type="text" class="field text" value="" size="4" maxlength="4" tabindex="4" />
-<label for="Field2">YYYY</label>
-</span>
-<span id="cal2">
-<img id="pick2" class="datepicker" src="images/calendar.png" alt="Pick a date." />
-</span>
+<li id="Start Location">
+    <label class="desc" id="start_label" for="start_location">
+        Start Location (Required)
+    </label>
+    <input id="start_location" name="start_location" type="text" class="field text medium" maxlength="255" onkeyup="" />
 </li>
-<li id="foli3" class="notranslate      ">
-<label class="desc" id="title3" for="Field3">
-End Location (Optional)
-</label>
-<div>
-<input id="Field3" name="Field3" type="text" class="field text medium" value="" maxlength="255" tabindex="5" onkeyup="" />
-</div>
+
+<li id="Date" class="date notranslate      ">
+    <label class="desc" id="date_label" for="year">
+        Start Date (Optional)
+    </label>
+    <span>
+        <input id="day" name="day" type="text" class="date_field" size="2" maxlength="2" />
+        <label for="day">MM</label>
+    </span> 
+    <span class="symbol">/</span>
+    <span>
+        <input id="month" name="month" type="text" class="date_field" size="2" maxlength="2" />
+        <label for="month">DD</label>
+    </span>
+    <span class="symbol">/</span>
+    <span>
+        <input id="year" name="year" type="text" class="date_field" size="4" maxlength="4" />
+        <label for="year">YYYY</label>
+    </span>
+</li>
+
+<li id="End Location">
+    <label class="desc" id="end_label" for="end_location">
+        End Location (Optional)
+    </label>
+    <div>
+        <input id="end_location" name="end_location" type="text" class="field text medium"maxlength="255" onkeyup="" />
+    </div>
 </li>
 
 <div>
-<input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Start!"/>
+    <input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Start!"/>
 </div>
 
 </ul>
 </form> 
 
-</div><!--container-->
-
-
+</div>
 
 </body>
-
-<script>
-$('#trip_form').submit(function() {
-  document.location.href = "settings.html";
-  return false;
-});
-</script>
 
 </html>

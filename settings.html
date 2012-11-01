@@ -4,7 +4,6 @@
 
 <title>
 Trip Settings
-
 </title>
 
 <!-- Meta Tags -->
@@ -86,80 +85,78 @@ Trip Settings
 
 <div id="container" class="ltr">
 
-<form id="settings_form" name="settings_form" class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate
-action="">
+<form id="settings_form" name="settings_form" class="wufoo topLabel page" autocomplete="off" method="get" action="map.html">
 
 <header id="header" class="info">
-<h2>Trip Settings</h2>
-<div></div>
+<h2>Traveller Information</h2>
+<div>
+	<p>Add some info about your fellow travellers to recieve tailored trip suggestions.</p>
+</div>
 </header>
 
-<ul>
-
-<li id="foli1" class="notranslate      ">
-<label class="desc" id="title1" for="Field1">
-Name
-<span id="req_1" class="req">*</span>
-</label>
-<span>
-<input id="Field1" name="Field1" type="text" class="field text fn" value="" size="8" tabindex="1" required />
-<label for="Field1">First</label>
-</span>
-<span>
-<input id="Field2" name="Field2" type="text" class="field text ln" value="" size="14" tabindex="2" required />
-<label for="Field2">Last</label>
-</span>
-</li>
-
 <div>
-<span>
-<input id="Field11" name="Field11" type="checkbox" class="field checkbox" value="Bronze - $20" tabindex="13" />
-<label class="choice" for="Field11">Checkbox 1</label>
-</span>
-<span>
-<input id="Field12" name="Field12" type="checkbox" class="field checkbox" value="Silver - $50" tabindex="14" />
-<label class="choice" for="Field12">Checkbox 2</label>
-</span>
-<span>
-<input id="Field13" name="Field13" type="checkbox" class="field checkbox" value="Gold - $100" tabindex="15" />
-<label class="choice" for="Field13">Checkbox 3</label>
-</span>
+	<label class="desc" id="name_label" for="name_input">
+		Number of Travellers
+	</label>
+	<select name="num_travellers">
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4" selected="selected">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8 or more</option>
+	</select>
 </div>
-</fieldset>
-</li><li id="foli111" 
-class="notranslate      "><label class="desc" id="title111" for="Field111">
-Additional Info
-</label>
+
+<br />
 
 <div>
-<textarea id="Field111" 
-name="Field111" 
-class="field textarea medium" 
-spellcheck="true" 
-rows="10" cols="50" 
-tabindex="16" 
-onkeyup=""
- ></textarea>
-
+	<label class="desc" id="name_label" for="name_input">
+		Check the age ranges that apply to your travellers
+	</label>
+	<input id="age1" name="age1" type="checkbox" />
+	<label class="choice" for="age1">Less than 5 years old</label>
+	<input id="age2" name="age2" type="checkbox" />
+	<label class="choice" for="age2">Ages 6 to 12</label>
+	<input id="age3" name="age3" type="checkbox" />
+	<label class="choice" for="age3">Ages 13 to 18</label>
+	<input id="age4" name="age4" type="checkbox" />
+	<label class="choice" for="age4">More than 18 years old</label>
 </div>
-</li> <li class="buttons ">
-<div>
-<input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Submit" /></div>
-</li>
 
-</ul>
+<br />
+
+<div>
+	<label class="desc" id="name_label" for="name_input">
+		Check boxes that apply to your travellers:
+	</label>
+	<input id="box1" name="box1" type="checkbox" />
+	<label class="choice" for="box1">Amusement Parks</label>
+	<input id="box2" name="box2" type="checkbox" />
+	<label class="choice" for="box2">Museums</label>
+	<input id="box3" name="box3" type="checkbox" />
+	<label class="choice" for="box3">Zoos</label>
+	<input id="box4" name="box4" type="checkbox" />
+	<label class="choice" for="box4">Parks</label>
+	<input id="box5" name="box5" type="checkbox" />
+	<label class="choice" for="box5">Forests</label>
+	<input id="box6" name="box6" type="checkbox" />
+	<label class="choice" for="box6">Scenic Views</label>
+	<input id="box7" name="box7" type="checkbox" />
+	<label class="choice" for="box7">Shopping Malls</label>
+</div>
+
+<br />
+
+<div>
+	<input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Submit" />
+</div>
+
 </form> 
 
 </div>
-
-<!--container-->
-
-<script>
-$('#settings_form').submit(function() {
-  document.location.href = "map.html";
-  return false;
-});
-</script>
 
 </body>
 </html>
