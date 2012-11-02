@@ -5,7 +5,7 @@
 	left: 20%;
 	top: 0px;
 }
-#itinerary {
+.sidebar {
 	position: absolute;
 	width:19.6%;
 	min-width: 100px;
@@ -15,7 +15,7 @@
 	border: solid black 4px;
 	padding: 0px;
 }
-#itinerary h2  {
+.sidebar h2  {
 	text-align: center;
 }
 #itinerary ul {
