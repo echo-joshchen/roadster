@@ -3,7 +3,10 @@ var SanDiego = [32.717977,-117.158993,"San Diego"];
 var MBAcquarium = [36.618051,-121.902061,"Monterey Bay Aquarium"];
 var PismoBeach = [35.086115,-120.622912,"Pismo Beach"];
 var Disneyland = [33.809391,-117.918924,"Disneyland"];
-var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland];
+var SpindriftInn = [36.615889,-121.899773, "Spindrift Inn"];
+var OceanoInn = [35.107091,-120.623355, "Oceano Inn"];
+var AnaheimExpressInn = [33.795998,-117.916062, "Anaheim Express Inn"];
+var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland, SpindriftInn, OceanoInn, AnaheimExpressInn];
 var pointsToSearch = [MBAcquarium, PismoBeach, Disneyland];
 var searchNearValues = [MBAcquarium[2], PismoBeach[2], Disneyland[2]];
 var map;
@@ -55,8 +58,8 @@ function renderRoute() {
 	var origin = SanFrancisco;
 	for (var i = 0; i < path.length; i++) {
 		map.drawRoute({
-			origin: origin,
-			destination: path[i],
+			origin: origin.slice(0, 2),
+			destination: path[i].slice(0, 2),
 			travelMode: 'driving',
 			strokeColor: '#CC0000',
 			strokeOpacity: 0.6,
@@ -65,8 +68,8 @@ function renderRoute() {
 		origin = path[i];
 	}
 	map.drawRoute({
-		origin: origin,
-		destination: SanDiego,
+		origin: origin.slice(0, 2),
+		destination: SanDiego.slice(0, 2),
 		travelMode: 'driving',
 		strokeColor: '#CC0000',
 		strokeOpacity: 0.6,
@@ -90,6 +93,9 @@ function updatePath() {
 
 // Adjusts map and sidebar to respond to a search.
 function search(coord, value) {
+	document.getElementById("searchResults").innerHTML = "";
+	map.removeMarkers();
+	addRouteMarkers();
 	map.addLayer('places', {
 		location: new google.maps.LatLng(coord[0], coord[1]),
 		radius: 10000,
@@ -102,17 +108,47 @@ function search(coord, value) {
 						lat: place.geometry.location.lat(),
 						lng: place.geometry.location.lng(),
 						title: place.name,
-						size: 'small',
 						infoWindow: {
-							content: '<h2>'+place.name+'</h2>'
+							content: '<p>'+place.name+'</p>'
 						}
 					});
+					var li = document.createElement("li");
+					var add = document.createElement("button");
+					add.setAttribute('onclick', 'addPoint(pointsToAdd.shift());');
+					var text = document.createTextNode("+");
+					add.appendChild(text);
+					li.appendChild(add);
+					text = document.createTextNode(place.name);
+					li.appendChild(text);
+					document.getElementById("searchResults").appendChild(li);
 				}
 			}
 		}
 	});
 	map.setCenter(coord[0], coord[1]);
-	map.setZoom(15);
+	map.setZoom(13);
+}
+
+// Adds back the markers for the route, after the search markers are deleted.
+// I didn't find a way to delete certain markers, so I'm resorting to this method.
+function addRouteMarkers() {
+	map.addMarker({
+		lat: SanFrancisco[0],
+		lng: SanFrancisco[1],
+		title: "Start Location: San Francisco",
+	});
+	map.addMarker({
+		lat: SanDiego[0],
+		lng: SanDiego[1],
+		title: "End Location: San Diego",
+	});
+	for (var i = 0; i < path.length; i++) {
+		map.addMarker({
+			lat: path[i][0],
+			lng: path[i][1],
+			title: path[i][2]
+		});
+	}
 }
 
 $(document).ready(function(){
@@ -145,9 +181,26 @@ $(document).ready(function(){
 		placeHolderTemplate: ""
 	});
 
+	// Initially hides search bar.
 	$("#searchbar").hide();
 
+	// Adds search button event handler.
 	$("#submit").click(function() {
 		search(pointsToSearch.shift(), document.getElementById("keyword").value);
+	});
+
+	$("#reset").click(function() {
+		map.removeMarkers();
+		addRouteMarkers();
+	});
+
+	$("#switchItinerary").click(function() {
+		$("#searchbar").hide();
+		$("#itinerary").show();
+	});
+
+	$("#switchSearch").click(function() {
+		$("#searchbar").show();
+		$("#itinerary").hide();
 	});
 });
