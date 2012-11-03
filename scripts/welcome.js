@@ -162,3 +162,8 @@ function addEvent( obj, type, fn ) {
     obj.addEventListener( type, fn, false );	
   }
 }
+
+		
+		$( "#datepicker" ).datepicker({
+			inline: true
+		});

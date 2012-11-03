@@ -14,15 +14,25 @@ Welcome to Roadster!
 <link href="css/structure.css" rel="stylesheet">
 <link href="css/form.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-
+<link href="css/ui-lightness/jquery-ui-1.9.1.custom.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
 <!-- JavaScript -->
 <script src="scripts/welcome.js"></script>
 <script src="scripts/jquery-1.8.1.min.js"></script>
+<script src="scripts/jquery-1.8.2.js"></script>
+<script src="scripts/jquery-ui-1.9.1.custom.js"></script>
+<script src="bootstrap/jQuery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Le styles -->
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="css/theme.css" rel="stylesheet">
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
 
 <style type="text/css">
   body {
@@ -54,19 +64,25 @@ Welcome to Roadster!
     margin-bottom: 15px;
     padding: 7px 9px;
   }
-  .date_field {
-    width: 40px;
+  input {
     text-align: center;
   }
 </style>
-<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
 
 <!-- Code used from http://wufoo.com/gallery/templates/forms/meeting-form/ -->
+<script>
+$(function() {
+    $( "#date" ).datepicker({
+            showOn: "button",
+            buttonImage: "images/calendar.png",
+            buttonImageOnly: true
+        });
+});
+</script>
 </head>
 
 <body id="public">
-<script src="bootstrap/jQuery.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
@@ -109,35 +125,29 @@ Welcome to Roadster!
     <label class="desc" id="start_label" for="start_location">
         Start Location (Required)
     </label>
-    <input id="start_location" name="start_location" type="text" class="field text medium" maxlength="255" onkeyup="" />
+    <div>
+        <input id="start_location" name="start_location" type="text" class="field text medium" maxlength="255" onkeyup="" />
+    </div>
 </li>
 
 <li id="Date" class="date notranslate      ">
-    <label class="desc" id="date_label" for="year">
-        Start Date (Optional)
+    <label class="desc" id="date_label" for="date">
+        Start Date
     </label>
-    <span>
-        <input id="day" name="day" type="text" class="date_field" size="2" maxlength="2" />
-        <label for="day">MM</label>
-    </span> 
-    <span class="symbol">/</span>
-    <span>
-        <input id="month" name="month" type="text" class="date_field" size="2" maxlength="2" />
-        <label for="month">DD</label>
+
+    <div>
+        <input id="date" name="date" type="text" class="field text medium"/>
+    </div>
     </span>
-    <span class="symbol">/</span>
-    <span>
-        <input id="year" name="year" type="text" class="date_field" size="4" maxlength="4" />
-        <label for="year">YYYY</label>
-    </span>
+
 </li>
 
 <li id="End Location">
     <label class="desc" id="end_label" for="end_location">
-        End Location (Optional)
+        End Location
     </label>
     <div>
-        <input id="end_location" name="end_location" type="text" class="field text medium"maxlength="255" onkeyup="" />
+        <input id="end_location" name="end_location" type="text" class="field text medium" maxlength="255" onkeyup="" />
     </div>
 </li>
 
