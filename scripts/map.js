@@ -162,11 +162,6 @@ $(document).ready(function(){
 		if (action == "add_location") {
 			// I'm not sure how to get the coords for this event, so I hard-coded it.
 			addPoint(pointsToAdd.shift());
-		} else if (action == "search") {
-			// IMPLEMENT SEARCH FUNCTIONALITY
-			$("#searchbar").show();
-			$("#itinerary").hide();
-			document.getElementById("near").value = searchNearValues.shift();
 		}
 	});
 
@@ -181,8 +176,6 @@ $(document).ready(function(){
 		placeHolderTemplate: ""
 	});
 
-	// Initially hides search bar.
-	$("#searchbar").hide();
 
 	// Adds search button event handler.
 	$("#submit").click(function() {
@@ -192,15 +185,5 @@ $(document).ready(function(){
 	$("#reset").click(function() {
 		map.removeMarkers();
 		addRouteMarkers();
-	});
-
-	$("#switchItinerary").click(function() {
-		$("#searchbar").hide();
-		$("#itinerary").show();
-	});
-
-	$("#switchSearch").click(function() {
-		$("#searchbar").show();
-		$("#itinerary").hide();
 	});
 });
