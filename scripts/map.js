@@ -110,7 +110,7 @@ function addPoint(coord) {
 	document.getElementById("stops").innerHTML += newstring;
 	renderRoute();
 	num_days+=1;
-	updateDays()
+	updateDays();
 }
 
 // Renders the route.
@@ -269,6 +269,10 @@ $(document).ready(function(){
 		if (action == "add_location") {
 			// I'm not sure how to get the coords for this event, so I hard-coded it.
 			addPoint(pointsToAdd.shift());
+		}
+		if (action == "search") {
+			// I'm not sure how to get the coords for this event, so I hard-coded it.
+			search(pointsToSearch.shift(), document.getElementById("keyword").value);
 		}
 	});
 
