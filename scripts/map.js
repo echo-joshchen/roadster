@@ -10,7 +10,7 @@ var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland, SpindriftInn, OceanoInn,
 var pointsToSearch = [MBAcquarium, PismoBeach, Disneyland];
 var searchNearValues = [MBAcquarium[2], PismoBeach[2], Disneyland[2]];
 var path = [];
-var num_days = 0;
+var num_days = 1;
 var driving_time = {};
 
 driving_time["San Francisco,San Francisco"] = 0;
@@ -105,9 +105,8 @@ function addPoint(coord) {
 		lng: coord[1],
 	});
 	path.push(coord);
-	//var newstring = "<li>" + coord[2] + "</li>"
-	var newstring = '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
-	newstring += "<li>" + coord[2] + "</li>";
+	var newstring = "<li>" + coord[2] + "</li>";
+	newstring += '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
 	document.getElementById("stops").innerHTML += newstring;
 	renderRoute();
 	num_days+=1;
