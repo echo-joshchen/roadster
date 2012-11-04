@@ -9,9 +9,66 @@ var AnaheimExpressInn = [33.795998,-117.916062, "Anaheim Express Inn"];
 var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland, SpindriftInn, OceanoInn, AnaheimExpressInn];
 var pointsToSearch = [MBAcquarium, PismoBeach, Disneyland];
 var searchNearValues = [MBAcquarium[2], PismoBeach[2], Disneyland[2]];
-var map;
 var path = [];
+var num_days = 0;
+var driving_time = {};
 
+driving_time["San Francisco,San Francisco"] = 0;
+driving_time["San Francisco,San Diego"] = 8.5;
+driving_time["San Francisco,Monterey Bay Aquarium"] = 2.25;
+driving_time["San Francisco,Pismo Beach"] = 4.25;
+driving_time["San Francisco,Disneyland"] = 7;
+driving_time["San Francisco,Spindrift Inn"] = 2.25;
+driving_time["San Francisco,Oceano Inn"] = 4.25;
+driving_time["San Francisco,Anaheim Express Inn"] = 4.25;
+
+driving_time["Monterey Bay Aquarium,San Diego"] = 8;
+driving_time["Monterey Bay Aquarium,Monterey Bay Aquarium"] = 0;
+driving_time["Monterey Bay Aquarium,Pismo Beach"] = 3;
+driving_time["Monterey Bay Aquarium,Disneyland"] = 6.25;
+driving_time["Monterey Bay Aquarium,Spindrift Inn"] = 0;
+driving_time["Monterey Bay Aquarium,Oceano Inn"] = 3;
+driving_time["Monterey Bay Aquarium,Anaheim Express Inn"] = 6.25;
+
+driving_time["Pismo Beach,San Diego"] = 5.25;
+driving_time["Pismo Beach,Monterey Bay Aquarium"] = 3;
+driving_time["Pismo Beach,Pismo Beach"] = 0;
+driving_time["Pismo Beach,Disneyland"] = 3.75;
+driving_time["Pismo Beach,Spindrift Inn"] = 3;
+driving_time["Pismo Beach,Oceano Inn"] = 0;
+driving_time["Pismo Beach,Anaheim Express Inn"] = 3.75;
+
+driving_time["Disneyland,San Diego"] = 1.75;
+driving_time["Disneyland,Monterey Bay Aquarium"] = 6.25;
+driving_time["Disneyland,Pismo Beach"] = 3.75;
+driving_time["Disneyland,Disneyland"] = 0;
+driving_time["Disneyland,Spindrift Inn"] = 6.25;
+driving_time["Disneyland,Oceano Inn"] = 3.75;
+driving_time["Disneyland,Anaheim Express Inn"] = 0;
+
+driving_time["Spindrift Inn,San Diego"] = 8;
+driving_time["Spindrift Inn,Monterey Bay Aquarium"] = 0;
+driving_time["Spindrift Inn,Pismo Beach"] = 3;
+driving_time["Spindrift Inn,Disneyland"] = 6.25;
+driving_time["Spindrift Inn,Spindrift Inn"] = 0;
+driving_time["Spindrift Inn,Oceano Inn"] = 3;
+driving_time["Spindrift Inn,Anaheim Express Inn"] = 6.25;
+
+driving_time["Oceano Inn,San Diego"] = 5.25;
+driving_time["Oceano Inn,Monterey Bay Aquarium"] = 3;
+driving_time["Oceano Inn,Pismo Beach"] = 0;
+driving_time["Oceano Inn,Disneyland"] = 3.75;
+driving_time["Oceano Inn,Spindrift Inn"] = 3;
+driving_time["Oceano Inn,Oceano Inn"] = 0;
+driving_time["Oceano Inn,Anaheim Express Inn"] = 3.75;
+
+driving_time["Anaheim Express Inn,San Diego"] = 1.75;
+driving_time["Anaheim Express Inn,Monterey Bay Aquarium"] = 6.25;
+driving_time["Anaheim Express Inn,Pismo Beach"] = 3.75;
+driving_time["Anaheim Express Inn,Disneyland"] = 0;
+driving_time["Anaheim Express Inn,Spindrift Inn"] = 6.25;
+driving_time["Anaheim Express Inn,Oceano Inn"] = 3.75;
+driving_time["Anaheim Express Inn,Anaheim Express Inn"] = 0;
 
 // Creates the initial map from SF to SD.
 function createMap() {
@@ -48,8 +105,13 @@ function addPoint(coord) {
 		lng: coord[1],
 	});
 	path.push(coord);
-	document.getElementById("stops").innerHTML += "<li>" + coord[2] + "</li>";
+	//var newstring = "<li>" + coord[2] + "</li>"
+	var newstring = '<li><div class="day"><span class="title">Day ' + path.length + ' </span><span class="time"> 0 hrs </span></div></li>';
+	newstring += "<li>" + coord[2] + "</li>";
+	document.getElementById("stops").innerHTML += newstring;
 	renderRoute();
+	num_days+=1;
+	updateDays()
 }
 
 // Renders the route.
@@ -89,6 +151,39 @@ function updatePath() {
 		}
 	}
 	path = newPath;
+}
+
+// Updates the path after reordering.
+function updateDays() {
+	var stops = document.getElementById("stops").children;
+	var day = num_days;
+	var loc = "San Diego";
+	var time = 0;
+	for (var i = stops.length - 1; i >= 0; i--) {
+		if (stops[i].innerHTML.substring(0, 17) == '<div class="day">') {
+			var offset = 0;
+			while (offset <= i && stops[i-offset].innerHTML.substring(0, 17) == '<div class="day">')
+			{
+				offset +=1;
+			}
+			var prev_loc = "";
+			if (offset > i) {
+				prev_loc = "San Francisco";
+			}
+			else {
+				prev_loc = stops[i-offset].innerHTML;
+			}
+			time += driving_time[prev_loc + "," + loc];
+			loc = prev_loc;
+			var daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="time"> ' + time.toString() + ' hrs </span></div>';
+			stops[i].innerHTML=daytext;
+			day -= 1;
+			time = 0;
+		} else {
+			time += driving_time[stops[i].innerHTML + "," + loc];
+			loc = stops[i].innerHTML;
+		}
+	}
 }
 
 // Adjusts map and sidebar to respond to a search.
@@ -170,6 +265,7 @@ $(document).ready(function(){
 		dragSelector: "li",
 		dragBetween: false,
 		dragEnd: function() {
+			updateDays();
 			updatePath();
 			renderRoute();
 		},
