@@ -43,6 +43,13 @@ ul {
 	float: right;
 }
 
+.day .delete {
+	float: right;
+	border: solid;
+	border-width: 1px;
+	color: red;
+}
+
 #switch {
 	position: absolute;
 	top: 80%;

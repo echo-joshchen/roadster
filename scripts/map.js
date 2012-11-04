@@ -106,7 +106,7 @@ function addPoint(coord) {
 	});
 	path.push(coord);
 	//var newstring = "<li>" + coord[2] + "</li>"
-	var newstring = '<li><div class="day"><span class="title">Day ' + path.length + ' </span><span class="time"> 0 hrs </span></div></li>';
+	var newstring = '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
 	newstring += "<li>" + coord[2] + "</li>";
 	document.getElementById("stops").innerHTML += newstring;
 	renderRoute();
@@ -175,7 +175,7 @@ function updateDays() {
 			}
 			time += driving_time[prev_loc + "," + loc];
 			loc = prev_loc;
-			var daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="time"> ' + time.toString() + ' hrs </span></div>';
+			var daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="delete" onclick="cancelDay(this)">X</span><span class="time"> ' + time + ' hrs </span></div>';
 			stops[i].innerHTML=daytext;
 			day -= 1;
 			time = 0;
@@ -244,6 +244,19 @@ function addRouteMarkers() {
 			title: path[i][2]
 		});
 	}
+}
+
+function cancelDay(n){
+	n.parentNode.parentNode.parentNode.removeChild(n.parentNode.parentNode);
+	num_days-=1;
+	updateDays()
+}
+
+function addDay(){
+	num_days+=1;
+	var newstring = '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
+	document.getElementById("stops").innerHTML += newstring;
+	updateDays();
 }
 
 $(document).ready(function(){
