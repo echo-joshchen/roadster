@@ -10,28 +10,26 @@ Welcome to Roadster!
 <meta charset="utf-8">
 <meta name="robots" content="index, follow">
 
-
-
 <!-- CSS -->
 <link href="css/structure.css" rel="stylesheet">
 <link href="css/form.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
 <!-- JavaScript -->
 <script src="scripts/welcome.js"></script>
 <script src="scripts/jquery-1.8.1.min.js"></script>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="bootstrap/jQuery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 
-
+<!-- Le styles -->
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="css/theme.css" rel="stylesheet">
 
 <!-- Datepicker -->
 <link href="css/ui-lightness/jquery-ui-1.9.1.custom.css" rel="stylesheet">
 <script src="scripts/jquery-1.8.2.js"></script>
 <script src="scripts/jquery-ui-1.9.1.custom.js"></script>
-
-
 
 <style type="text/css">
   body {
@@ -63,12 +61,8 @@ Welcome to Roadster!
     margin-bottom: 15px;
     padding: 7px 9px;
   }
-  .skip{
-    position: relative;
-    float: right;
-    padding-right: 50px;
-    color: black;
-    text-decoration:underline;
+  input {
+    text-align: center;
   }
 </style>
 
@@ -92,8 +86,6 @@ $(function() {
 <IMG SRC="Roadster-Logo.png" WIDTH=200 HEIGHT=200>
 </div>
 
-
-
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
@@ -102,18 +94,22 @@ $(function() {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
+      <a class="brand" href="welcome.html">Roadster</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="active">
+          	<a href="welcome.html">Home</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="map.html">Map</a></li>
       <div class="nav-collapse collapse">
         <ul class="nav pull-right">
           <li class="active"><a href="">SIGN UP</a></li>
           <li><a href="">LOGIN</a></li>
         </ul>
-      </div>
+      </div><!--/.nav-collapse -->
     </div>
   </div>
 </div>
-
-
-
 
 <div id="container" class="ltr">
 
