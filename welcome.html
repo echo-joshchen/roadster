@@ -11,16 +11,15 @@ Welcome to Roadster!
 <meta name="robots" content="index, follow">
 
 
-
 <!-- CSS -->
 <link href="css/structure.css" rel="stylesheet">
 <link href="css/form.css" rel="stylesheet">
+<link href="css/welcome.css" rel="stylesheet">
 
 <!-- JavaScript -->
 <script src="scripts/welcome.js"></script>
 <script src="scripts/jquery-1.8.1.min.js"></script>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-
 
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -32,67 +31,35 @@ Welcome to Roadster!
 <script src="scripts/jquery-ui-1.9.1.custom.js"></script>
 
 
-
-<style type="text/css">
-  body {
-    padding-top: 150px;
-    padding-bottom: 40px;
-  }
-
-    .form-signin {
-    max-width: 300px;
-    padding: 19px 29px 29px;
-    margin: 0 auto 20px;
-    background-color: #fff;
-    border: 1px solid #e5e5e5;
-    -webkit-border-radius: 5px;
-       -moz-border-radius: 5px;
-            border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-            box-shadow: 0 1px 2px rgba(0,0,0,.05);
-  }
-  .form-signin .form-signin-heading,
-  .form-signin .checkbox {
-    margin-bottom: 10px;
-  }
-  .form-signin input[type="text"],
-  .form-signin input[type="password"] {
-    font-size: 16px;
-    height: auto;
-    margin-bottom: 15px;
-    padding: 7px 9px;
-  }
-  .skip{
-    position: relative;
-    float: right;
-    padding-right: 50px;
-    color: black;
-    text-decoration:underline;
-  }
-</style>
-
-
 <!-- Code used from http://wufoo.com/gallery/templates/forms/meeting-form/ -->
 <script>
 $(function() {
-    $( "#date" ).datepicker({
+    $( "#start_date" ).datepicker({
+            showOn: "button",
+            buttonImage: "images/calendar.png",
+            buttonImageOnly: true
+        });
+    $( "#end_date" ).datepicker({
             showOn: "button",
             buttonImage: "images/calendar.png",
             buttonImageOnly: true
         });
 });
+
+function checkFilled() {
+  var x = document.trip_form.start_location.value;
+  x = x.replace(/^\s+/,""); // strip leading space
+
+  document.getElementById("saveForm").disabled = (x.length == 0);
+}
 </script>
 </head>
 
 <body id="public">
 
-
-<div style="position: absolute; left: 315px; top: 60px;">
-<IMG SRC="Roadster-Logo.png" WIDTH=200 HEIGHT=200>
+<div class="logo" >
+  <IMG SRC="Roadster-Logo.png" WIDTH=200 HEIGHT=200>
 </div>
-
-
 
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
@@ -112,13 +79,8 @@ $(function() {
   </div>
 </div>
 
-
-
-
 <div id="container" class="ltr">
 
-<h1 id="logo">
-</h1>
 
 <form id="trip_form" name="trip_form" class="wufoo topLabel page" autocomplete="off" method="get" action="settings.html">
 
@@ -130,49 +92,36 @@ $(function() {
 <ul>
 
 <li id="Start Location">
-    <label class="desc" id="start_label" for="start_location">
-        Start Location (Required)
-    </label>
-    <div>
-        <input id="start_location" name="start_location" type="text" class="field text medium" maxlength="2 55" onkeyup="" />
+
+    <div class="input_field">
+        <input id="start_location" name="start_location" type="text" class="field text medium" maxlength="255" onkeyup="checkFilled()" placeholder="Start Location" />
     </div>
 </li>
 
-<li id="Date" class="date notranslate      ">
-    <label class="desc" id="date_label" for="date">
-        Start Date
-    </label>
-
-    <div>
-        <input id="date" name="date" type="text" class="field text medium"/>
+<li id="Start Date" class="date notranslate      ">
+    <div class="input_field">
+        <input id="start_date" name="start_date" type="text" class="field text medium" placeholder="Start Date" />
     </div>
     </span>
 
 </li>
 
 <li id="End Location">
-    <label class="desc" id="end_label" for="end_location">
-        End Location
-    </label>
-    <div>
-        <input id="end_location" name="end_location" type="text" class="field text medium" maxlength="255" onkeyup="" />
+    <div class="input_field">
+        <input id="end_location" name="end_location" type="text" class="field text medium" maxlength="255" onkeyup="" placeholder="End Location" />
     </div>
 </li>
 
-<li id="Date" class="date notranslate      ">
-    <label class="desc" id="date_label" for="date">
-        End Date
-    </label>
-
-    <div>
-        <input id="date" name="date" type="text" class="field text medium"/>
+<li id="End Date" class="date notranslate      ">
+    <div class="input_field">
+        <input id="end_date" name="end_date" type="text" class="field text medium" placeholder="End Date" />
     </div>
     </span>
 
 </li>
 
 <div>
-    <input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Start!"/>
+    <input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Start!" disabled="true"/>
 </div>
 
 </ul>
