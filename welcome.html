@@ -33,7 +33,7 @@ Welcome to Roadster!
 
 <style type="text/css">
   body {
-    padding-top: 110px;
+    padding-top: 150px;
     padding-bottom: 40px;
   }
 
@@ -86,11 +86,11 @@ $(function() {
 <body id="public">
 
 
-<div style="position: absolute; left: 540px; top: 20px;">
+<div style="position: absolute; left: 315px; top: 60px;">
 <IMG SRC="Roadster-Logo.png" WIDTH=200 HEIGHT=200>
 </div>
 
-<!-- <div class="navbar navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -98,19 +98,15 @@ $(function() {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-
       <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li><a href="welcome.html"><IMG SRC="Roadster-Logo.png" WIDTH=80 HEIGHT=80></a></li>
-
-          <li class="active"><a href="welcome.html">Home</a></li>
-          <li><a href="settings.html">Settings</a></li>
-          <li><a href="map.html">Map</a></li>
+        <ul class="nav pull-right">
+          <li class="active"><a href="">SIGN UP</a></li>
+          <li><a href="">LOGIN</a></li>
         </ul>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 
 
@@ -134,7 +130,7 @@ $(function() {
         Start Location (Required)
     </label>
     <div>
-        <input id="start_location" name="start_location" type="text" class="field text medium" maxlength="255" onkeyup="" />
+        <input id="start_location" name="start_location" type="text" class="field text medium" maxlength="2 55" onkeyup="" />
     </div>
 </li>
 
@@ -157,6 +153,18 @@ $(function() {
     <div>
         <input id="end_location" name="end_location" type="text" class="field text medium" maxlength="255" onkeyup="" />
     </div>
+</li>
+
+<li id="Date" class="date notranslate      ">
+    <label class="desc" id="date_label" for="date">
+        End Date
+    </label>
+
+    <div>
+        <input id="date" name="date" type="text" class="field text medium"/>
+    </div>
+    </span>
+
 </li>
 
 <div>
