@@ -1,8 +1,9 @@
 body {
-  
+  padding-top: 50px;
+  padding-bottom: 40px;
 }
 
-.form-signin {
+  .form-signin {
   max-width: 300px;
   padding: 19px 29px 29px;
   margin: 0 auto 20px;
@@ -10,10 +11,10 @@ body {
   border: 1px solid #e5e5e5;
   -webkit-border-radius: 5px;
      -moz-border-radius: 5px;
-      border-radius: 5px;
+          border-radius: 5px;
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
@@ -27,11 +28,10 @@ body {
   padding: 7px 9px;
 }
 .skip{
-  position: relative;
-  float: right;
-  padding-right: 50px;
   color: black;
   text-decoration:underline;
+  vertical-align: bottom;
+  line-height: 20px;
 }
 
 .logo{
@@ -40,21 +40,12 @@ body {
   width:640px;
 }
 
-#start_location, #end_location {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+#number {
+  width:100px;
 }
 
-#start_date, #end_date {
-  width:200px;
-}
-
-#end_date {
-  margin-left: 20px;
-  width:200px;
-}
-
-.input_field {
-  margin-top: 10px;
+#skipspan {
+  padding-right: 50px;
+  float:right;
+  line-height: 40px;
 }
