@@ -12,6 +12,7 @@ Trip Settings
 <!-- CSS -->
 <link href="css/structure.css" rel="stylesheet">
 <link href="css/form.css" rel="stylesheet">
+<link href="css/settings.css" rel="stylesheet">
 
 <!-- JavaScript -->
 <script src="scripts/settings.js"></script>
@@ -23,54 +24,9 @@ Trip Settings
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="css/theme.css" rel="stylesheet">
 
-
-<style type="text/css">
-  body {
-    padding-top: 150px;
-    padding-bottom: 40px;
-  }
-
-    .form-signin {
-    max-width: 300px;
-    padding: 19px 29px 29px;
-    margin: 0 auto 20px;
-    background-color: #fff;
-    border: 1px solid #e5e5e5;
-    -webkit-border-radius: 5px;
-       -moz-border-radius: 5px;
-            border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-            box-shadow: 0 1px 2px rgba(0,0,0,.05);
-  }
-  .form-signin .form-signin-heading,
-  .form-signin .checkbox {
-    margin-bottom: 10px;
-  }
-  .form-signin input[type="text"],
-  .form-signin input[type="password"] {
-    font-size: 16px;
-    height: auto;
-    margin-bottom: 15px;
-    padding: 7px 9px;
-  }
-  .skip{
-    position: relative;
-    float: right;
-    padding-right: 50px;
-    color: black;
-    text-decoration:underline;
-  }
-</style>
-
 </head>
 
 <body id="public">
-
-
-<div style="position: absolute; left: 315px; top: 60px;">
-<IMG SRC="Roadster-Logo.png" WIDTH=200 HEIGHT=200>
-</div>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
@@ -82,7 +38,7 @@ Trip Settings
       </a>
       <div class="nav-collapse collapse">
         <ul class="nav pull-right">
-          <li class="active"><a href="">SIGN UP</a></li>
+          <li><a href="">SIGN UP</a></li>
           <li><a href="">LOGIN</a></li>
         </ul>
       </div>
@@ -90,6 +46,9 @@ Trip Settings
   </div>
 </div>
 
+<div class="logo">
+  <IMG SRC="Roadster-Logo.png" WIDTH=200 HEIGHT=200>
+</div>
 
 <div id="container" class="ltr">
 
@@ -106,15 +65,15 @@ Trip Settings
 	<label class="desc" id="name_label" for="name_input">
 		Number of Travelers
 	</label>
-	<select name="num_travelers">
-	<option value="1">1</option>
-	<option value="2">2</option>
-	<option value="3">3</option>
-	<option value="4" selected="selected">4</option>
-	<option value="5">5</option>
-	<option value="6">6</option>
-	<option value="7">7</option>
-	<option value="8">8 or more</option>
+	<select id="number" name="num_travelers">
+  	<option value="1">1</option>
+  	<option value="2">2</option>
+  	<option value="3">3</option>
+  	<option value="4" selected="selected">4</option>
+  	<option value="5">5</option>
+  	<option value="6">6</option>
+  	<option value="7">7</option>
+  	<option value="8">8 or more</option>
 	</select>
 </div>
 
@@ -158,13 +117,12 @@ Trip Settings
 
 <br />
 
-<div>
+<div id="buttons">
 	<input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Submit" />
 
-  <div style="position: absolute; left: 490px; top: 580px;">
-    <a id="skip" class="btn btn-large btn-primary submit" href="map.html"> Skip </a>
-  </div>
-
+  <span id="skipspan">
+    <a id="skip" class="skip" href="map.html"> Skip </a>
+  </span>
 </div>
 
 </form> 
