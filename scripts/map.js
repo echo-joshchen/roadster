@@ -189,6 +189,7 @@ function updateDays() {
 // Adjusts map and sidebar to respond to a search.
 function search(coord, value) {
 	document.getElementById("searchResults").innerHTML = "";
+	document.getElementById("keyword").value = "";
 	map.removeMarkers();
 	addRouteMarkers();
 	map.addLayer('places', {
