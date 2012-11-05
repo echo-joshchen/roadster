@@ -42,17 +42,21 @@ body {
   width:640px;
 }
 
-#start_location {
+#start_location, #end_location {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
 
-#end_location {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+#start_date, #end_date {
+  width:200px;
 }
+
+#end_date {
+  margin-left: 20px;
+  width:200px;
+}
+
 .input_field {
   margin-top: 10px;
 }

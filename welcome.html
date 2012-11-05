@@ -71,7 +71,7 @@ function checkFilled() {
       </a>
       <div class="nav-collapse collapse">
         <ul class="nav pull-right">
-          <li class="active"><a href="">SIGN UP</a></li>
+          <li><a href="">SIGN UP</a></li>
           <li><a href="">LOGIN</a></li>
         </ul>
       </div>
@@ -89,7 +89,7 @@ function checkFilled() {
 <div>Begin by choosing a start location, and fill in any other information you want.</div>
 </header>
 
-<ul>
+<ul class="inputs">
 
 <li id="Start Location">
 
@@ -98,25 +98,20 @@ function checkFilled() {
     </div>
 </li>
 
-<li id="Start Date" class="date notranslate      ">
-    <div class="input_field">
-        <input id="start_date" name="start_date" type="text" class="field text medium" placeholder="Start Date" />
-    </div>
-    </span>
-
-</li>
-
 <li id="End Location">
     <div class="input_field">
         <input id="end_location" name="end_location" type="text" class="field text medium" maxlength="255" onkeyup="" placeholder="End Location" />
     </div>
 </li>
 
-<li id="End Date" class="date notranslate      ">
+
+<li id="Date" class="date notranslate      ">
     <div class="input_field">
-        <input id="end_date" name="end_date" type="text" class="field text medium" placeholder="End Date" />
+        <span>
+          <input id="start_date" name="start_date" type="text" class="field text medium" placeholder="Start Date" />
+          <input id="end_date" name="end_date" type="text" class="field text medium" placeholder="End Date" />
+      </span>
     </div>
-    </span>
 
 </li>
 
