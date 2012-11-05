@@ -8,7 +8,7 @@ var SpindriftInn = [36.615889,-121.899773, "Spindrift Inn"];
 var OceanoInn = [35.107091,-120.623355, "Oceano Inn"];
 var AnaheimExpressInn = [33.795998,-117.916062, "Anaheim Express Inn"];
 var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland, SpindriftInn, OceanoInn, AnaheimExpressInn];
-var pointsToSearch = [MBAcquarium, Disneyland, MBAcquarium, PismoBeach, Disneyland];
+var pointsToSearch = [MBAcquarium, Disneyland, MBAcquarium, MBAcquarium, PismoBeach, PismoBeach, Disneyland, Disneyland];
 var searchNearValues = [MBAcquarium[2], PismoBeach[2], Disneyland[2]];
 var path = [];
 var num_days = 1;
@@ -189,6 +189,7 @@ function updateDays() {
 // Adjusts map and sidebar to respond to a search.
 function search(coord, value) {
 	document.getElementById("searchResults").innerHTML = "";
+	document.getElementById("keyword").value = "";
 	map.removeMarkers();
 	addRouteMarkers();
 	map.addLayer('places', {
@@ -197,7 +198,7 @@ function search(coord, value) {
 		keyword: value,
 		search: function (results, status) {
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
-				for (var i = 0; i < results.length; i++) {
+				for (var i = 0; i < 10; i++) {
 					var place = results[i];
 					map.addMarker({
 						lat: place.geometry.location.lat(),
@@ -284,6 +285,8 @@ $(document).ready(function(){
 		if (action == "search") {
 			// I'm not sure how to get the coords for this event, so I hard-coded it.
 			$( "#sidebar" ).tabs( "option", "active", 1 );
+			searchPoint = pointsToSearch.shift();
+			search(searchPoint, "");
 		}
 	});
 
@@ -306,6 +309,7 @@ $(document).ready(function(){
 	});
 
 	$("#reset").click(function() {
+		document.getElementById("searchResults").innerHTML = "";
 		map.removeMarkers();
 		addRouteMarkers();
 	});
