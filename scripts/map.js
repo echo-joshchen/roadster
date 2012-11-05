@@ -1,3 +1,4 @@
+var Bakersfield = [35.424536,-120.325521,"Bakersfield"];
 var SanFrancisco = [37.796763,-122.422234,"San Francisco"];
 var SanDiego = [32.717977,-117.158993,"San Diego"];
 var MBAcquarium = [36.618051,-121.902061,"Monterey Bay Aquarium"];
@@ -74,9 +75,9 @@ driving_time["Anaheim Express Inn,Anaheim Express Inn"] = 0;
 function createMap() {
 	map = new GMaps({
 		el: '#map',
-		lat: SanFrancisco[0],
-		lng: SanFrancisco[1],
-		zoom: 8,
+		lat: Bakersfield[0],
+		lng: Bakersfield[1],
+		zoom: 7,
 	});
 	map.addMarker({
 		lat: SanFrancisco[0],
@@ -208,7 +209,7 @@ function search(coord, value) {
 					});
 					var li = document.createElement("li");
 					var add = document.createElement("button");
-					add.setAttribute('onclick', 'addPoint(pointsToAdd.shift());');
+					add.setAttribute('onclick', 'addFromSearch()');
 					var text = document.createTextNode("+");
 					add.appendChild(text);
 					li.appendChild(add);
@@ -221,6 +222,15 @@ function search(coord, value) {
 	});
 	map.setCenter(coord[0], coord[1]);
 	map.setZoom(13);
+}
+
+function addFromSearch() {
+	addPoint(pointsToAdd.shift());
+	$( "#sidebar" ).tabs( "option", "active", 0 );
+	map.removeMarkers();
+	addRouteMarkers();
+	map.setCenter(Bakersfield[0], Bakersfield[1]);
+	map.setZoom(7);
 }
 
 // Adds back the markers for the route, after the search markers are deleted.
@@ -269,10 +279,12 @@ $(document).ready(function(){
 		if (action == "add_location") {
 			// I'm not sure how to get the coords for this event, so I hard-coded it.
 			addPoint(pointsToAdd.shift());
+			$( "#sidebar" ).tabs( "option", "active", 0 );
 		}
 		if (action == "search") {
 			// I'm not sure how to get the coords for this event, so I hard-coded it.
 			search(pointsToSearch.shift(), document.getElementById("keyword").value);
+			$( "#sidebar" ).tabs( "option", "active", 1 );
 		}
 	});
 
