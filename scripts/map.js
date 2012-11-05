@@ -283,7 +283,6 @@ $(document).ready(function(){
 		}
 		if (action == "search") {
 			// I'm not sure how to get the coords for this event, so I hard-coded it.
-			search(pointsToSearch.shift(), document.getElementById("keyword").value);
 			$( "#sidebar" ).tabs( "option", "active", 1 );
 		}
 	});
