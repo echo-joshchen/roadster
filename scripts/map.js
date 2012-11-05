@@ -5,11 +5,10 @@ var MBAcquarium = [36.618051,-121.902061,"Monterey Bay Aquarium"];
 var PismoBeach = [35.086115,-120.622912,"Pismo Beach"];
 var Disneyland = [33.809391,-117.918924,"Disneyland"];
 var SpindriftInn = [36.615889,-121.899773, "Spindrift Inn"];
-var OceanoInn = [35.107091,-120.623355, "Oceano Inn"];
-var AnaheimExpressInn = [33.795998,-117.916062, "Anaheim Express Inn"];
-var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland, SpindriftInn, OceanoInn, AnaheimExpressInn];
+var SeaVentureHotel = [35.136581,-120.641004, "SeaVenture Hotel"];
+var AlpineInn = [33.803578,-117.917597, "Alpine Inn"];
+var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland, SpindriftInn, SeaVentureHotel, AlpineInn];
 var pointsToSearch = [MBAcquarium, Disneyland, MBAcquarium, MBAcquarium, PismoBeach, PismoBeach, Disneyland, Disneyland];
-var searchNearValues = [MBAcquarium[2], PismoBeach[2], Disneyland[2]];
 var path = [];
 var num_days = 1;
 var driving_time = {};
@@ -20,56 +19,56 @@ driving_time["San Francisco,Monterey Bay Aquarium"] = 2.25;
 driving_time["San Francisco,Pismo Beach"] = 4.25;
 driving_time["San Francisco,Disneyland"] = 7;
 driving_time["San Francisco,Spindrift Inn"] = 2.25;
-driving_time["San Francisco,Oceano Inn"] = 4.25;
-driving_time["San Francisco,Anaheim Express Inn"] = 4.25;
+driving_time["San Francisco,SeaVenture Hotel"] = 4.25;
+driving_time["San Francisco,Alpine Inn"] = 4.25;
 
 driving_time["Monterey Bay Aquarium,San Diego"] = 8;
 driving_time["Monterey Bay Aquarium,Monterey Bay Aquarium"] = 0;
 driving_time["Monterey Bay Aquarium,Pismo Beach"] = 3;
 driving_time["Monterey Bay Aquarium,Disneyland"] = 6.25;
 driving_time["Monterey Bay Aquarium,Spindrift Inn"] = 0;
-driving_time["Monterey Bay Aquarium,Oceano Inn"] = 3;
-driving_time["Monterey Bay Aquarium,Anaheim Express Inn"] = 6.25;
+driving_time["Monterey Bay Aquarium,SeaVenture Hotel"] = 3;
+driving_time["Monterey Bay Aquarium,Alpine Inn"] = 6.25;
 
 driving_time["Pismo Beach,San Diego"] = 5.25;
 driving_time["Pismo Beach,Monterey Bay Aquarium"] = 3;
 driving_time["Pismo Beach,Pismo Beach"] = 0;
 driving_time["Pismo Beach,Disneyland"] = 3.75;
 driving_time["Pismo Beach,Spindrift Inn"] = 3;
-driving_time["Pismo Beach,Oceano Inn"] = 0;
-driving_time["Pismo Beach,Anaheim Express Inn"] = 3.75;
+driving_time["Pismo Beach,SeaVenture Hotel"] = 0;
+driving_time["Pismo Beach,Alpine Inn"] = 3.75;
 
 driving_time["Disneyland,San Diego"] = 1.75;
 driving_time["Disneyland,Monterey Bay Aquarium"] = 6.25;
 driving_time["Disneyland,Pismo Beach"] = 3.75;
 driving_time["Disneyland,Disneyland"] = 0;
 driving_time["Disneyland,Spindrift Inn"] = 6.25;
-driving_time["Disneyland,Oceano Inn"] = 3.75;
-driving_time["Disneyland,Anaheim Express Inn"] = 0;
+driving_time["Disneyland,SeaVenture Hotel"] = 3.75;
+driving_time["Disneyland,Alpine Inn"] = 0;
 
 driving_time["Spindrift Inn,San Diego"] = 8;
 driving_time["Spindrift Inn,Monterey Bay Aquarium"] = 0;
 driving_time["Spindrift Inn,Pismo Beach"] = 3;
 driving_time["Spindrift Inn,Disneyland"] = 6.25;
 driving_time["Spindrift Inn,Spindrift Inn"] = 0;
-driving_time["Spindrift Inn,Oceano Inn"] = 3;
-driving_time["Spindrift Inn,Anaheim Express Inn"] = 6.25;
+driving_time["Spindrift Inn,SeaVenture Hotel"] = 3;
+driving_time["Spindrift Inn,Alpine Inn"] = 6.25;
 
-driving_time["Oceano Inn,San Diego"] = 5.25;
-driving_time["Oceano Inn,Monterey Bay Aquarium"] = 3;
-driving_time["Oceano Inn,Pismo Beach"] = 0;
-driving_time["Oceano Inn,Disneyland"] = 3.75;
-driving_time["Oceano Inn,Spindrift Inn"] = 3;
-driving_time["Oceano Inn,Oceano Inn"] = 0;
-driving_time["Oceano Inn,Anaheim Express Inn"] = 3.75;
+driving_time["SeaVenture Hotel,San Diego"] = 5.25;
+driving_time["SeaVenture Hotel,Monterey Bay Aquarium"] = 3;
+driving_time["SeaVenture Hotel,Pismo Beach"] = 0;
+driving_time["SeaVenture Hotel,Disneyland"] = 3.75;
+driving_time["SeaVenture Hotel,Spindrift Inn"] = 3;
+driving_time["SeaVenture Hotel,SeaVenture Hotel"] = 0;
+driving_time["SeaVenture Hotel,Alpine Inn"] = 3.75;
 
-driving_time["Anaheim Express Inn,San Diego"] = 1.75;
-driving_time["Anaheim Express Inn,Monterey Bay Aquarium"] = 6.25;
-driving_time["Anaheim Express Inn,Pismo Beach"] = 3.75;
-driving_time["Anaheim Express Inn,Disneyland"] = 0;
-driving_time["Anaheim Express Inn,Spindrift Inn"] = 6.25;
-driving_time["Anaheim Express Inn,Oceano Inn"] = 3.75;
-driving_time["Anaheim Express Inn,Anaheim Express Inn"] = 0;
+driving_time["Alpine Inn,San Diego"] = 1.75;
+driving_time["Alpine Inn,Monterey Bay Aquarium"] = 6.25;
+driving_time["Alpine Inn,Pismo Beach"] = 3.75;
+driving_time["Alpine Inn,Disneyland"] = 0;
+driving_time["Alpine Inn,Spindrift Inn"] = 6.25;
+driving_time["Alpine Inn,SeaVenture Hotel"] = 3.75;
+driving_time["Alpine Inn,Alpine Inn"] = 0;
 
 // Creates the initial map from SF to SD.
 function createMap() {
@@ -200,12 +199,16 @@ function search(coord, value) {
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
 				for (var i = 0; i < 10; i++) {
 					var place = results[i];
+					var stars = "&#9733;&#9733;&#9734;&#9734;&#9734;";
+					if ((place.name == "Spindrift Inn") || (place.name == "SeaVenture Hotel") || (place.name == "Alpine Inn")) {
+						stars = "&#9733;&#9733;&#9733;&#9733;&#9733;";
+					}
 					map.addMarker({
 						lat: place.geometry.location.lat(),
 						lng: place.geometry.location.lng(),
 						title: place.name,
 						infoWindow: {
-							content: '<p>'+place.name+'</p>'
+							content: '<p>' + place.name + "  " + stars + '</p>'
 						}
 					});
 					var li = document.createElement("li");
