@@ -50,7 +50,17 @@ function checkFilled() {
   var x = document.trip_form.start_location.value;
   x = x.replace(/^\s+/,""); // strip leading space
 
-  document.getElementById("saveForm").disabled = (x.length == 0);
+  if (x.length == 0) {
+    document.getElementById("saveForm").disabled = true;
+    $("#end_location").css("opacity", ".7");
+    $("#start_date").css("opacity", ".7");
+    $("#end_date").css("opacity", ".7");
+  } else {
+    document.getElementById("saveForm").disabled = false;
+    $("#end_location").css("opacity", "1");
+    $("#start_date").css("opacity", "1");
+    $("#end_date").css("opacity", "1");
+  }
 }
 </script>
 </head>

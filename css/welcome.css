@@ -47,6 +47,10 @@ body {
   margin-right: auto;
 }
 
+#end_location, #start_date, #end_date {
+  opacity: .7;
+}
+
 #start_date, #end_date {
   width:200px;
 }
