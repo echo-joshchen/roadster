@@ -299,8 +299,22 @@ function addDay(){
 	updateDays();
 }
 
+function dragFunction() {
+  updatePath();
+  updateDays();
+  map.removeMarkers();
+  addRouteMarkers();
+  renderRoute();
+}
+
 function refresh() {
   updateDays();
+  $("#stops").dragsort({
+    dragSelector: "li",
+    dragBetween: false,
+    dragEnd: dragFunction,
+    placeHolderTemplate: ""
+  });
 }
 
 $(document).ready(function(){
