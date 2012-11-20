@@ -13,6 +13,7 @@ var path = [];
 var num_days = 1;
 var timeAndDistance = {};
 var coords = {};
+var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 
 var geocoder = new google.maps.Geocoder();
 var directionsService = new google.maps.DirectionsService();
@@ -50,9 +51,10 @@ function addPoint(coord) {
 	map.addMarker({
 		lat: coord[0],
 		lng: coord[1],
+    icon: "http://www.google.com/mapfiles/marker" + alphabet[path.length] + ".png"
 	});
 	path.push(coord);
-	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></li>";
+	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><img class ='marker' src='http://www.google.com/mapfiles/marker" + alphabet[path.length - 1] + ".png'/><span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></li>";
 	newstring += '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
 	document.getElementById("stops").innerHTML += newstring;
 	renderRoute();
@@ -102,6 +104,7 @@ function updatePath() {
 // Updates the path after reordering.
 function updateDays() {
 	var stops = document.getElementById("stops").children;
+  var stop = path.length;
 	var day = num_days;
 	var loc = "San Diego";
   var dist = 0;
@@ -133,7 +136,8 @@ function updateDays() {
 			time = 0;
       dist = 0;
 		} else {
-      //var dt = [0, 0]
+      stops[i].children[1].src = "http://www.google.com/mapfiles/marker" + alphabet[stop - 1] + ".png";
+      stop-=1
       var dt = calcDistanceTime(stops[i].children[0].innerHTML, loc)
       dist += dt[0];
       time += dt[1];
@@ -174,7 +178,6 @@ function calcDistanceTime(loc1, loc2) {
   if ((start + end) in timeAndDistance) {
   	return timeAndDistance[start + end];
   }
-  //alert(start + end);
   var request = {
     origin:start,
     destination:end,
@@ -185,7 +188,6 @@ function calcDistanceTime(loc1, loc2) {
     if (status == google.maps.DirectionsStatus.OK) {
       // Meters to miles
       dist_time = [Math.round(result.routes[0].legs[0].distance.value * 0.000621371), Math.round(result.routes[0].legs[0].duration.value / 3600)];
-      //alert(dist_time.toString())
       timeAndDistance[start + end] = dist_time;
       timeAndDistance[end + start] = dist_time;
       done = true;
@@ -265,6 +267,7 @@ function addRouteMarkers() {
 			lat: path[i][0],
 			lng: path[i][1],
 			title: path[i][2],
+      icon: "http://www.google.com/mapfiles/marker" + alphabet[i] + ".png"
 		});
 	}
 }
@@ -278,10 +281,10 @@ function cancelDay(n){
 function cancelStop(n){
   n.parentNode.parentNode.removeChild(n.parentNode);
   updatePath();
+  updateDays()
   map.removeMarkers();  
   addRouteMarkers();  
   renderRoute();
-
 }
 
 function addDay(){
@@ -319,6 +322,8 @@ $(document).ready(function(){
 		dragEnd: function() {
 			updateDays();
 			updatePath();
+      map.removeMarkers();
+      addRouteMarkers();
 			renderRoute();
 		},
 		placeHolderTemplate: ""

@@ -73,7 +73,24 @@ ul li.stop{
 	top: 20%;
 }
 
+.marker {
+	position: absolute;
+	left: -5px;
+}
+
+.stop {
+	height: 30px;
+	font-size: 11pt;
+}
+
+#stop_name {
+	padding-left: 5px;
+	position: absolute;
+	margin-top: 5px;
+}
+
 .stop .delete {
+	margin-top: 5px;
 	float: right;
 }
 
