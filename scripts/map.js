@@ -53,6 +53,7 @@ function addPoint(coord) {
 		lng: coord[1],
     icon: "http://www.google.com/mapfiles/marker" + alphabet[path.length] + ".png"
 	});
+
 	path.push(coord);
 	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><img class ='marker' src='http://www.google.com/mapfiles/marker" + alphabet[path.length - 1] + ".png'/><span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></li>";
 	newstring += '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
