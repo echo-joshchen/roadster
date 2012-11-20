@@ -52,7 +52,7 @@ function addPoint(coord) {
 		lng: coord[1],
 	});
 	path.push(coord);
-	var newstring = "<li>" + coord[2] + "</li>";
+	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></li>";
 	newstring += '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
 	document.getElementById("stops").innerHTML += newstring;
 	renderRoute();
@@ -91,7 +91,7 @@ function updatePath() {
 	var newPath = [];
 	for (var i = 0; i < stops.length; i++) {
 		for (var j = 0; j < path.length; j++) {
-			if (stops[i].innerHTML == path[j][2]) {
+			if (stops[i].children[0].innerHTML == path[j][2]) {
 				newPath.push(path[j]);
 			}
 		}
@@ -118,13 +118,13 @@ function updateDays() {
 				prev_loc = "San Francisco";
 			}
 			else {
-				prev_loc = stops[i-offset].innerHTML;
+				prev_loc = stops[i-offset].children[0].innerHTML;
 			}
       var dt = calcDistanceTime(prev_loc, loc)
 			dist += dt[0];
       time += dt[1];
       loc = prev_loc;
-			var daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="delete" onclick="cancelDay(this)">X</span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
+			var daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="delete" onclick="cancelDay(this)"><img src="images/cancel.png" alt="cancel" /></span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
 			if (day == 1) {
         daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
       }
@@ -134,10 +134,10 @@ function updateDays() {
       dist = 0;
 		} else {
       //var dt = [0, 0]
-      var dt = calcDistanceTime(stops[i].innerHTML, loc)
+      var dt = calcDistanceTime(stops[i].children[0].innerHTML, loc)
       dist += dt[0];
       time += dt[1];
-			loc = stops[i].innerHTML;
+			loc = stops[i].children[0].innerHTML;
 		}
 	}
 }
@@ -264,7 +264,7 @@ function addRouteMarkers() {
 		map.addMarker({
 			lat: path[i][0],
 			lng: path[i][1],
-			title: path[i][2]
+			title: path[i][2],
 		});
 	}
 }
@@ -273,6 +273,15 @@ function cancelDay(n){
 	n.parentNode.parentNode.parentNode.removeChild(n.parentNode.parentNode);
 	num_days-=1;
 	updateDays()
+}
+
+function cancelStop(n){
+  n.parentNode.parentNode.removeChild(n.parentNode);
+  updatePath();
+  map.removeMarkers();  
+  addRouteMarkers();  
+  renderRoute();
+
 }
 
 function addDay(){

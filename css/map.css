@@ -7,48 +7,74 @@
 }
 .sidebar {
 	position: absolute;
-	width:19.6%;
-	min-width: 100px;
-	height: 80%;
+	width:20%;
+	min-width: 200px;
+	height: 600px;
 	left: 75px;
 	top: 0px;
 	border: solid black 4px;
-	padding: 0px;
+	padding-left: 0px;
 }
 .sidebar h2  {
 	text-align: center;
 }
+
+#itinerary {
+	padding-left: 0px;
+}
+
 ul {
 	list-style: none;
 	padding: 0px;
 	margin: 0px;
-	padding-left: 20px;
 }
 
-.sidebar .day {
-	vertical-align:center;
+ul li.stop{
+	list-style: none;
+	padding: 0px;
+	margin-left: 20px;
+	border: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+#total_td {
+	font-size: 10pt;
+}
+
+.day {
+	position: relative;
 	border: solid;
 	border-color: #BBB;
+	margin-left: 10px;
+	height: 35px;
 }
 
 .day .title {
 	padding-left:20px;
 	font-weight:bold;
 	font-size: 16pt;
+	position: absolute;
+	top: 15%;
 }
 
 .day .details {
 	padding-right:10px;
-	font-size: 10pt;
+	font-size: 11pt;
 	float: right;
+	position: absolute;
+	top: 20%;
+	left: 40%;
 }
 
 .day .delete {
 	position: absolute;
-	right: 5px;
-	border: solid;
-	border-width: 1px;
-	color: red;
+	right: 10px;
+	top: 20%;
+}
+
+.stop .delete {
+	float: right;
 }
 
 #switch {
