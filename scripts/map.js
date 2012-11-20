@@ -13,7 +13,7 @@ var path = [];
 var num_days = 1;
 var timeAndDistance = {};
 var coords = {};
-var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png', 'images/markerA.png', 'images/markerA.png', 'images/markerA.png', 'images/markerA.png', 'images/markerA.png', 'images/markerA.png']
 
 var geocoder = new google.maps.Geocoder();
 var directionsService = new google.maps.DirectionsService();
@@ -30,11 +30,13 @@ function createMap() {
 		lat: SanFrancisco[0],
 		lng: SanFrancisco[1],
 		title: "Start Location: San Francisco",
+    icon: "images/start.png"
 	});
 	map.addMarker({
 		lat: SanDiego[0],
 		lng: SanDiego[1],
 		title: "End Location: San Diego",
+    icon: "images/end.png"
 	});
 	map.drawRoute({
 		origin: SanFrancisco,
@@ -51,11 +53,11 @@ function addPoint(coord) {
 	map.addMarker({
 		lat: coord[0],
 		lng: coord[1],
-    icon: "http://www.google.com/mapfiles/marker" + alphabet[path.length] + ".png"
+    icon: markers[path.length]
 	});
 
 	path.push(coord);
-	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><img class ='marker' src='http://www.google.com/mapfiles/marker" + alphabet[path.length - 1] + ".png'/><span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></li>";
+	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><img class ='marker' src='" + markers[path.length - 1] + "'/><span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></li>";
 	newstring += '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
 	document.getElementById("stops").innerHTML += newstring;
 	renderRoute();
@@ -137,7 +139,7 @@ function updateDays() {
 			time = 0;
       dist = 0;
 		} else {
-      stops[i].children[1].src = "http://www.google.com/mapfiles/marker" + alphabet[stop - 1] + ".png";
+      stops[i].children[1].src = markers[stop-1];
       stop-=1
       var dt = calcDistanceTime(stops[i].children[0].innerHTML, loc)
       dist += dt[0];
@@ -257,18 +259,20 @@ function addRouteMarkers() {
 		lat: SanFrancisco[0],
 		lng: SanFrancisco[1],
 		title: "Start Location: San Francisco",
+    icon: "images/start.png"
 	});
 	map.addMarker({
 		lat: SanDiego[0],
 		lng: SanDiego[1],
 		title: "End Location: San Diego",
+    icon: "images/end.png"
 	});
 	for (var i = 0; i < path.length; i++) {
 		map.addMarker({
 			lat: path[i][0],
 			lng: path[i][1],
 			title: path[i][2],
-      icon: "http://www.google.com/mapfiles/marker" + alphabet[i] + ".png"
+      icon: markers[i]
 		});
 	}
 }
@@ -295,9 +299,15 @@ function addDay(){
 	updateDays();
 }
 
+function refresh() {
+  updateDays();
+}
+
 $(document).ready(function(){
 
 	createMap();
+
+  setInterval(refresh,1000);
 
 	// Adds context menu event for right-click on map.
 	$("#map").contextMenu({
@@ -321,8 +331,8 @@ $(document).ready(function(){
 		dragSelector: "li",
 		dragBetween: false,
 		dragEnd: function() {
+      updatePath();
 			updateDays();
-			updatePath();
       map.removeMarkers();
       addRouteMarkers();
 			renderRoute();
