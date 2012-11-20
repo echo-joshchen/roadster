@@ -26,7 +26,7 @@ ul {
 }
 
 .sidebar .day {
-	vertical-align:bottom;
+	vertical-align:center;
 	border: solid;
 	border-color: #BBB;
 }
@@ -37,14 +37,15 @@ ul {
 	font-size: 16pt;
 }
 
-.day .time {
-	padding-right:20px;
-	font-size: 12pt;
+.day .details {
+	padding-right:10px;
+	font-size: 10pt;
 	float: right;
 }
 
 .day .delete {
-	float: right;
+	position: absolute;
+	right: 5px;
 	border: solid;
 	border-width: 1px;
 	color: red;

@@ -11,64 +11,11 @@ var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland, SpindriftInn, SeaVenture
 var pointsToSearch = [MBAcquarium, Disneyland, MBAcquarium, MBAcquarium, PismoBeach, PismoBeach, Disneyland, Disneyland];
 var path = [];
 var num_days = 1;
-var driving_time = {};
+var timeAndDistance = {};
+var coords = {};
 
-driving_time["San Francisco,San Francisco"] = 0;
-driving_time["San Francisco,San Diego"] = 8.5;
-driving_time["San Francisco,Monterey Bay Aquarium"] = 2.25;
-driving_time["San Francisco,Pismo Beach"] = 4.25;
-driving_time["San Francisco,Disneyland"] = 7;
-driving_time["San Francisco,Spindrift Inn"] = 2.25;
-driving_time["San Francisco,SeaVenture Hotel"] = 4.25;
-driving_time["San Francisco,Alpine Inn"] = 4.25;
-
-driving_time["Monterey Bay Aquarium,San Diego"] = 8;
-driving_time["Monterey Bay Aquarium,Monterey Bay Aquarium"] = 0;
-driving_time["Monterey Bay Aquarium,Pismo Beach"] = 3;
-driving_time["Monterey Bay Aquarium,Disneyland"] = 6.25;
-driving_time["Monterey Bay Aquarium,Spindrift Inn"] = 0;
-driving_time["Monterey Bay Aquarium,SeaVenture Hotel"] = 3;
-driving_time["Monterey Bay Aquarium,Alpine Inn"] = 6.25;
-
-driving_time["Pismo Beach,San Diego"] = 5.25;
-driving_time["Pismo Beach,Monterey Bay Aquarium"] = 3;
-driving_time["Pismo Beach,Pismo Beach"] = 0;
-driving_time["Pismo Beach,Disneyland"] = 3.75;
-driving_time["Pismo Beach,Spindrift Inn"] = 3;
-driving_time["Pismo Beach,SeaVenture Hotel"] = 0;
-driving_time["Pismo Beach,Alpine Inn"] = 3.75;
-
-driving_time["Disneyland,San Diego"] = 1.75;
-driving_time["Disneyland,Monterey Bay Aquarium"] = 6.25;
-driving_time["Disneyland,Pismo Beach"] = 3.75;
-driving_time["Disneyland,Disneyland"] = 0;
-driving_time["Disneyland,Spindrift Inn"] = 6.25;
-driving_time["Disneyland,SeaVenture Hotel"] = 3.75;
-driving_time["Disneyland,Alpine Inn"] = 0;
-
-driving_time["Spindrift Inn,San Diego"] = 8;
-driving_time["Spindrift Inn,Monterey Bay Aquarium"] = 0;
-driving_time["Spindrift Inn,Pismo Beach"] = 3;
-driving_time["Spindrift Inn,Disneyland"] = 6.25;
-driving_time["Spindrift Inn,Spindrift Inn"] = 0;
-driving_time["Spindrift Inn,SeaVenture Hotel"] = 3;
-driving_time["Spindrift Inn,Alpine Inn"] = 6.25;
-
-driving_time["SeaVenture Hotel,San Diego"] = 5.25;
-driving_time["SeaVenture Hotel,Monterey Bay Aquarium"] = 3;
-driving_time["SeaVenture Hotel,Pismo Beach"] = 0;
-driving_time["SeaVenture Hotel,Disneyland"] = 3.75;
-driving_time["SeaVenture Hotel,Spindrift Inn"] = 3;
-driving_time["SeaVenture Hotel,SeaVenture Hotel"] = 0;
-driving_time["SeaVenture Hotel,Alpine Inn"] = 3.75;
-
-driving_time["Alpine Inn,San Diego"] = 1.75;
-driving_time["Alpine Inn,Monterey Bay Aquarium"] = 6.25;
-driving_time["Alpine Inn,Pismo Beach"] = 3.75;
-driving_time["Alpine Inn,Disneyland"] = 0;
-driving_time["Alpine Inn,Spindrift Inn"] = 6.25;
-driving_time["Alpine Inn,SeaVenture Hotel"] = 3.75;
-driving_time["Alpine Inn,Alpine Inn"] = 0;
+var geocoder = new google.maps.Geocoder();
+var directionsService = new google.maps.DirectionsService();
 
 // Creates the initial map from SF to SD.
 function createMap() {
@@ -157,10 +104,11 @@ function updateDays() {
 	var stops = document.getElementById("stops").children;
 	var day = num_days;
 	var loc = "San Diego";
+  var dist = 0;
 	var time = 0;
 	for (var i = stops.length - 1; i >= 0; i--) {
 		if (stops[i].innerHTML.substring(0, 17) == '<div class="day">') {
-			var offset = 0;
+			var offset = 1;
 			while (offset <= i && stops[i-offset].innerHTML.substring(0, 17) == '<div class="day">')
 			{
 				offset +=1;
@@ -172,17 +120,79 @@ function updateDays() {
 			else {
 				prev_loc = stops[i-offset].innerHTML;
 			}
-			time += driving_time[prev_loc + "," + loc];
-			loc = prev_loc;
-			var daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="delete" onclick="cancelDay(this)">X</span><span class="time"> ' + time + ' hrs </span></div>';
-			stops[i].innerHTML=daytext;
+      var dt = calcDistanceTime(prev_loc, loc)
+			dist += dt[0];
+      time += dt[1];
+      loc = prev_loc;
+			var daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="delete" onclick="cancelDay(this)">X</span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
+			if (day == 1) {
+        daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
+      }
+      stops[i].innerHTML=daytext;
 			day -= 1;
 			time = 0;
+      dist = 0;
 		} else {
-			time += driving_time[stops[i].innerHTML + "," + loc];
+      //var dt = [0, 0]
+      var dt = calcDistanceTime(stops[i].innerHTML, loc)
+      dist += dt[0];
+      time += dt[1];
 			loc = stops[i].innerHTML;
 		}
 	}
+}
+
+function sleep(ms)
+{
+  var dt = new Date();
+  dt.setTime(dt.getTime() + ms);
+  while (new Date().getTime() < dt.getTime());
+}
+
+function getCoord(location) {
+  loc = location.toString();
+  if (loc in coords) {
+    return coords[loc];
+  }
+  geocoder.geocode( {'address': loc}, function(result, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      coord = [result[0].geometry.location.lat(), result[0].geometry.location.lng()];
+      coords[loc] = coord;
+      return coord;
+    }
+  });
+}
+
+function calcDistanceTime(loc1, loc2) {
+  var start = loc1.toString();
+  var end = loc2.toString();
+  var dist_time = [0, 0]
+  if (start == end) {
+    return dist_time;
+  }
+  var done = false;
+  if ((start + end) in timeAndDistance) {
+  	return timeAndDistance[start + end];
+  }
+  //alert(start + end);
+  var request = {
+    origin:start,
+    destination:end,
+    travelMode: google.maps.TravelMode.DRIVING
+  };
+  var directionsService = new google.maps.DirectionsService();
+  directionsService.route(request, function(result, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      // Meters to miles
+      dist_time = [Math.round(result.routes[0].legs[0].distance.value * 0.000621371), Math.round(result.routes[0].legs[0].duration.value / 3600)];
+      //alert(dist_time.toString())
+      timeAndDistance[start + end] = dist_time;
+      timeAndDistance[end + start] = dist_time;
+      done = true;
+    } else {
+    }
+  });
+  return dist_time;
 }
 
 // Adjusts map and sidebar to respond to a search.
@@ -316,4 +326,11 @@ $(document).ready(function(){
 		map.removeMarkers();
 		addRouteMarkers();
 	});
+
+  $("#timeline").click(function() {
+    map.removeMarkers();
+    addRouteMarkers();
+    map.setCenter(Bakersfield[0], Bakersfield[1]);
+    map.setZoom(7);
+  });
 });
