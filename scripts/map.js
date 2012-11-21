@@ -245,7 +245,8 @@ function search(coord, value) {
 						lng: place.geometry.location.lng(),
 						title: place.name,
 						infoWindow: {
-							content: '<p>' + place.name + "  " + stars + '</p>'
+							content: '<p>' + place.name + "  " + stars + "</p><br><input type='button' value='Add' onclick='addPoint([" + place.geometry.location.lat() +
+								", " + place.geometry.location.lng() + ", \"" + place.name + "\"]);'>"
 						}
 					});
 					var li = document.createElement("li");
