@@ -314,6 +314,15 @@ function refresh() {
   updateDays();
 }
 
+function dir(object) {
+    stuff = [];
+    for (s in object) {
+        stuff.push(s);
+    }
+    stuff.sort();
+    return stuff;
+}
+
 $(document).ready(function(){
 
 	createMap();
