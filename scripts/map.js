@@ -7,8 +7,6 @@ var Disneyland = [33.809391,-117.918924,"Disneyland"];
 var SpindriftInn = [36.615889,-121.899773, "Spindrift Inn"];
 var SeaVentureHotel = [35.136581,-120.641004, "SeaVenture Hotel"];
 var AlpineInn = [33.803578,-117.917597, "Alpine Inn"];
-var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland, SpindriftInn, SeaVentureHotel, AlpineInn];
-var pointsToSearch = [MBAcquarium, Disneyland, MBAcquarium, MBAcquarium, PismoBeach, PismoBeach, Disneyland, Disneyland];
 var path = [];
 var num_days = 1;
 var timeAndDistance = {};
@@ -49,16 +47,23 @@ function createMap() {
 	map.setContextMenu({
 		control: 'map',
 		options: [{
-		title: 'Add location',
+			title: 'Add location',
 			name: 'add_marker',
 			action: function(e) {
-				addPoint([e.latLng.lat(), e.latLng.lng()]);
+				addPoint([e.latLng.lat(), e.latLng.lng(), 'Temp name']);
 			}
 		}, {
 			title: 'Center here',
 			name: 'center_here',
 			action: function(e) {
 				this.setCenter(e.latLng.lat(), e.latLng.lng());
+			}
+		}, {
+			title: 'Search here',
+			name: 'search_here',
+			action: function(e) {
+				search([e.latLng.lat(), e.latLng.lng()], "");
+				$("#sidebar").tabs("option", "active", 1);
 			}
 		}]
 	});
@@ -73,9 +78,7 @@ function addPoint(coord) {
         infoWindow: {
 				content: "<p>" + coord[2] + "</p>" + "<span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></span>"
 		}
-
 	});
-
 	path.push(coord);
 	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><img class ='marker' src='" + markers[path.length - 1] + "'/><span class='delete' onclick='cancelStopMap(this)''><img src='images/cancel.png' alt='cancel' /></li>";
 	newstring += '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
@@ -228,16 +231,13 @@ function search(coord, value) {
 	addRouteMarkers();
 	map.addLayer('places', {
 		location: new google.maps.LatLng(coord[0], coord[1]),
-		radius: 10000,
+		radius: 5000,
 		keyword: value,
 		search: function (results, status) {
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
 				for (var i = 0; i < 10; i++) {
 					var place = results[i];
 					var stars = "&#9733;&#9733;&#9734;&#9734;&#9734;";
-					if ((place.name == "Spindrift Inn") || (place.name == "SeaVenture Hotel") || (place.name == "Alpine Inn")) {
-						stars = "&#9733;&#9733;&#9733;&#9733;&#9733;";
-					}
 					map.addMarker({
 						lat: place.geometry.location.lat(),
 						lng: place.geometry.location.lng(),
@@ -362,7 +362,8 @@ $(document).ready(function(){
 
 	// Adds search button event handler.
 	$("#submit").click(function() {
-		search(pointsToSearch.shift(), document.getElementById("keyword").value);
+		coord = map.getCenter();
+		search([coord.lat(), coord.lng()], document.getElementById("keyword").value);
 	});
 
 	$("#reset").click(function() {
