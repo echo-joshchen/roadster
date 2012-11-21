@@ -7,8 +7,6 @@ var Disneyland = [33.809391,-117.918924,"Disneyland"];
 var SpindriftInn = [36.615889,-121.899773, "Spindrift Inn"];
 var SeaVentureHotel = [35.136581,-120.641004, "SeaVenture Hotel"];
 var AlpineInn = [33.803578,-117.917597, "Alpine Inn"];
-var pointsToAdd = [MBAcquarium, PismoBeach, Disneyland, SpindriftInn, SeaVentureHotel, AlpineInn];
-var pointsToSearch = [MBAcquarium, Disneyland, MBAcquarium, MBAcquarium, PismoBeach, PismoBeach, Disneyland, Disneyland];
 var path = [];
 var num_days = 1;
 var timeAndDistance = {};
@@ -46,6 +44,29 @@ function createMap() {
 		strokeOpacity: 0.6,
 		strokeWeight: 6
 	});
+	map.setContextMenu({
+		control: 'map',
+		options: [{
+			title: 'Add location',
+			name: 'add_marker',
+			action: function(e) {
+				addPoint([e.latLng.lat(), e.latLng.lng(), 'Temp name']);
+			}
+		}, {
+			title: 'Center here',
+			name: 'center_here',
+			action: function(e) {
+				this.setCenter(e.latLng.lat(), e.latLng.lng());
+			}
+		}, {
+			title: 'Search here',
+			name: 'search_here',
+			action: function(e) {
+				search([e.latLng.lat(), e.latLng.lng()], "");
+				$("#sidebar").tabs("option", "active", 1);
+			}
+		}]
+	});
 }
 
 // Add another location to map.
@@ -57,9 +78,7 @@ function addPoint(coord) {
         infoWindow: {
 				content: "<p>" + coord[2] + "</p>" + "<span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></span>"
 		}
-
 	});
-
 	path.push(coord);
 	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><img class ='marker' src='" + markers[path.length - 1] + "'/><span class='delete' onclick='cancelStopMap(this)''><img src='images/cancel.png' alt='cancel' /></li>";
 	newstring += '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
@@ -134,8 +153,8 @@ function updateDays() {
 			}
       var dt = calcDistanceTime(prev_loc, loc)
 			dist += dt[0];
-      time += dt[1];
-      loc = prev_loc;
+			time += dt[1];
+			loc = prev_loc;
 			var daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="delete" onclick="cancelDay(this)"><img src="images/cancel.png" alt="cancel" /></span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
 			if (day == 1) {
         daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
@@ -214,7 +233,7 @@ function search(coord, value) {
 	addRouteMarkers();
 	map.addLayer('places', {
 		location: new google.maps.LatLng(coord[0], coord[1]),
-		radius: 10000,
+		radius: 5000,
 		keyword: value,
 		search: function (results, status) {
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -308,7 +327,7 @@ function cancelStop(n){
 }
 
 function cancelStopMap(n){
- // pls josh... i have no idea what this is....
+	// pls josh... i have no idea what this is....
 }
 
 // Adds a day to the end
@@ -325,28 +344,7 @@ $(document).ready(function(){
 	createMap();
 
   // Refresh Timeline to get the time and distance info for the days
-  setInterval(refresh,1000);
-
-	// Adds context menu event for right-click on map.
-	$("#map").contextMenu({
-		menu: "optionsMenu"
-	}, function(action, el, pos) {
-		if (action == "add_location") {
-			// I'm not sure how to get the coords for this event, so I hard-coded it.
-			addPoint(pointsToAdd.shift());
-			$( "#sidebar" ).tabs( "option", "active", 0 );
-		}
-		if (action == "search") {
-			// I'm not sure how to get the coords for this event, so I hard-coded it.
-			$( "#sidebar" ).tabs( "option", "active", 1 );
-			searchPoint = pointsToSearch.shift();
-			search(searchPoint, "");
-		}
-		if (action == "center") {
-			centerCoord = centerCoords.shift();
-			map.setCenter(centerCoord[0], centerCoord[1]);
-		}
-	});
+	setInterval(refresh,1000);
 
 	// Add drag-drop functionality to lists.
 	$("#stops").dragsort({
@@ -365,7 +363,8 @@ $(document).ready(function(){
 
 	// Adds search button event handler.
 	$("#submit").click(function() {
-		search(pointsToSearch.shift(), document.getElementById("keyword").value);
+		coord = map.getCenter();
+		search([coord.lat(), coord.lng()], document.getElementById("keyword").value);
 	});
 
 	$("#reset").click(function() {
