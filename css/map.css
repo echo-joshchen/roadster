@@ -8,12 +8,13 @@
 .sidebar {
 	position: absolute;
 	width:20%;
-	min-width: 200px;
+	min-width: 300px;
 	height: 600px;
 	left: 75px;
 	top: 0px;
 	border: solid black 4px;
 	padding-left: 0px;
+	overflow: auto;
 }
 .sidebar h2  {
 	text-align: center;
@@ -41,6 +42,7 @@ ul li.stop{
 	border: solid;
 	border-width: 1px;
 	border-color: gray;
+	overflow: hidden;
 }
 
 #total_td {
@@ -78,20 +80,29 @@ ul li.stop{
 	top: 20%;
 }
 
+.delete#marker {
+	position: absolute;
+	right: 5px;
+	top: 70%;
+}
+
 .marker {
 	position: absolute;
 	left: 5px;
 }
 
 .stop {
-	height: 40px;
+	min-height: 40px;
 	font-size: 11pt;
+	overflow: hidden;
 }
 
 #stop_name {
+	width: 60%;
 	padding-left: 5px;
 	position: absolute;
-	margin-top: 10px;
+	padding-right: 20px;
+	overflow: hidden;
 }
 
 .stop .delete {

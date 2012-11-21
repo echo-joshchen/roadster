@@ -9,11 +9,11 @@ var SeaVentureHotel = [35.136581,-120.641004, "SeaVenture Hotel"];
 var AlpineInn = [33.803578,-117.917597, "Alpine Inn"];
 var path = [];
 var num_days = 1;
-var timeAndDistance = {};
+var distanceAndTime = {};
 var coords = {};
 var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png', 'images/markerD.png', 'images/markerE.png', 'images/markerF.png', 'images/markerG.png', 'images/markerH.png', 'images/markerI.png']
 
-var geocoder = new google.maps.Geocoder();
+distanceAndTime["San FranciscoSan Diego"] = [502, 8.5]
 var directionsService = new google.maps.DirectionsService();
 
 // Creates the initial map from SF to SD.
@@ -56,13 +56,6 @@ function createMap() {
       }
     },
     {
-			title: 'Add location',
-			name: 'add_marker',
-			action: function(e) {
-				addPoint([e.latLng.lat(), e.latLng.lng(), Math.round(e.latLng.lat()).toString() + ',' + Math.round(e.latLng.lng()).toString()]);
-			}
-		},
-    {
 			title: 'Center here',
 			name: 'center_here',
 			action: function(e) {
@@ -77,14 +70,15 @@ function addPoint(coord) {
 	map.addMarker({
 		lat: coord[0],
 		lng: coord[1],
-        icon: markers[path.length],
-        infoWindow: {
-				content: "<p>" + coord[2] + "</p>" + "<span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></span>"
+    icon: markers[path.length],
+    infoWindow: {
+  		content: "<p>" + coord[2] + "</p><p><input type='button' onclick='search([" + coord[0] + "," + coord[1] + "], \"\");' value='Search Nearby'></p>" + 
+  			"<span id='marker' class='delete' onclick='cancelStopMarker(this)'><img src='images/cancel.png' alt='cancel' /></span>"
 		}
 	});
 	path.push(coord);
-	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><img class ='marker' src='" + markers[path.length - 1] + "'/><span class='delete' onclick='cancelStopMap(this)''><img src='images/cancel.png' alt='cancel' /></li>";
-	newstring += '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
+	var newstring = "<li id='" + coord[2] + "'class='stop' style='cursor: pointer'><span id='stop_name'>" + coord[2] + "</span><img class ='marker' src='" + markers[path.length - 1] + "'/><span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></span></li>";
+	newstring += '<li style="cursor: pointer"><div class="day" id="day' + (num_days + 1) + '" ><span class="title">Day ' + (num_days + 1) + ' </span></div></li>';
 	document.getElementById("stops").innerHTML += newstring;
 	renderRoute();
 	num_days+=1;
@@ -141,9 +135,9 @@ function updateDays() {
 	var dist = 0;
 	var time = 0;
 	for (var i = stops.length - 1; i >= 0; i--) {
-		if (stops[i].innerHTML.substring(0, 17) == '<div class="day">') {
+		if (stops[i].innerHTML.substring(0, 16) == '<div class="day"') {
 			var offset = 1;
-			while (offset <= i && stops[i-offset].innerHTML.substring(0, 17) == '<div class="day">')
+			while (offset <= i && stops[i-offset].innerHTML.substring(0, 16) == '<div class="day"')
 			{
 				offset +=1;
 			}
@@ -158,9 +152,9 @@ function updateDays() {
 			dist += dt[0];
 			time += dt[1];
 			loc = prev_loc;
-			var daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="delete" onclick="cancelDay(this)"><img src="images/cancel.png" alt="cancel" /></span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
+			var daytext = '<div class="day" id="day' + day + '" ><span class="title">Day ' + day + ' </span><span class="delete" onclick="cancelDay(this)"><img src="images/cancel.png" alt="cancel" /></span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
 			if (day == 1) {
-        daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
+        daytext = '<div class="day" id="day1" ><span class="title">Day 1 </span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
       }
       stops[i].innerHTML=daytext;
 			day -= 1;
@@ -177,27 +171,6 @@ function updateDays() {
 	}
 }
 
-function sleep(ms)
-{
-  var dt = new Date();
-  dt.setTime(dt.getTime() + ms);
-  while (new Date().getTime() < dt.getTime());
-}
-
-function getCoord(location) {
-  loc = location.toString();
-  if (loc in coords) {
-    return coords[loc];
-  }
-  geocoder.geocode( {'address': loc}, function(result, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      coord = [result[0].geometry.location.lat(), result[0].geometry.location.lng()];
-      coords[loc] = coord;
-      return coord;
-    }
-  });
-}
-
 function calcDistanceTime(loc1, loc2) {
   var start = loc1.toString();
   var end = loc2.toString();
@@ -206,8 +179,8 @@ function calcDistanceTime(loc1, loc2) {
     return dist_time;
   }
   var done = false;
-  if ((start + end) in timeAndDistance) {
-  	return timeAndDistance[start + end];
+  if ((start + end) in distanceAndTime) {
+  	return distanceAndTime[start + end];
   }
   var request = {
     origin:start,
@@ -219,8 +192,8 @@ function calcDistanceTime(loc1, loc2) {
     if (status == google.maps.DirectionsStatus.OK) {
       // Meters to miles
       dist_time = [Math.round(result.routes[0].legs[0].distance.value * 0.000621371), Math.round(result.routes[0].legs[0].duration.value / 3600)];
-      timeAndDistance[start + end] = dist_time;
-      timeAndDistance[end + start] = dist_time;
+      distanceAndTime[start + end] = dist_time;
+      distanceAndTime[end + start] = dist_time;
       done = true;
     } else {
     }
@@ -230,6 +203,7 @@ function calcDistanceTime(loc1, loc2) {
 
 // Adjusts map and sidebar to respond to a search.
 function search(coord, value) {
+	$("#sidebar").tabs("option", "active", 1);
 	document.getElementById("searchResults").innerHTML = "";
 	document.getElementById("keyword").value = "";
 	map.removeMarkers();
@@ -242,18 +216,16 @@ function search(coord, value) {
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
 				for (var i = 0; i < 10; i++) {
 					var place = results[i];
-					var stars = "&#9733;&#9733;&#9734;&#9734;&#9734;";
+					var stars = random_stars(3, 5);
 					if ((place.name == "Spindrift Inn") || (place.name == "SeaVenture Hotel") || (place.name == "Alpine Inn")) {
-						stars = "&#9733;&#9733;&#9733;&#9733;&#9733;";
+						stars = random_stars(5, 5);
 					}
-          var box_content = '<p>' + place.name + "  " + stars + '</p>'
-          box_content += "<br /> Add <button onclick='addFromSearch()'>+</button>"
 					map.addMarker({
 						lat: place.geometry.location.lat(),
 						lng: place.geometry.location.lng(),
 						title: place.name,
 						infoWindow: {
-							content: box_content
+							content: '<p>' + place.name + "  " + stars + "</p><p>Phone Number: " + random_phone() + "</p><input type='button' value='Add' onclick='addPoint([" + place.geometry.location.lat() + ", " + place.geometry.location.lng() + ", \"" + place.name + "\"]);'>"
 						}
 					});
 					var li = document.createElement("li");
@@ -303,9 +275,10 @@ function addRouteMarkers() {
 			lng: path[i][1],
 			title: path[i][2],
 			icon: markers[i],
-			infoWindow: {
-				content: "<p>" + path[i][2] + "</p>"
-			}
+      infoWindow: {
+      content: "<p>" + path[i][2] + "</p><br /><input onclick='search([" + path[i][0] + "," + path[i][1] + "], \"\")'" + " type='button' value='Search Nearby'>" + 
+        "<span id='marker' class='delete' onclick='cancelStopMarker(this)'><img src='images/cancel.png' alt='cancel' /></span>"
+      }
 		});
 	}
 }
@@ -329,14 +302,14 @@ function cancelStop(n){
   renderRoute();
 }
 
-function cancelStopMap(n){
-	// pls josh... i have no idea what this is....
+function cancelStopMarker(n){
+  alert("cancelStopMarker: " + n.innerHTML)
 }
 
 // Adds a day to the end
 function addDay(){
 	num_days+=1;
-	var newstring = '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
+	var newstring = '<li><div class="day" id="day' + num_days + '"><span class="title">Day ' + num_days + ' </span></div></li>';
 	document.getElementById("stops").innerHTML += newstring;
 	updateDays();
 }
@@ -347,7 +320,7 @@ $(document).ready(function(){
 	createMap();
 
   // Refresh Timeline to get the time and distance info for the days
-	setInterval(refresh,1000);
+	setTimeout(refresh,1000);
 
 	// Add drag-drop functionality to lists.
 	$("#stops").dragsort({
@@ -387,6 +360,7 @@ $(document).ready(function(){
 // Updates the days in timeline
 function refresh() {
   updateDays();
+  setTimeout(refresh,1000);
 }
 
 // DEBUGGING: Returns a list of functions for the object
@@ -399,12 +373,32 @@ function dir(object) {
     return stuff;
 }
 
-// Random number between min and max
-function random(min, max) {
-  return Math.floor(Math.random() * (max-min)) + min;
-}
-
 // Random number of stars between min and max
 function random_stars(min, max) {
-  var stars = Math.floor(Math.random() * (max-min)) + min;
+  var num = Math.floor(Math.random() * (max-min)) + min;
+  var stars = "";
+  for (var i = 0; i < num; i++) {
+    stars += "&#9733";
+  }
+  for (var i = num; i < 5; i++) {
+    stars += "&#9734";
+  }
+  return stars;
+}
+
+// Generate a random phone number
+function random_phone() {
+  var num = "";
+  for (var i = 0; i < 3; i++) {
+    num += Math.floor(Math.random() * 9).toString();
+  }
+  num += '-'
+  for (var i = 0; i < 4; i++) {
+    num += Math.floor(Math.random() * 9).toString();
+  }
+  return num
+}
+
+function getCoord(location) {
+  
 }
