@@ -53,11 +53,15 @@ function addPoint(coord) {
 	map.addMarker({
 		lat: coord[0],
 		lng: coord[1],
-    icon: markers[path.length]
+        icon: markers[path.length],
+        infoWindow: {
+				content: "<p>" + coord[2] + "</p>" + "<span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></span>"
+		}
+
 	});
 
 	path.push(coord);
-	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><img class ='marker' src='" + markers[path.length - 1] + "'/><span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></li>";
+	var newstring = "<li class='stop'><span id='stop_name'>" + coord[2] + "</span><img class ='marker' src='" + markers[path.length - 1] + "'/><span class='delete' onclick='cancelStopMap(this)''><img src='images/cancel.png' alt='cancel' /></li>";
 	newstring += '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
 	document.getElementById("stops").innerHTML += newstring;
 	renderRoute();
@@ -107,10 +111,10 @@ function updatePath() {
 // Updates the path after reordering.
 function updateDays() {
 	var stops = document.getElementById("stops").children;
-  var stop = path.length;
+	var stop = path.length;
 	var day = num_days;
 	var loc = "San Diego";
-  var dist = 0;
+	var dist = 0;
 	var time = 0;
 	for (var i = stops.length - 1; i >= 0; i--) {
 		if (stops[i].innerHTML.substring(0, 17) == '<div class="day">') {
@@ -272,7 +276,10 @@ function addRouteMarkers() {
 			lat: path[i][0],
 			lng: path[i][1],
 			title: path[i][2],
-      icon: markers[i]
+			icon: markers[i],
+			infoWindow: {
+				content: "<p>" + path[i][2] + "</p>"
+			}
 		});
 	}
 }
@@ -290,6 +297,10 @@ function cancelStop(n){
   map.removeMarkers();  
   addRouteMarkers();  
   renderRoute();
+}
+
+function cancelStopMap(n){
+ // pls josh... i have no idea what this is....
 }
 
 function addDay(){
@@ -337,6 +348,10 @@ $(document).ready(function(){
 			$( "#sidebar" ).tabs( "option", "active", 1 );
 			searchPoint = pointsToSearch.shift();
 			search(searchPoint, "");
+		}
+		if (action == "center") {
+			centerCoord = centerCoords.shift();
+			map.setCenter(centerCoord[0], centerCoord[1]);
 		}
 	});
 
