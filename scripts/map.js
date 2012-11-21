@@ -46,24 +46,27 @@ function createMap() {
 	});
 	map.setContextMenu({
 		control: 'map',
-		options: [{
+		options: [
+    {
+      title: 'Search here',
+      name: 'search_here',
+      action: function(e) {
+        search([e.latLng.lat(), e.latLng.lng()], "");
+        $("#sidebar").tabs("option", "active", 1);
+      }
+    },
+    {
 			title: 'Add location',
 			name: 'add_marker',
 			action: function(e) {
-				addPoint([e.latLng.lat(), e.latLng.lng(), 'Temp name']);
+				addPoint([e.latLng.lat(), e.latLng.lng(), Math.round(e.latLng.lat()).toString() + ',' + Math.round(e.latLng.lng()).toString()]);
 			}
-		}, {
+		},
+    {
 			title: 'Center here',
 			name: 'center_here',
 			action: function(e) {
 				this.setCenter(e.latLng.lat(), e.latLng.lng());
-			}
-		}, {
-			title: 'Search here',
-			name: 'search_here',
-			action: function(e) {
-				search([e.latLng.lat(), e.latLng.lng()], "");
-				$("#sidebar").tabs("option", "active", 1);
 			}
 		}]
 	});
