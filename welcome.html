@@ -35,12 +35,12 @@ Welcome to Roadster!
 <script>
 $(function() {
     $( "#start_date" ).datepicker({
-            showOn: "button",
+            showOn: "both",
             buttonImage: "images/calendar.png",
             buttonImageOnly: true
         });
     $( "#end_date" ).datepicker({
-            showOn: "button",
+            showOn: "both",
             buttonImage: "images/calendar.png",
             buttonImageOnly: true
         });
@@ -62,6 +62,41 @@ function checkFilled() {
     $("#end_date").css("opacity", "1");
   }
 }
+
+// $(document).ready(function() {
+//   function check() {
+//     if(document.getElementById('start_location').value != "")
+//       document.getElementById('end_location').disabled = false;
+//       document.getElementById('start_date').disabled = false;
+//       document.getElementById('end_date').disabled = false;
+//     else
+//       document.getElementById('end_location').disabled = true;
+//       document.getElementById('start_date').disabled = true;
+//       document.getElementById('end_date').disabled = true;
+//   }
+// });​
+
+// document.getElementById("#end_location").disabled=true;
+
+//  $(document).ready(function() {
+
+//      $("#start_location").focus();
+
+//      var error_message = "Please add first name.";
+
+//       $("#start_location").blur(function() {
+//           if ($(this).val() != '')
+//           {
+//               $("#end_location").removeAttr("disabled");    
+//               //$("#message").html("");      
+//           }
+//      else {              
+//               $("#end_location").attr("disabled", "disabled");  
+//               //$("#message").append(error_message);      
+//           }         
+
+//       });
+//  });​
 </script>
 </head>
 
@@ -109,7 +144,7 @@ function checkFilled() {
 
 <li id="End Location">
     <div class="input_field">
-        <input id="end_location" name="end_location" type="text" class="field text medium" maxlength="255" onkeyup="" placeholder="End Location" />
+        <input id="end_location" name="end_location" type="text" class="field text medium" disable = "disabled" maxlength="255" onkeyup="" placeholder="End Location" />
     </div>
 </li>
 
