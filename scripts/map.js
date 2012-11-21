@@ -76,7 +76,8 @@ function addPoint(coord) {
 		lng: coord[1],
         icon: markers[path.length],
         infoWindow: {
-				content: "<p>" + coord[2] + "</p>" + "<span class='delete' onclick='cancelStop(this)''><img src='images/cancel.png' alt='cancel' /></span>"
+				content: "<p>" + coord[2] + "</p><br><input onclick='search([" + coord[0] + "," + coord[1] + "], \"\");'" + " type=\"button\" value=\"Search\">" + 
+					"<span class='delete' onclick='cancelStop(this)'><img src='images/cancel.png' alt='cancel' /></span>"
 		}
 	});
 	path.push(coord);
@@ -225,6 +226,7 @@ function calcDistanceTime(loc1, loc2) {
 
 // Adjusts map and sidebar to respond to a search.
 function search(coord, value) {
+	$("#sidebar").tabs("option", "active", 1);
 	document.getElementById("searchResults").innerHTML = "";
 	document.getElementById("keyword").value = "";
 	map.removeMarkers();
