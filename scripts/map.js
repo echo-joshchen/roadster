@@ -46,6 +46,22 @@ function createMap() {
 		strokeOpacity: 0.6,
 		strokeWeight: 6
 	});
+	map.setContextMenu({
+		control: 'map',
+		options: [{
+		title: 'Add location',
+			name: 'add_marker',
+			action: function(e) {
+				addPoint([e.latLng.lat(), e.latLng.lng()]);
+			}
+		}, {
+			title: 'Center here',
+			name: 'center_here',
+			action: function(e) {
+				this.setCenter(e.latLng.lat(), e.latLng.lng());
+			}
+		}]
+	});
 }
 
 // Add another location to map.
@@ -132,8 +148,8 @@ function updateDays() {
 			}
       var dt = calcDistanceTime(prev_loc, loc)
 			dist += dt[0];
-      time += dt[1];
-      loc = prev_loc;
+			time += dt[1];
+			loc = prev_loc;
 			var daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="delete" onclick="cancelDay(this)"><img src="images/cancel.png" alt="cancel" /></span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
 			if (day == 1) {
         daytext = '<div class="day"><span class="title">Day ' + day + ' </span><span class="details"> ' + time + ' hrs, ' + dist + ' mi </span></div>';
@@ -300,7 +316,7 @@ function cancelStop(n){
 }
 
 function cancelStopMap(n){
- // pls josh... i have no idea what this is....
+	// pls josh... i have no idea what this is....
 }
 
 function addDay(){
@@ -318,28 +334,7 @@ $(document).ready(function(){
 
 	createMap();
 
-  setInterval(refresh,1000);
-
-	// Adds context menu event for right-click on map.
-	$("#map").contextMenu({
-		menu: "optionsMenu"
-	}, function(action, el, pos) {
-		if (action == "add_location") {
-			// I'm not sure how to get the coords for this event, so I hard-coded it.
-			addPoint(pointsToAdd.shift());
-			$( "#sidebar" ).tabs( "option", "active", 0 );
-		}
-		if (action == "search") {
-			// I'm not sure how to get the coords for this event, so I hard-coded it.
-			$( "#sidebar" ).tabs( "option", "active", 1 );
-			searchPoint = pointsToSearch.shift();
-			search(searchPoint, "");
-		}
-		if (action == "center") {
-			centerCoord = centerCoords.shift();
-			map.setCenter(centerCoord[0], centerCoord[1]);
-		}
-	});
+	setInterval(refresh,1000);
 
 	// Add drag-drop functionality to lists.
 	$("#stops").dragsort({
