@@ -227,10 +227,11 @@ function search(coord, value) {
 						infoWindow: {
 							content: '<p>' + place.name + "  " + stars + "</p><p>Phone Number: " + random_phone() + "</p><input type='button' value='Add' onclick='addPoint([" + place.geometry.location.lat() + ", " + place.geometry.location.lng() + ", \"" + place.name + "\"]);'>"
 						}
-					});
+					})
+          var loc = [place.geometry.location.lat(), place.geometry.location.lng(), place.name]
 					var li = document.createElement("li");
 					var add = document.createElement("button");
-					add.setAttribute('onclick', 'addFromSearch()');
+					add.setAttribute('onclick', 'addPoint([' + loc[0] + ',' + loc[1] + ',"' + loc[2] + '"])');
 					var text = document.createTextNode("+");
 					add.appendChild(text);
 					li.appendChild(add);
@@ -243,15 +244,6 @@ function search(coord, value) {
 	});
 	map.setCenter(coord[0], coord[1]);
 	map.setZoom(13);
-}
-
-function addFromSearch() {
-	addPoint(pointsToAdd.shift());
-	$( "#sidebar" ).tabs( "option", "active", 0 );
-	map.removeMarkers();
-	addRouteMarkers();
-	map.setCenter(Bakersfield[0], Bakersfield[1]);
-	map.setZoom(7);
 }
 
 // Adds back the markers for the route, after the search markers are deleted.
