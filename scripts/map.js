@@ -337,14 +337,7 @@ $(document).ready(function(){
 
 	// Adds search button event handler.
 	$("#submit").click(function() {
-		coord = map.getCenter();
-		search([coord.lat(), coord.lng()], document.getElementById("keyword").value);
-	});
-
-	$("#reset").click(function() {
-		document.getElementById("searchResults").innerHTML = "";
-		map.removeMarkers();
-		addRouteMarkers();
+    searchWord();
 	});
 
   $("#timeline").click(function() {
@@ -397,6 +390,14 @@ function random_phone() {
   return num
 }
 
-function getCoord(location) {
-  
+function searchWord() {
+  GMaps.geocode({
+  address: $('#keyword').val(),
+  callback: function(results, status) {
+    if (status == 'OK') {
+      var latlng = results[0].geometry.location;
+      search([latlng.lat(), latlng.lng()], "");
+    }
+  }
+});
 }
