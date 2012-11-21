@@ -13,7 +13,7 @@ var path = [];
 var num_days = 1;
 var timeAndDistance = {};
 var coords = {};
-var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png', 'images/markerA.png', 'images/markerA.png', 'images/markerA.png', 'images/markerA.png', 'images/markerA.png', 'images/markerA.png']
+var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png', 'images/markerD.png', 'images/markerE.png', 'images/markerF.png', 'images/markerG.png', 'images/markerH.png', 'images/markerI.png']
 
 var geocoder = new google.maps.Geocoder();
 var directionsService = new google.maps.DirectionsService();
@@ -109,6 +109,8 @@ function updatePath() {
 }
 
 // Updates the path after reordering.
+// Works from the bottom to the top
+// Very hackish :(
 function updateDays() {
 	var stops = document.getElementById("stops").children;
 	var stop = path.length;
@@ -222,12 +224,14 @@ function search(coord, value) {
 					if ((place.name == "Spindrift Inn") || (place.name == "SeaVenture Hotel") || (place.name == "Alpine Inn")) {
 						stars = "&#9733;&#9733;&#9733;&#9733;&#9733;";
 					}
+          var box_content = '<p>' + place.name + "  " + stars + '</p>'
+          box_content += "<br /> Add <button onclick='addFromSearch()'>+</button>"
 					map.addMarker({
 						lat: place.geometry.location.lat(),
 						lng: place.geometry.location.lng(),
 						title: place.name,
 						infoWindow: {
-							content: '<p>' + place.name + "  " + stars + '</p>'
+							content: box_content
 						}
 					});
 					var li = document.createElement("li");
@@ -284,12 +288,16 @@ function addRouteMarkers() {
 	}
 }
 
+// Remove a day from the Timeline.
+// Since nested in day, has to go up to the list to remove from the ul.
 function cancelDay(n){
 	n.parentNode.parentNode.parentNode.removeChild(n.parentNode.parentNode);
 	num_days-=1;
 	updateDays()
 }
 
+// Remove a stop from the Timeline.
+// Since nested in stop, has to go up to the list to remove from the ul.
 function cancelStop(n){
   n.parentNode.parentNode.removeChild(n.parentNode);
   updatePath();
@@ -303,6 +311,7 @@ function cancelStopMap(n){
  // pls josh... i have no idea what this is....
 }
 
+// Adds a day to the end
 function addDay(){
 	num_days+=1;
 	var newstring = '<li><div class="day"><span class="title">Day ' + num_days + ' </span></div></li>';
@@ -310,23 +319,12 @@ function addDay(){
 	updateDays();
 }
 
-function refresh() {
-  updateDays();
-}
-
-function dir(object) {
-    stuff = [];
-    for (s in object) {
-        stuff.push(s);
-    }
-    stuff.sort();
-    return stuff;
-}
 
 $(document).ready(function(){
 
 	createMap();
 
+  // Refresh Timeline to get the time and distance info for the days
   setInterval(refresh,1000);
 
 	// Adds context menu event for right-click on map.
@@ -383,3 +381,28 @@ $(document).ready(function(){
     map.setZoom(7);
   });
 });
+
+// Updates the days in timeline
+function refresh() {
+  updateDays();
+}
+
+// DEBUGGING: Returns a list of functions for the object
+function dir(object) {
+    stuff = [];
+    for (s in object) {
+        stuff.push(s);
+    }
+    stuff.sort();
+    return stuff;
+}
+
+// Random number between min and max
+function random(min, max) {
+  return Math.floor(Math.random() * (max-min)) + min;
+}
+
+// Random number of stars between min and max
+function random_stars(min, max) {
+  var stars = Math.floor(Math.random() * (max-min)) + min;
+}
