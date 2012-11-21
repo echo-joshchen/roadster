@@ -73,7 +73,7 @@ function addPoint(coord) {
     icon: markers[path.length],
     infoWindow: {
   		content: "<p>" + coord[2] + "</p><p><input type='button' onclick='search([" + coord[0] + "," + coord[1] + "], \"\");' value='Search Nearby'></p>" + 
-  			"<span id='marker' class='delete' onclick='cancelStopMarker(this)'><img src='images/cancel.png' alt='cancel' /></span>"
+  			"<span id='marker' class='delete' onclick='cancelStopMarker(\"" + coord[2] + "\")'><img src='images/cancel.png' alt='cancel' /></span>"
 		}
 	});
 	path.push(coord);
@@ -276,8 +276,8 @@ function addRouteMarkers() {
 			title: path[i][2],
 			icon: markers[i],
       infoWindow: {
-      content: "<p>" + path[i][2] + "</p><br /><input onclick='search([" + path[i][0] + "," + path[i][1] + "], \"\")'" + " type='button' value='Search Nearby'>" + 
-        "<span id='marker' class='delete' onclick='cancelStopMarker(this)'><img src='images/cancel.png' alt='cancel' /></span>"
+      content: "<p>" + path[i][2] + "</p><p><input onclick='search([" + path[i][0] + "," + path[i][1] + "], \"\")'" + " type='button' value='Search Nearby'></p>" + 
+        "<span id='marker' class='delete' onclick='cancelStopMarker(\"" + path[i][2] + "\")'><img src='images/cancel.png' alt='cancel' /></span>"
       }
 		});
 	}
@@ -302,8 +302,14 @@ function cancelStop(n){
   renderRoute();
 }
 
-function cancelStopMarker(n){
-  alert("cancelStopMarker: " + n.innerHTML)
+function cancelStopMarker(stop){
+  var li = document.getElementById(stop);
+  li.parentNode.removeChild(li);
+  updatePath();
+  updateDays()
+  map.removeMarkers();  
+  addRouteMarkers();  
+  renderRoute();
 }
 
 // Adds a day to the end
