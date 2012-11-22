@@ -378,7 +378,7 @@ function random_stars(min, max) {
 }
 
 // Random review based on rating
-function random_review(rating, type){
+/*function random_review(rating, type){
    var review = "";
    if(type == "attraction" && rating == 3){
       review += “Very enjoyable, but maybe not memorable. Would still recommend it, though, if you 
@@ -402,7 +402,7 @@ function random_review(rating, type){
       service.”;
    }
    return review;
-}
+}*/
 
 // Generate a random phone number
 function random_phone() {
