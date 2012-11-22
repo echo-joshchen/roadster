@@ -134,6 +134,8 @@ function updateDays() {
   var loc = "San Diego";
   var dist = 0;
   var time = 0;
+  var total_dist= 0;
+  var total_time = 0;
   for (var i = stops.length - 1; i >= 0; i--) {
     if (stops[i].innerHTML.substring(0, 16) == '<div class="day"') {
       var offset = 1;
@@ -158,8 +160,10 @@ function updateDays() {
       }
       stops[i].innerHTML=daytext;
       day -= 1;
-      time = 0;
+      total_dist += dist;
+      total_time += time;
       dist = 0;
+      time = 0;
     } else {
       stops[i].children[1].src = markers[stop-1];
       stop-=1
@@ -169,6 +173,10 @@ function updateDays() {
       loc = stops[i].children[0].innerHTML;
     }
   }
+  total_dist += dist;
+  total_time += time;
+  var stops = document.getElementById("total_td");
+  stops.innerHTML = "Trip Time and Distance: " + total_time + ' hrs, ' + total_dist + ' mi'
 }
 
 function calcDistanceTime(loc1, loc2) {
@@ -220,12 +228,16 @@ function search(coord, value) {
           if ((place.name == "Spindrift Inn") || (place.name == "SeaVenture Hotel") || (place.name == "Alpine Inn")) {
             stars = random_stars(5, 5);
           }
+          var marker_content = '<p>' + place.name + "  " + stars + "</p><p>Phone Number: " + random_phone() + "</p>";
+          // Review goes here:
+          marker_content += "<p>" + "Review" + "</p>"
+          marker_content += "<input type='button' value='Add' onclick='addPoint([" + place.geometry.location.lat() + ", " + place.geometry.location.lng() + ", \"" + place.name + "\"]);'>"
           map.addMarker({
             lat: place.geometry.location.lat(),
             lng: place.geometry.location.lng(),
             title: place.name,
             infoWindow: {
-              content: '<p>' + place.name + "  " + stars + "</p><p>Phone Number: " + random_phone() + "</p><input type='button' value='Add' onclick='addPoint([" + place.geometry.location.lat() + ", " + place.geometry.location.lng() + ", \"" + place.name + "\"]);'>"
+              content: marker_content
             }
           })
           var loc = [place.geometry.location.lat(), place.geometry.location.lng(), place.name]
@@ -383,7 +395,7 @@ function random_phone() {
   for (var i = 0; i < 3; i++) {
     num += Math.floor(Math.random() * 9).toString();
   }
-  num += ')';
+  num += ') ';
   for (var i = 0; i < 3; i++) {
     num += Math.floor(Math.random() * 9).toString();
   }
