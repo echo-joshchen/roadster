@@ -377,6 +377,33 @@ function random_stars(min, max) {
   return stars;
 }
 
+
+
+// Generate a random phone number
+function random_phone() {
+  var num = "";
+  for (var i = 0; i < 3; i++) {
+    num += Math.floor(Math.random() * 9).toString();
+  }
+  num += '-'
+  for (var i = 0; i < 4; i++) {
+    num += Math.floor(Math.random() * 9).toString();
+  }
+  return num
+}
+
+function searchWord() {
+  GMaps.geocode({
+  address: $('#keyword').val(),
+  callback: function(results, status) {
+    if (status == 'OK') {
+      var latlng = results[0].geometry.location;
+      search([latlng.lat(), latlng.lng()], "");
+    }
+  }
+});
+}
+/*
 // Random review based on rating
 function random_review(rating, type){
    var review = "";
@@ -403,28 +430,4 @@ function random_review(rating, type){
    }
    return review;
 }
-
-// Generate a random phone number
-function random_phone() {
-  var num = "";
-  for (var i = 0; i < 3; i++) {
-    num += Math.floor(Math.random() * 9).toString();
-  }
-  num += '-'
-  for (var i = 0; i < 4; i++) {
-    num += Math.floor(Math.random() * 9).toString();
-  }
-  return num
-}
-
-function searchWord() {
-  GMaps.geocode({
-  address: $('#keyword').val(),
-  callback: function(results, status) {
-    if (status == 'OK') {
-      var latlng = results[0].geometry.location;
-      search([latlng.lat(), latlng.lng()], "");
-    }
-  }
-});
-}
+*/
