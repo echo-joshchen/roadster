@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>
+Welcome to Roadster!
+</title>
+
+<!-- Meta Tags -->
+<meta charset="utf-8">
+<meta name="robots" content="index, follow">
+
+
+<!-- CSS -->
+<link href="css/structure.css" rel="stylesheet">
+<link href="css/form.css" rel="stylesheet">
+<link href="css/welcome.css" rel="stylesheet">
+
+<!-- JavaScript -->
+<script src="scripts/welcome.js"></script>
+<script src="scripts/jquery-1.8.1.min.js"></script>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/theme.css" rel="stylesheet">
+
+<!-- Datepicker -->
+<link href="css/ui-lightness/jquery-ui-1.9.1.custom.css" rel="stylesheet">
+<script src="scripts/jquery-1.8.2.js"></script>
+<script src="scripts/jquery-ui-1.9.1.custom.js"></script>
+
+
+<!-- Code used from http://wufoo.com/gallery/templates/forms/meeting-form/ -->
+<script>
+$(function() {
+    $( "#start_date" ).datepicker({
+            showOn: "both",
+            buttonImage: "images/calendar.png",
+            buttonImageOnly: true
+        });
+    $( "#end_date" ).datepicker({
+            showOn: "both",
+            buttonImage: "images/calendar.png",
+            buttonImageOnly: true
+        });
+});
+
+function checkFilled() {
+  var x = document.user_form.username.value;
+  x = x.replace(/^\s+/,""); // strip leading space
+
+  if (x.length == 0) {
+    document.getElementById("saveForm").disabled = true;
+  } else {
+    document.getElementById("saveForm").disabled = false;
+  }
+}
+
+// $(document).ready(function() {
+//   function check() {
+//     if(document.getElementById('start_location').value != "")
+//       document.getElementById('end_location').disabled = false;
+//       document.getElementById('start_date').disabled = false;
+//       document.getElementById('end_date').disabled = false;
+//     else
+//       document.getElementById('end_location').disabled = true;
+//       document.getElementById('start_date').disabled = true;
+//       document.getElementById('end_date').disabled = true;
+//   }
+// });​
+
+// document.getElementById("#end_location").disabled=true;
+
+//  $(document).ready(function() {
+
+//      $("#start_location").focus();
+
+//      var error_message = "Please add first name.";
+
+//       $("#start_location").blur(function() {
+//           if ($(this).val() != '')
+//           {
+//               $("#end_location").removeAttr("disabled");    
+//               //$("#message").html("");      
+//           }
+//      else {              
+//               $("#end_location").attr("disabled", "disabled");  
+//               //$("#message").append(error_message);      
+//           }         
+
+//       });
+//  });​
+
+
+</script>
+</head>
+
+<body id="public">
+
+<div class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <div class="nav-collapse collapse">
+        <ul class="nav pull-right">
+          <li><a href="welcome.html">SIGN UP</a></li>
+          <li><a href="demo.html">LOGIN</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="logo" >
+  <IMG SRC="Roadster-Logo.png" WIDTH=200 HEIGHT=200>
+</div>
+<div id="container" class="ltr">
+
+
+<form id="user_form" name="user_form" class="wufoo topLabel page" autocomplete="off" method="get" action="map.html">
+
+<header id="header" class="info">
+<h2>Welcome to Roadster!</h2>
+<div>Let's keep on planning!</div>
+</header>
+
+<ul class="inputs">
+
+<li id="username">
+
+    <div class="input_field">
+        <input id="username" name="username" type="text" class="field text medium" maxlength="255" onkeyup="checkFilled()" placeholder="User Name" />
+    </div>
+</li>
+
+<li id="password">
+    <div class="input_field">
+        <input id="password" name="password" type="text" class="field text medium" maxlength="255" placeholder="Password" />
+    </div>
+</li>
+
+<div>
+    <input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" disabled="false" type="submit" value="Login"/>
+</div>
+
+</ul>
+</form> 
+
+</div>
+
+</body>
+
+</html>
