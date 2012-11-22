@@ -377,6 +377,33 @@ function random_stars(min, max) {
   return stars;
 }
 
+// Random review based on rating
+function random_review(rating, type){
+   var review = "";
+   if(type == "attraction" && rating == 3){
+      review += “Very enjoyable, but maybe not memorable. Would still recommend it, though, if you 
+      have time.”;
+   }
+   if(type == "attraction" && rating == 4){
+      review += “Such a cool place! Everyone had a good time. Highly recommended.”;
+   }
+   if(type == "attraction" && rating == 5){
+      review += “We had an amazing time! The kids absolutely loved it, and my wife and I had so 
+      much fun!”;
+   }
+   if(type == "hotel" && rating == 3){
+      review += “No bells and whistles, but it was clean and reliable, and that was all we needed.”;
+   }
+   if(type == "hotel" && rating == 4){
+      review += “The place was clean and the owner was very kind. Centrally located.”;
+   }
+   if(type == "hotel" && rating == 5){
+      review += “What an amazing hotel.  Could not have asked for better accommodations or 
+      service.”;
+   }
+   return review;
+}
+
 // Generate a random phone number
 function random_phone() {
   var num = "";
