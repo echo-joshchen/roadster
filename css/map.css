@@ -124,3 +124,7 @@ ul li.stop{
 #searchResults {
 	text-align: left;
 }
+
+#search_name, #search_location {
+	width: 250px;
+}
