@@ -24,6 +24,21 @@ Trip Settings
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="css/theme.css" rel="stylesheet">
 
+
+<script>
+$(document).ready(function() {
+  var start_location = document.getElementById('start_location');
+  var end_location = document.getElementById('end_location');
+  var start_date = document.getElementById('start_date');
+  var end_date = document.getElementById('end_date');
+  
+  start_location.value = getUrlVars()["start_location"];
+  end_location.value = getUrlVars()["end_location"];
+  start_date.value = getUrlVars()["start_date"];
+  end_date.value = getUrlVars()["end_date"];
+});
+</script>
+
 </head>
 
 <body id="public">
@@ -115,10 +130,15 @@ Trip Settings
 	<label class="choice" for="malls">Shopping Malls</label>
 </div>
 
+<input id="start_location" name="start_location" type="hidden" />
+<input id="end_location" name="end_location" type="hidden" />
+<input id="start_date" name="start_date" type="hidden" />
+<input id="end_date" name="end_date" type="hidden" />
+
 <br />
 
 <div>
-	<input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Submit" />
+  <input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Submit" />
 
   <span id="skipspan">
     <a id="skip" class="skip" href="map.html"> Skip </a>
