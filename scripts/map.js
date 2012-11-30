@@ -332,6 +332,14 @@ $(document).ready(function(){
   // Refresh Timeline to get the time and distance info for the days
   setTimeout(refresh,1000);
 
+  var search_input = document.getElementById('keyword');
+  var options = {
+    types: ['(cities)'],
+    componentRestrictions: {country: 'us'}
+  };
+
+  autocomplete = new google.maps.places.Autocomplete(search_input, options);
+
   // Add drag-drop functionality to lists.
   $("#stops").dragsort({
     dragSelector: "li",

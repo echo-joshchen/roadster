@@ -17,7 +17,6 @@ Welcome to Roadster!
 <link href="css/welcome.css" rel="stylesheet">
 
 <!-- JavaScript -->
-<script src="scripts/welcome.js"></script>
 <script src="scripts/jquery-1.8.1.min.js"></script>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
@@ -30,6 +29,9 @@ Welcome to Roadster!
 <script src="scripts/jquery-1.8.2.js"></script>
 <script src="scripts/jquery-ui-1.9.1.custom.js"></script>
 
+<!-- Auto Complete -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script src="scripts/welcome.js"></script>
 
 <!-- Code used from http://wufoo.com/gallery/templates/forms/meeting-form/ -->
 <script>
@@ -62,6 +64,20 @@ function checkFilled() {
     $("#end_date").css("opacity", "1");
   }
 }
+
+$(document).ready(function() {
+
+var start = document.getElementById('start_location');
+var end = document.getElementById('end_location');
+var options = {
+  types: ['(cities)'],
+  componentRestrictions: {country: 'us'}
+};
+
+autocomplete = new google.maps.places.Autocomplete(start, options);
+autocomplete = new google.maps.places.Autocomplete(end, options);
+
+});
 
 // $(document).ready(function() {
 //   function check() {
@@ -126,7 +142,6 @@ function checkFilled() {
   <IMG SRC="Roadster-Logo.png" WIDTH=200 HEIGHT=200>
 </div>
 <div id="container" class="ltr">
-
 
 <form id="trip_form" name="trip_form" class="wufoo topLabel page" autocomplete="off" method="get" action="settings.html">
 
