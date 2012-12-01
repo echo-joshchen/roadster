@@ -4,6 +4,11 @@ This file has searching functions.
 
 **/
 
+var searchMarkers = ['images/marker1.png', 'images/marker2.png', 'images/marker3.png', 'images/marker4.png', 'images/marker5.png',
+                     'images/marker6.png', 'images/marker7.png', 'images/marker8.png', 'images/marker9.png', 'images/marker10.png',
+                     'images/marker11.png', 'images/marker12.png', 'images/marker13.png', 'images/marker14.png', 'images/marker15.png',
+                     'images/marker16.png', 'images/marker17.png', 'images/marker18.png', 'images/marker19.png', 'images/marker20.png']
+
 // Submits a search
 // Gets the name from the "search_name" field
 // Gets the location from the "search_location" field
@@ -30,7 +35,6 @@ function submit_search() {
 function search(coord, value) {
   $("#sidebar").tabs("option", "active", 1);
   document.getElementById("searchResults").innerHTML = "";
-  document.getElementById("search_name").value = "";
   map.removeMarkers();
   addRouteMarkers();
   map.addLayer('places', {
@@ -51,6 +55,7 @@ function search(coord, value) {
             lat: place.geometry.location.lat(),
             lng: place.geometry.location.lng(),
             title: place.name,
+            icon: searchMarkers[i],
             infoWindow: {
               content: marker_content
             }
@@ -64,6 +69,9 @@ function search(coord, value) {
           li.appendChild(add);
           text = document.createTextNode(place.name);
           li.appendChild(text);
+          var image = document.createElement("img");
+          image.setAttribute('src', searchMarkers[i]);
+          li.appendChild(image);
           document.getElementById("searchResults").appendChild(li);
         }
       }
