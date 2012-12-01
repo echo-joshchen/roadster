@@ -1,12 +1,3 @@
-var Bakersfield = [35.424536,-120.325521,"Bakersfield"];
-var SanFrancisco = [37.796763,-122.422234,"San Francisco"];
-var SanDiego = [32.717977,-117.158993,"San Diego"];
-var MBAcquarium = [36.618051,-121.902061,"Monterey Bay Aquarium"];
-var PismoBeach = [35.086115,-120.622912,"Pismo Beach"];
-var Disneyland = [33.809391,-117.918924,"Disneyland"];
-var SpindriftInn = [36.615889,-121.899773, "Spindrift Inn"];
-var SeaVentureHotel = [35.136581,-120.641004, "SeaVenture Hotel"];
-var AlpineInn = [33.803578,-117.917597, "Alpine Inn"];
 var path = [];
 var num_days = 1;
 var distanceAndTime = {};
