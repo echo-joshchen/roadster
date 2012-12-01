@@ -30,6 +30,9 @@ $(document).ready(function(){
   };
   autocomplete = new google.maps.places.Autocomplete(search_location_input, options);
 
+  // For testing
+  addPoint(MBAcquarium);
+
   // Add drag-drop functionality to lists.
   $("#stops").dragsort({
     dragSelector: "li",
