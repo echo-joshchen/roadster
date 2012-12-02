@@ -48,7 +48,7 @@ function stopNode(coord) {
   text.innerHTML = coord[2];
   var img = document.createElement("img");
   img.className = "marker";
-  img.src = "'" + markers[path.length - 1] + "'";
+  img.src = markers[path.length - 1];
   var del = document.createElement("img");
   del.className = "delete";
   del.onclick = function() {cancelStop(node)};

@@ -33,7 +33,7 @@ function submit_search() {
 // Adjusts map and sidebar to respond to a search.
 // Zooms in on the coord and searches for places relating to the value (name)
 function search(coord, value) {
-  $("#sidebar").tabs("option", "active", 1);
+  $("#sidebar a:last").tab("show");
   document.getElementById("searchResults").innerHTML = "";
   map.removeMarkers();
   addRouteMarkers();

@@ -17,6 +17,13 @@
 	padding-left: 0px;
 	overflow: auto;
 }
+#mapCanvas img { 
+  max-width: none;
+}
+
+#mapCanvas label { 
+  width: auto; display:inline; 
+} 
 #sidebar h2  {
 	text-align: center;
 }
