@@ -43,7 +43,11 @@ function search(coord, value) {
     keyword: value,
     search: function (results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < 10; i++) {
+        var max = 10;
+        if (results.length < max) {
+          max = results.length;
+        }
+        for (var i = 0; i < max; i++) {
           var place = results[i];
           var stars = random_stars(3, 5);
 

@@ -15,9 +15,6 @@ var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png',
                'images/markerP.png', 'images/markerQ.png', 'images/markerR.png', 'images/markerS.png', 'images/markerT.png',
                'images/markerU.png', 'images/markerV.png', 'images/markerW.png', 'images/markerX.png', 'images/markerY.png', 'images/markerZ.png'];
 
-// Initialize San Francisco to San Deigo
-distanceAndTime["San FranciscoSan Diego"] = [502, 8.5]
-
 $(document).ready(function(){
 
   beforeCreateMap();
@@ -51,9 +48,10 @@ $(document).ready(function(){
     submit_search();
   });
 
-  $("#timeline").click(function() {
+  $(".active").click(function() {
     map.removeMarkers();
     addRouteMarkers();
+    zoomOut();
   });
 });
 

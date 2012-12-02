@@ -45,6 +45,7 @@ function stopNode(coord) {
   node.style.cursor = "pointer";
   var text = document.createElement("span");
   text.id = "stop_name";
+  text.className = "stop_name";
   text.innerHTML = coord[2];
   var img = document.createElement("img");
   img.className = "marker";
@@ -119,7 +120,7 @@ function updateTimeline() {
   var stops = document.getElementById("stops").children;
   var stop = path.length;
   var day = num_days;
-  var loc = "San Diego";
+  var loc = endLocation[2];
   var dist = 0;
   var time = 0;
   var total_dist= 0;
@@ -135,7 +136,7 @@ function updateTimeline() {
       }
 
       // Get previous location
-      var prev_loc = "San Francisco";
+      var prev_loc = startLocation[2];
       if (offset <= i) {
         prev_loc = stops[i-offset].id;
       }
@@ -171,7 +172,7 @@ function updateTimeline() {
   total_dist += dist;
   total_time += time;
   var stops = document.getElementById("total_td");
-  stops.innerHTML = "Trip Time and Distance: " + total_time + ' hrs, ' + total_dist + ' mi'
+  stops.innerHTML = "Trip Distance and Time: " + total_dist + ' mi, ' + total_time + ' hrs'
 }
 
 function bind_click(node) {

@@ -88,7 +88,7 @@ function createMap() {
       name: 'search_here',
       action: function(e) {
         search([e.latLng.lat(), e.latLng.lng()], "");
-        $("#sidebar").tabs("option", "active", 1);
+        $("#sidebar a:last").tab("show");
       }
     },
     {
@@ -169,4 +169,8 @@ function addRouteMarkers() {
       }
     });
   }
+}
+
+function zoomOut() {
+  map.setZoom(7);
 }
