@@ -11,6 +11,7 @@ var path = [];
 var num_days = 1;
 var distanceAndTime = {};
 var coords = {};
+var initialParams = getUrlVars();
 var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png', 'images/markerD.png', 'images/markerE.png', 'images/markerF.png', 'images/markerG.png', 'images/markerH.png', 'images/markerI.png', 'images/markerJ.png', 'images/markerK.png', 'images/markerL.png', 'images/markerM.png', 'images/markerN.png', 'images/markerO.png', 'images/markerP.png', 'images/markerQ.png', 'images/markerR.png', 'images/markerS.png', 'images/markerT.png', 'images/markerU.png', 'images/markerV.png', 'images/markerW.png', 'images/markerX.png', 'images/markerY.png', 'images/markerZ.png']
 
 

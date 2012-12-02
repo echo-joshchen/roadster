@@ -14,20 +14,32 @@ function createMap() {
   });
 
   // start
-  map.addMarker({
-    lat: SanFrancisco[0],
-    lng: SanFrancisco[1],
-    title: "Start Location: San Francisco",
-    icon: "images/start.png"
+  start = initialParams['start_location'];
+  var startLocation;
+  GMaps.geocode({
+    address: start,
+    callback: function(results, status) {
+      if (status == 'OK') {
+        var latlng = results[0].geometry.location;
+        startLocation = [latlng.lat(), latlng.lng(), start];
+        addStart(startLocation);
+      }
+    }
   });
 
   //end
-  map.addMarker({
-    lat: SanDiego[0],
-    lng: SanDiego[1],
-    title: "End Location: San Diego",
-    icon: "images/end.png"
-  });
+  end = initialParams['end_location'];
+  if (end != '') {}
+    GMaps.geocode({
+      address: end,
+      callback: function(results, status) {
+        if (status == 'OK') {
+          var latlng = results[0].geometry.location;
+          var endLocation = [latlng.lat(), latlng.lng(), start];
+          addEnd(endLocation);
+        }
+      }
+    });
 
   map.drawRoute({
     origin: SanFrancisco,
@@ -59,6 +71,24 @@ function createMap() {
   });
 
   return map;
+}
+
+function addStart(startLocation) {
+  map.addMarker({
+    lat: startLocation[0],
+    lng: startLocation[1],
+    title: "Start Location: " + startLocation[2],
+    icon: "images/start.png"
+  })
+}
+
+function addEnd(endLocation) {
+  map.addMarker({
+    lat: endLocation[0],
+    lng: endLocation[1],
+    title: "Start Location: " + endLocation[2],
+    icon: "images/end.png"
+  })
 }
 
 // Renders the current route
