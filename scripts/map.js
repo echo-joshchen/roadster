@@ -2,25 +2,25 @@ var Bakersfield = [35.424536,-120.325521,"Bakersfield"];
 var SanFrancisco = [37.796763,-122.422234,"San Francisco"];
 var SanDiego = [32.717977,-117.158993,"San Diego"];
 var MBAcquarium = [36.618051,-121.902061,"Monterey Bay Aquarium"];
-var PismoBeach = [35.086115,-120.622912,"Pismo Beach"];
-var Disneyland = [33.809391,-117.918924,"Disneyland"];
-var SpindriftInn = [36.615889,-121.899773, "Spindrift Inn"];
-var SeaVentureHotel = [35.136581,-120.641004, "SeaVenture Hotel"];
-var AlpineInn = [33.803578,-117.917597, "Alpine Inn"];
 var path = [];
 var num_days = 1;
 var distanceAndTime = {};
 var coords = {};
 var initialParams = getUrlVars();
-var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png', 'images/markerD.png', 'images/markerE.png', 'images/markerF.png', 'images/markerG.png', 'images/markerH.png', 'images/markerI.png', 'images/markerJ.png', 'images/markerK.png', 'images/markerL.png', 'images/markerM.png', 'images/markerN.png', 'images/markerO.png', 'images/markerP.png', 'images/markerQ.png', 'images/markerR.png', 'images/markerS.png', 'images/markerT.png', 'images/markerU.png', 'images/markerV.png', 'images/markerW.png', 'images/markerX.png', 'images/markerY.png', 'images/markerZ.png']
-
+var startLocation = [];
+var endLocation = [];
+var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png', 'images/markerD.png', 'images/markerE.png', 
+               'images/markerF.png', 'images/markerG.png', 'images/markerH.png', 'images/markerI.png', 'images/markerJ.png',
+               'images/markerK.png', 'images/markerL.png', 'images/markerM.png', 'images/markerN.png', 'images/markerO.png',
+               'images/markerP.png', 'images/markerQ.png', 'images/markerR.png', 'images/markerS.png', 'images/markerT.png',
+               'images/markerU.png', 'images/markerV.png', 'images/markerW.png', 'images/markerX.png', 'images/markerY.png', 'images/markerZ.png'];
 
 // Initialize San Francisco to San Deigo
 distanceAndTime["San FranciscoSan Diego"] = [502, 8.5]
 
 $(document).ready(function(){
 
-  createMap();
+  beforeCreateMap();
 
   // Refresh Timeline to get the time and distance info for the days
   setTimeout(refresh,1000);
@@ -31,9 +31,6 @@ $(document).ready(function(){
     componentRestrictions: {country: 'us'}
   };
   autocomplete = new google.maps.places.Autocomplete(search_location_input, options);
-
-  // For testing
-  addPoint(MBAcquarium);
 
   // Add drag-drop functionality to lists.
   $("#stops").dragsort({
@@ -57,8 +54,6 @@ $(document).ready(function(){
   $("#timeline").click(function() {
     map.removeMarkers();
     addRouteMarkers();
-    map.setCenter(Bakersfield[0], Bakersfield[1]);
-    map.setZoom(7);
   });
 });
 
