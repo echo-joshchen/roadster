@@ -63,21 +63,36 @@ function stopNode(coord) {
 // Adds a day to the end of the list
 function addDay() {
   num_days+=1;
-  node = dayNode(num_days);
+  node = dayNode(num_days, 0, 0);
   document.getElementById("stops").appendChild(node);
   updateTimeline();
 }
 
 // Creates a day node
-function dayNode(daynum) {
+function dayNode(daynum, dist, time) {
   var node = document.createElement("li");
   node.id = "day" + daynum.toString();
+
   var day = document.createElement("div");
   day.className = "day";
-  var text = document.createElement("span");
-  text.className = "title";
-  text.innerHTML = "Day " + daynum.toString();
-  day.appendChild(text);
+
+  var title = document.createElement("span");
+  title.className = "title";
+  title.innerHTML = "Day " + daynum.toString();
+
+  var dist_time = document.createElement("span");
+  dist_time.className = "details";
+  dist_time.innerHTML = dist.toString() + " mi, " + time.toString() + " hrs"
+
+  var del = document.createElement("img");
+  del.className = "delete";
+  del.onclick = function() {cancelDay(node)};
+  del.src = "images/cancel.png";
+  day.appendChild(title);
+  day.appendChild(dist_time);
+  if (daynum > 1) {
+    day.appendChild(del);
+  }
   node.appendChild(day);
   return node
 }
@@ -109,27 +124,33 @@ function updateTimeline() {
   var time = 0;
   var total_dist= 0;
   var total_time = 0;
+  debugger;
   for (var i = stops.length - 1; i >= 0; i--) {
     if (stops[i].children[0].className == "day") {
       var offset = 1;
+
+      // Skip over days
       while (offset <= i && stops[i-offset].children[0].className == "day")
       {
         offset +=1;
       }
 
-      // get previous location
+      // Get previous location
       var prev_loc = "San Francisco";
       if (offset <= i) {
-        prev_loc = stops[i-offset].children[0].innerHTML;
+        prev_loc = stops[i-offset].id;
       }
+
       var dt = calcDistanceTime(prev_loc, loc)
       dist += dt[0];
       time += dt[1];
       loc = prev_loc;
-      new_node = dayNode(day);
-      stops[i].id = "Day " + day;
-      stops[i].innerHTML = new_node.innerHTML;
+
+      // Update Day
+      document.getElementById("stops").replaceChild(dayNode(day, dist, time), stops[i]);
       day -= 1;
+
+      // Book keeping
       total_dist += dist;
       total_time += time;
       dist = 0;

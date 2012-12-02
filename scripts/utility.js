@@ -7,7 +7,7 @@ This file has utility functions.
 
 // Updates the days in timeline, calls itself every second
 function refresh() {
-  updateDays();
+  updateTimeline();
   setTimeout(refresh,1000);
 }
 

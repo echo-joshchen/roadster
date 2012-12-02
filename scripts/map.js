@@ -13,6 +13,7 @@ var distanceAndTime = {};
 var coords = {};
 var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png', 'images/markerD.png', 'images/markerE.png', 'images/markerF.png', 'images/markerG.png', 'images/markerH.png', 'images/markerI.png', 'images/markerJ.png', 'images/markerK.png', 'images/markerL.png', 'images/markerM.png', 'images/markerN.png', 'images/markerO.png', 'images/markerP.png', 'images/markerQ.png', 'images/markerR.png', 'images/markerS.png', 'images/markerT.png', 'images/markerU.png', 'images/markerV.png', 'images/markerW.png', 'images/markerX.png', 'images/markerY.png', 'images/markerZ.png']
 
+
 // Initialize San Francisco to San Deigo
 distanceAndTime["San FranciscoSan Diego"] = [502, 8.5]
 
@@ -39,14 +40,13 @@ $(document).ready(function(){
     dragBetween: false,
     dragEnd: function() {
       updatePath();
-      updateDays();
+      updateTimeline();
       map.removeMarkers();
       addRouteMarkers();
       renderRoute();
     },
     placeHolderTemplate: ""
   });
-
 
   // Adds search button event handler.
   $("#submit").click(function() {
