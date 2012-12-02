@@ -16,17 +16,17 @@
 	<script type="text/javascript" src="scripts/timeline.js"></script>
 	<script type="text/javascript" src="scripts/search.js"></script>
 	<script type="text/javascript" src="scripts/map.js"></script>
-	<script type="text/javascript" src="scripts/jquery-ui-1.9.1.custom.js"></script>
-	<script type="text/javascript" src="scripts/jquery-ui-1.9.1.custom.min.js"></script>
 
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="css/map.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
-	<link href="css/ui-lightness/jquery-ui-1.9.1.custom.css" rel="stylesheet">
+	<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
     <script>
     $(function() {
-        $( "#sidebar" ).tabs();
+    	alert(1)
+      $('#s a:last').tab('show')
     });
     </script>
 </head>
@@ -34,31 +34,20 @@
 
 	<div id="map"></div>
 
-	<div id="sidebar" class="sidebar">
-	    <ul>
-	        <li><a href="#itinerary" id="timeline">Timeline</a></li>
-	        <li><a href="#searchbar">Search</a></li>
-	    </ul>
-	    <div id="itinerary">
-	    	<span id="total_td">Trip Time and Distance: 8.5 hrs, 502 mi</span>
-	    	<br />
-	        <ul><li class="start"><img src="images/start.png" />San Francisco</li></ul>
-			<ul id="stops">
-				<li><div class="day"><span class="title">Day 1</span><span class="details">8.5 hrs, 502 mi</span></div></li>
-			</ul>
-			<ul><li class="end"><img src="images/end.png" />San Diego<li></ul>
-			<p id="hi"></p>
-			<button type="button" onclick="addDay()">Add Day</button>
-	    </div>
-		<div id="searchbar">
-			<div id="searchOptions">
-				<input id="search_name" type="text" name="search_name" placeholder="Search By Name"><br>
-				<input id="search_location" type="text" name="search_location" placeholder="Search By Location"><br>
-				<input id="submit" type="button" value="Search">
-				<ul id="searchResults"></ul>
-			</div>
-		</div>
+	<ul class="nav nav-tabs" id="s">
+	  <li><a href="#home" data-toggle="tab">Home</a></li>
+	  <li><a href="#profile" data-toggle="tab">Profile</a></li>
+	  <li><a href="#messages" data-toggle="tab">Messages</a></li>
+	  <li><a href="#settings" data-toggle="tab">Settings</a></li>
+	</ul>
+
+	<div class="tab-content">
+	  <div class="tab-pane active" id="home">anan</div>
+	  <div class="tab-pane" id="profile">baba</div>
+	  <div class="tab-pane" id="messages">abab</div>
+	  <div class="tab-pane" id="settings">nana</div>
 	</div>
+
 	
 	<ul id="optionsMenu" class="contextMenu">
 		<li class="add_location"><a href="#add_location">Add</a></li>

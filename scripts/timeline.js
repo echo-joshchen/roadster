@@ -124,7 +124,6 @@ function updateTimeline() {
   var time = 0;
   var total_dist= 0;
   var total_time = 0;
-  debugger;
   for (var i = stops.length - 1; i >= 0; i--) {
     if (stops[i].children[0].className == "day") {
       var offset = 1;
@@ -147,7 +146,12 @@ function updateTimeline() {
       loc = prev_loc;
 
       // Update Day
-      document.getElementById("stops").replaceChild(dayNode(day, dist, time), stops[i]);
+      // This was too slow
+      //document.getElementById("stops").replaceChild(dayNode(day, dist, time), stops[i]);
+      var node = document.getElementById("stops").children[i];
+      node.innerHTML = dayNode(day, dist, time).innerHTML;
+      node.id = "day " + day.toString();
+      bind_click(node)
       day -= 1;
 
       // Book keeping
@@ -168,6 +172,10 @@ function updateTimeline() {
   total_time += time;
   var stops = document.getElementById("total_td");
   stops.innerHTML = "Trip Time and Distance: " + total_time + ' hrs, ' + total_dist + ' mi'
+}
+
+function bind_click(node) {
+  node.onclick = function() {cancelDay(node)};
 }
 
 // Calculates the distance between the two locations
@@ -215,7 +223,7 @@ function deleteNode(node) {
 // Remove a day from the Timeline.
 // Since nested in day, has to go up to the list to remove from the ul.
 function cancelDay(n){
-  deleteNode(n)
+  deleteNode(n);
   num_days-=1;
   updateTimeline()
 }

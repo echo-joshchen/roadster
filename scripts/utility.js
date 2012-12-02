@@ -8,7 +8,7 @@ This file has utility functions.
 // Updates the days in timeline, calls itself every second
 function refresh() {
   updateTimeline();
-  setTimeout(refresh,1000);
+  setTimeout(refresh, 1000);
 }
 
 // Random number of stars between min and max
