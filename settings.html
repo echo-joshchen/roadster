@@ -15,14 +15,20 @@ Trip Settings
 <link href="css/settings.css" rel="stylesheet">
 
 <!-- JavaScript -->
-<script src="scripts/settings.js"></script>
 <script src="scripts/jquery-1.8.1.min.js"></script>
+<script src="scripts/settings.js"></script>
+
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
 
 <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="css/theme.css" rel="stylesheet">
+
+<script src="bootstrap/js/bootstrap.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+
 
 
 <script>
@@ -37,11 +43,15 @@ $(document).ready(function() {
   start_date.value = getUrlVars()["start_date"];
   end_date.value = getUrlVars()["end_date"];
 });
+
+$("a").tooltip({ selector: 'a' });
+
 </script>
 
 </head>
 
 <body id="public">
+
 
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
@@ -79,7 +89,13 @@ $(document).ready(function() {
 <div>
 	<label class="desc" id="name_label" for="name_input">
 		Number of Travelers
+      <a href="#" rel="tooltip" class="why" title="This will be used to plan a road trip to better fit your traveler needs.">[What is this?]</a>  
+
 	</label>
+  
+  <script> $('.why').tooltip() </script>
+ 
+
 	<select id="number" name="num_travelers">
   	<option value="1">1</option>
   	<option value="2">2</option>
@@ -97,7 +113,12 @@ $(document).ready(function() {
 <div>
 	<label class="desc" id="name_label" for="name_input">
 		Check the age ranges that apply to your travelers
+
+    <a href="#" rel="tooltip" class="why" title="This will be used to plan a road trip with age appropriate stops along the way.">[What is this?]</a> 
 	</label>
+
+  <script> $('.why').tooltip() </script>
+
 	<input id="age1" name="age1" type="checkbox" />
 	<label class="choice" for="age1">Less than 5 years old</label>
 	<input id="age2" name="age2" type="checkbox" />
@@ -113,7 +134,12 @@ $(document).ready(function() {
 <div>
 	<label class="desc" id="name_label" for="name_input">
 		Check boxes that apply to your travelers:
+
+    <a href="#" rel="tooltip" class="why" title="This will be used to plan a road trip with different locations along the way.">[What is this?]</a> 
 	</label>
+
+  <script> $('.why').tooltip() </script>
+
 	<input id="aparks" name="aparks" type="checkbox" />
 	<label class="choice" for="aparks">Amusement Parks</label>
 	<input id="museums" name="museums" type="checkbox" />
