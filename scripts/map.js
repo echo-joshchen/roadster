@@ -51,7 +51,7 @@ $(document).ready(function(){
   $(".active").click(function() {
     map.removeMarkers();
     addRouteMarkers();
-    zoomOut();
+    fitMap();
   });
 });
 

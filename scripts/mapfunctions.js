@@ -66,7 +66,7 @@ function createMap() {
     map.addMarker({
       lat: endLocation[0],
       lng: endLocation[1],
-      title: "Start Location: " + endLocation[2],
+      title: "End Location: " + endLocation[2],
       icon: "images/end.png"
     });
 
@@ -78,6 +78,9 @@ function createMap() {
       strokeOpacity: 0.6,
       strokeWeight: 6
     });
+  }
+  else {
+    endLocation = startLocation;
   }
 
   map.setContextMenu({
@@ -99,6 +102,12 @@ function createMap() {
       }
     }]
   });
+
+
+  document.getElementById("start").innerHTML = '<img src="images/start.png" />' + startLocation[2];
+  document.getElementById("end").innerHTML = '<img src="images/end.png" />' + endLocation[2];
+
+  fitMap();
 
   return map;
 }
@@ -122,7 +131,7 @@ function renderRoute() {
   }
 
   // Draw final stretch
-  if (endLocation.length != 0) {
+  if (path.length > 0) {
     map.drawRoute({
       origin: origin.slice(0, 2),
       destination: endLocation.slice(0, 2),
@@ -147,7 +156,7 @@ function addRouteMarkers() {
   });
 
   // Add end location
-  if (endLocation.length != 0) {
+  if (endLocation != startLocation) {
     map.addMarker({
       lat: endLocation[0],
       lng: endLocation[1],
@@ -169,8 +178,21 @@ function addRouteMarkers() {
       }
     });
   }
+
+  fitMap();
 }
 
-function zoomOut() {
-  map.setZoom(7);
+function fitMap() {
+  var places = [new google.maps.LatLng(startLocation[0], startLocation[1]), new google.maps.LatLng (endLocation[0], endLocation[1])];
+  for (var i = 0; i < path.length; i++) {
+    places.push(new google.maps.LatLng(path[i][0], path[i][1]));
+  }
+  var bounds = new google.maps.LatLngBounds ();
+  //  Go through each...
+  for (var i = 0; i < places.length; i++) {
+    //  And increase the bounds to take this point
+    bounds.extend(places[i]);
+  }
+  //  Fit these bounds to the map
+  map.fitBounds (bounds);
 }

@@ -114,34 +114,27 @@ function updatePath() {
 
 // Updates the path after reordering.
 // Works from the bottom to the top
-// Very hackish :(
-// Should be refactored
 function updateTimeline() {
   var stops = document.getElementById("stops").children;
-  var stop = path.length;
+  var stop = path.length - 1;
   var day = num_days;
-  var loc = endLocation[2];
+  var loc = endLocation;
   var dist = 0;
   var time = 0;
   var total_dist= 0;
   var total_time = 0;
   for (var i = stops.length - 1; i >= 0; i--) {
     if (stops[i].children[0].className == "day") {
-      var offset = 1;
+      // Process Day
 
-      // Skip over days
-      while (offset <= i && stops[i-offset].children[0].className == "day")
-      {
-        offset +=1;
+      // Get next (above) stop
+      prev_loc = startLocation;
+      if (stop >= 0) {
+        prev_loc = path[stop];
       }
 
-      // Get previous location
-      var prev_loc = startLocation[2];
-      if (offset <= i) {
-        prev_loc = stops[i-offset].id;
-      }
-
-      var dt = calcDistanceTime(prev_loc, loc)
+      // Calculate distance and time
+      var dt = calcDistanceTime(get_pos(prev_loc), get_pos(loc))
       dist += dt[0];
       time += dt[1];
       loc = prev_loc;
@@ -161,22 +154,35 @@ function updateTimeline() {
       dist = 0;
       time = 0;
     } else {
-      stops[i].children[1].src = markers[stop-1];
-      stop-=1
-      var dt = calcDistanceTime(stops[i].children[0].innerHTML, loc)
+      // Process stop
+      stops[i].children[1].src = markers[stop];
+
+      // Calculate distance and time
+      var dt = calcDistanceTime(get_pos(path[stop]), get_pos(loc))
+
+      // Book keeping
       dist += dt[0];
       time += dt[1];
-      loc = stops[i].children[0].innerHTML;
+      loc = path[stop];
+      stop-=1;
     }
   }
   total_dist += dist;
   total_time += time;
+
+  // Update Total
   var stops = document.getElementById("total_td");
   stops.innerHTML = "Trip Distance and Time: " + total_dist + ' mi, ' + total_time + ' hrs'
 }
 
+// Binds the cancelDay function to the onclick function of the node
 function bind_click(node) {
   node.onclick = function() {cancelDay(node)};
+}
+
+// Gets lat and long as a string from a coord
+function get_pos(coord) {
+  return coord[0].toString() + ", " + coord[1].toString();
 }
 
 // Calculates the distance between the two locations
