@@ -48,6 +48,16 @@ $(function() {
         });
 });
 
+function enter(nextfield) {
+  if(window.event && window.event.keyCode == 13) {
+    $(nextfield).focus();
+    return false; 
+  }
+  else {
+    return true; 
+  }
+}
+
 function checkFilled() {
   var x = document.trip_form.start_location.value;
   x = x.replace(/^\s+/,""); // strip leading space
@@ -78,42 +88,6 @@ $(document).ready(function() {
   autocomplete = new google.maps.places.Autocomplete(end, options);
 
 });
-
-// $(document).ready(function() {
-//   function check() {
-//     if(document.getElementById('start_location').value != "")
-//       document.getElementById('end_location').disabled = false;
-//       document.getElementById('start_date').disabled = false;
-//       document.getElementById('end_date').disabled = false;
-//     else
-//       document.getElementById('end_location').disabled = true;
-//       document.getElementById('start_date').disabled = true;
-//       document.getElementById('end_date').disabled = true;
-//   }
-// });​
-
-// document.getElementById("#end_location").disabled=true;
-
-//  $(document).ready(function() {
-
-//      $("#start_location").focus();
-
-//      var error_message = "Please add first name.";
-
-//       $("#start_location").blur(function() {
-//           if ($(this).val() != '')
-//           {
-//               $("#end_location").removeAttr("disabled");    
-//               //$("#message").html("");      
-//           }
-//      else {              
-//               $("#end_location").attr("disabled", "disabled");  
-//               //$("#message").append(error_message);      
-//           }         
-
-//       });
-//  });​
-
 
 </script>
 </head>
@@ -155,13 +129,13 @@ $(document).ready(function() {
 <li id="Start Location">
 
     <div class="input_field">
-        <input id="start_location" name="start_location" type="text" class="field text medium" maxlength="255" onkeyup="checkFilled()" placeholder="Start Location (Required)" />
+        <input id="start_location" name="start_location" type="text" class="field text medium" maxlength="255" onkeyup="checkFilled()" onkeypress="return enter('#end_location')" placeholder="Start Location (Required)" />
     </div>
 </li>
 
 <li id="End Location">
     <div class="input_field">
-        <input id="end_location" name="end_location" type="text" class="field text medium" disable = "disabled" maxlength="255" onkeyup="" placeholder="End Location" />
+        <input id="end_location" name="end_location" type="text" class="field text medium" disable = "disabled" maxlength="255" onkeypress="return enter('#start_date')" onkeyup="" placeholder="End Location" />
     </div>
 </li>
 
