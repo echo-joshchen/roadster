@@ -30,8 +30,48 @@
 	text-align: center;
 }
 
-#itinerary {
+.addDay {
 	padding: 0px;
+}
+
+.addDay ul {
+	margin-left: 0px;
+}
+
+#addNew {
+	height:100%;
+}
+
+#timeline {
+	height: 98%;
+}
+
+.itinerary {
+	height: 98%;
+	width: 97%;
+	border: 1px black solid;
+	padding: 5px;
+}
+
+#search {
+	text-align: center;
+}
+
+.addText {
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	bottom:5%;
+	font-size: 16pt;
+}
+
+#addNew {
+	left: 5%;
+	width: 100%;
+	height: 7%;
+	text-align: center;
+	position: absolute;
+	bottom:1%;
 }
 
 #searchResults li {
@@ -62,6 +102,11 @@ ul li.stop{
 
 #total_td {
 	font-size: 10pt;
+}
+
+.portal-column {
+	border: 1px black solid;
+	height: 100px;
 }
 
 .day {
@@ -102,8 +147,8 @@ ul li.stop{
 }
 
 .marker {
-	position: absolute;
-	left: 5px;
+	top: 2px;
+	left: 20px;
 }
 
 .stop {
@@ -141,4 +186,16 @@ ul li.stop{
 
 #search_name, #search_location {
 	width: 250px;
+}
+
+.placeholder {
+	border: 1px gray dotted;
+}
+
+#new {
+	position: absolute;
+	bottom: 10px;
+	height: 100px;
+	width: 100%;
+	border: 1px dotted gray;
 }

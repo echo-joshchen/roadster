@@ -23,9 +23,8 @@ function addPoint(coord) {
 
   // Adding list element for the stop
   addStop(coord);
-  
-  // Adding the list element for the day
-  addDay();
+  $("#sidebar a:first").tab("show");
+  refreshMap();
 
   // Update
   renderRoute();
@@ -34,6 +33,10 @@ function addPoint(coord) {
 
 // Adds a stop from coord
 function addStop(coord) {
+  //var node = document.createElement("div");
+  //node.id = "new";
+  //node.appendChild(stopNode(coord));
+  //document.getElementById("timeline").appendChild(node);
   document.getElementById("stops").appendChild(stopNode(coord))
 }
 
@@ -43,22 +46,37 @@ function stopNode(coord) {
   node.id = coord[2];
   node.className = "stop";
   node.style.cursor = "pointer";
+
+  var img = document.createElement("img");
+  img.className = "marker";
+  img.src = markers[path.length - 1];
+
   var text = document.createElement("span");
   text.id = "stop_name";
   text.className = "stop_name";
   text.innerHTML = coord[2];
-  var img = document.createElement("img");
-  img.className = "marker";
-  img.src = markers[path.length - 1];
+
   var del = document.createElement("img");
   del.className = "delete";
   del.onclick = function() {cancelStop(node)};
   del.src = "images/cancel.png";
+
   node.appendChild(text);
   node.appendChild(img);
   node.appendChild(del);
 
   return node;  
+}
+
+// Checks the box for a stop, then adds it to the timeline if there is one.
+function checkForNewDay() {
+  var dayBox = document.getElementById("addNew");
+  if (dayBox.innerHTML != "") {
+    addDay();
+    var stop = dayBox.children[0];
+    document.getElementById("addNew").innerHTML = "";
+    document.getElementById("stops").appendChild(stop);
+  }
 }
 
 // Adds a day to the end of the list
@@ -87,7 +105,7 @@ function dayNode(daynum, dist, time) {
 
   var del = document.createElement("img");
   del.className = "delete";
-  del.onclick = function() {cancelDay(node)};
+  del.setAttribute("onclick", "cancelDay(this)");
   del.src = "images/cancel.png";
   day.appendChild(title);
   day.appendChild(dist_time);
@@ -145,7 +163,6 @@ function updateTimeline() {
       var node = document.getElementById("stops").children[i];
       node.innerHTML = dayNode(day, dist, time).innerHTML;
       node.id = "day " + day.toString();
-      bind_click(node)
       day -= 1;
 
       // Book keeping
@@ -171,13 +188,10 @@ function updateTimeline() {
   total_time += time;
 
   // Update Total
-  var stops = document.getElementById("total_td");
-  stops.innerHTML = "Trip Distance and Time: " + total_dist + ' mi, ' + total_time + ' hrs'
-}
-
-// Binds the cancelDay function to the onclick function of the node
-function bind_click(node) {
-  node.onclick = function() {cancelDay(node)};
+  var distDiv = document.getElementById("total_dist");
+  var timeDiv = document.getElementById("total_time");
+  distDiv.innerHTML = "Total Driving Distance: " + total_dist + ' mi';
+  timeDiv.innerHTML = "Total Driving Time: " + total_time + ' hrs';
 }
 
 // Gets lat and long as a string from a coord
@@ -220,11 +234,13 @@ function calcDistanceTime(loc1, loc2) {
       distanceAndTime[end + start] = dist_time;
     }
   });
+  delete directionsService;
   return dist_time;
 }
 
 function deleteNode(node) {
-  node.parentNode.removeChild(node)
+  var li = node.parentNode.parentNode;
+  node.parentNode.parentNode.parentNode.removeChild(li)
 }
 
 // Remove a day from the Timeline.

@@ -30,21 +30,23 @@ $(document).ready(function(){
   autocomplete = new google.maps.places.Autocomplete(search_location_input, options);
 
   // Add drag-drop functionality to lists.
-  $("#stops").dragsort({
+  $("#stops, #addNew").dragsort({
     dragSelector: "li",
-    dragBetween: false,
+    dragBetween: true,
     dragEnd: function() {
+      checkForNewDay();
       updatePath();
       updateTimeline();
       map.removeMarkers();
       addRouteMarkers();
       renderRoute();
     },
-    placeHolderTemplate: ""
+    placeHolderTemplate: "<li class='placeholder'></li>"
   });
 
   // Adds search button event handler.
   $("#submit").click(function() {
+    alert("!")
     submit_search();
   });
 

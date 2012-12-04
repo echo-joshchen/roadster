@@ -195,4 +195,17 @@ function fitMap() {
   }
   //  Fit these bounds to the map
   map.fitBounds (bounds);
+
+  delete bounds;
+  for (var i = 0; i < places.length; i++) {
+    delete places[i];
+  }
+  delete places;
+}
+
+function refreshMap() {
+  fitMap();
+  map.removeMarkers();
+  addRouteMarkers();
+  renderRoute();
 }
