@@ -46,6 +46,11 @@ $(function() {
             buttonImage: "images/calendar.png",
             buttonImageOnly: true
         });
+    $("#start_date").change(function() {
+        var test = $(this).datepicker('getDate');
+        test.setDate(test.getDate());
+        $("#end_date").datepicker("option", "minDate", test); 
+    }); 
 });
 
 function enter(nextfield) {
