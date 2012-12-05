@@ -27,7 +27,6 @@ function addPoint(coord) {
   refreshMap();
 
   // Update
-  renderRoute();
   updateTimeline();
 }
 
