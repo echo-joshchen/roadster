@@ -107,7 +107,12 @@ function createMap() {
   document.getElementById("start").innerHTML = '<img src="images/start.png" />' + startLocation[2];
   document.getElementById("end").innerHTML = '<img src="images/end.png" />' + endLocation[2];
 
-  fitMap();
+  if (startLocation != endLocation) {
+    fitMap();
+  }
+  else {
+    map.setZoom(9);
+  }
 
   return map;
 }
