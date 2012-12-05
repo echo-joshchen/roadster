@@ -56,6 +56,7 @@ function getUrlVars()
         vars.push(hash[0]);
         hash[1] = hash[1].replace(new RegExp("%252C", "g"), ",");
         hash[1] = hash[1].replace(new RegExp("%2B", "g"), " ");
+        hash[1] = hash[1].replace(new RegExp("%252F", "g"), "/");
         vars[hash[0]] = hash[1];
     }
     return vars;

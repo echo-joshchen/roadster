@@ -16,7 +16,6 @@ var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png',
                'images/markerU.png', 'images/markerV.png', 'images/markerW.png', 'images/markerX.png', 'images/markerY.png', 'images/markerZ.png'];
 
 $(document).ready(function(){
-
   beforeCreateMap();
 
   // Refresh Timeline to get the time and distance info for the days
@@ -29,6 +28,8 @@ $(document).ready(function(){
   };
   autocomplete = new google.maps.places.Autocomplete(search_location_input, options);
 
+
+  document.getElementById("trip").innerHTML = "Trip: " + initialParams["start_date"] + " - " + initialParams["end_date"];
   // Add drag-drop functionality to lists.
   $("#stops, #addNew").dragsort({
     dragSelector: "li",
@@ -53,12 +54,13 @@ $(document).ready(function(){
 
   var start = initialParams['start_date'];
   var end = initialParams['end_date'];
-  if (start != undefined) {
-    $("#trip").innerHTML = start;
-    if (end != undefined) {
-      $("#trip").innerHTML += " to " + end;
+  if (start != "") {
+    document.getElementById("trip").innerHTML = start;
+    if (end != "") {
+      document.getElementById("trip").innerHTML += " to " + end;
     }
   }
+
 });
 
 /*
