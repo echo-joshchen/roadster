@@ -138,10 +138,11 @@ ul li.stop{
 	left: 40%;
 }
 
-.day .delete {
+.day_delete {
 	position: absolute;
 	right: 10px;
-	top: 20%;
+	top: 0px;
+	cursor: default;
 }
 
 .delete#marker {

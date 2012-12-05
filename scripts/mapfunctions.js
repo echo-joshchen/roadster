@@ -124,7 +124,16 @@ function renderRoute() {
 }
 
 function renderStep(i) {
-  if (i == 0) {
+  if (i == 0 && path.length == 0) {
+    map.drawRoute({
+      origin: startLocation.slice(0, 2),
+      destination: endLocation.slice(0, 2),
+      travelMode: 'driving',
+      strokeColor: '#CC0000',
+      strokeOpacity: 0.6,
+      strokeWeight: 6
+    });
+  } else if (i == 0) {
     map.drawRoute({
       origin: startLocation.slice(0, 2),
       destination: path[i].slice(0, 2),

@@ -102,10 +102,11 @@ function dayNode(daynum, dist, time) {
   dist_time.className = "details";
   dist_time.innerHTML = dist.toString() + " mi, " + time.toString() + " hrs"
 
-  var del = document.createElement("img");
-  del.className = "delete";
+  var del = document.createElement("span");
+  del.className = "day_delete";
   del.setAttribute("onclick", "cancelDay(this)");
-  del.src = "images/cancel.png";
+  del.innerHTML = "x"
+
   day.appendChild(title);
   day.appendChild(dist_time);
   if (daynum > 1) {
