@@ -46,7 +46,6 @@ $(document).ready(function(){
 
   // Adds search button event handler.
   $("#submit").click(function() {
-    alert("!")
     submit_search();
   });
 
@@ -55,6 +54,15 @@ $(document).ready(function(){
     addRouteMarkers();
     fitMap();
   });
+
+  var start = initialParams['start_date'];
+  var end = initialParams['end_date'];
+  if (start != undefined) {
+    $("#trip").innerHTML = start;
+    if (end != undefined) {
+      $("#trip").innerHTML += " to " + end;
+    }
+  }
 });
 
 /*
