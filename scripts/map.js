@@ -53,12 +53,13 @@ $(document).ready(function(){
   var start = initialParams['start_date'];
   var end = initialParams['end_date'];
   if (start != "") {
-    document.getElementById("trip").innerHTML = "Trip: " + start;
+    document.getElementById("trip").innerHTML = start;
     if (end != "") {
       document.getElementById("trip").innerHTML += " to " + end;
     }
   }
 
+  document.getElementById("addNew").innerHTML = ""
 });
 
 /*

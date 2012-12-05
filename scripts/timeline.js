@@ -187,10 +187,10 @@ function updateTimeline() {
   total_time += time;
 
   // Update Total
-  var distDiv = document.getElementById("total_dist");
-  var timeDiv = document.getElementById("total_time");
-  distDiv.innerHTML = "Total Driving Distance: " + total_dist + ' mi';
-  timeDiv.innerHTML = "Total Driving Time: " + total_time + ' hrs';
+  var distSpan = document.getElementById("total_dist");
+  var timeSpan = document.getElementById("total_time");
+  distSpan.innerHTML = total_dist + ' mi';
+  timeSpan.innerHTML = total_time + ' hrs';
 }
 
 // Gets lat and long as a string from a coord
