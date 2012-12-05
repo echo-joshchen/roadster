@@ -128,6 +128,7 @@ function renderRoute() {
       strokeWeight: 6
     });
     origin = path[i];
+    alert(i);
   }
 
   // Draw final stretch
@@ -140,6 +141,7 @@ function renderRoute() {
       strokeOpacity: 0.6,
       strokeWeight: 6
     });
+    alert("final");
   }
 }
 

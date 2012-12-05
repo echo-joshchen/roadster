@@ -37,9 +37,7 @@ $(document).ready(function(){
       checkForNewDay();
       updatePath();
       updateTimeline();
-      map.removeMarkers();
-      addRouteMarkers();
-      renderRoute();
+      refreshMap();
     },
     placeHolderTemplate: "<li class='placeholder'></li>"
   });
@@ -50,9 +48,7 @@ $(document).ready(function(){
   });
 
   $(".active").click(function() {
-    map.removeMarkers();
-    addRouteMarkers();
-    fitMap();
+    refreshMap();
   });
 
   var start = initialParams['start_date'];
