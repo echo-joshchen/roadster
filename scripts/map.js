@@ -28,8 +28,6 @@ $(document).ready(function(){
   };
   autocomplete = new google.maps.places.Autocomplete(search_location_input, options);
 
-
-  document.getElementById("trip").innerHTML = "Trip: " + initialParams["start_date"] + " - " + initialParams["end_date"];
   // Add drag-drop functionality to lists.
   $("#stops, #addNew").dragsort({
     dragSelector: "li",
@@ -55,7 +53,7 @@ $(document).ready(function(){
   var start = initialParams['start_date'];
   var end = initialParams['end_date'];
   if (start != "") {
-    document.getElementById("trip").innerHTML = start;
+    document.getElementById("trip").innerHTML = "Trip: " + start;
     if (end != "") {
       document.getElementById("trip").innerHTML += " to " + end;
     }
@@ -89,6 +87,5 @@ $(document).ready(function(){
       service.”;
    }
    return review;
-<<<<<<< HEAD
 }
 */
