@@ -115,33 +115,39 @@ function createMap() {
 // Renders the current route
 function renderRoute() {
   map.cleanRoute();
-  var origin = startLocation;
+  renderStep(0);
+}
 
-  // Loop to draw between each point
-  for (var i = 0; i < path.length; i++) {
+function renderStep(i) {
+  if (i == 0) {
     map.drawRoute({
-      origin: origin.slice(0, 2),
+      origin: startLocation.slice(0, 2),
       destination: path[i].slice(0, 2),
       travelMode: 'driving',
       strokeColor: '#CC0000',
       strokeOpacity: 0.6,
       strokeWeight: 6
     });
-    origin = path[i];
-    alert(i);
-  }
-
-  // Draw final stretch
-  if (path.length > 0) {
+    renderStep(i+1);
+  } else if (i == path.length) {
     map.drawRoute({
-      origin: origin.slice(0, 2),
+      origin: path[i-1].slice(0, 2),
       destination: endLocation.slice(0, 2),
       travelMode: 'driving',
       strokeColor: '#CC0000',
       strokeOpacity: 0.6,
       strokeWeight: 6
     });
-    alert("final");
+  } else {
+    map.drawRoute({
+      origin: path[i-1].slice(0, 2),
+      destination: path[i].slice(0, 2),
+      travelMode: 'driving',
+      strokeColor: '#CC0000',
+      strokeOpacity: 0.6,
+      strokeWeight: 6
+    });
+    renderStep(i+1);
   }
 }
 
