@@ -31,6 +31,7 @@ body {
   text-decoration:underline;
   vertical-align: bottom;
   line-height: 20px;
+  cursor: pointer;
 }
 
 .logo{

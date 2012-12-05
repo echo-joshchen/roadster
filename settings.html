@@ -38,6 +38,11 @@ $(document).ready(function() {
   start_date.value = getUrlVars()["start_date"];
   end_date.value = getUrlVars()["end_date"];
 });
+
+function submit() {
+  $("#submit").click();
+}
+
 </script>
 
 </head>
@@ -159,7 +164,7 @@ $(document).ready(function() {
   <input id="saveForm" name="saveForm" class="btn btn-large btn-primary submit" type="submit" value="Submit" />
 
   <span id="skipspan">
-    <input id="skip" name="saveForm" class="skip" type="submit" value="Skip" />
+    <a id="skip" class="skip" onclick="submit()"> Skip </a>
   </span>
 </div>
 
