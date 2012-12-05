@@ -77,20 +77,17 @@ function submit() {
 <form id="settings_form" name="settings_form" class="wufoo topLabel page" autocomplete="off" method="get" action="map.html">
 
 <header id="header" class="info">
-<h2>Traveler Information</h2>
-<div>
-	<p>Add some info about your fellow travelers to recieve tailored trip suggestions.</p>
-</div>
+<h2>Traveler Information
+    <font size="2"><a href="#" rel="tooltip" class="why" title="This will be used to plan a road trip to better fit your traveler needs.">[What is this?]</a></font> 
+</h2>
+  <script> $('.why').tooltip() </script>
 </header>
 
 <div>
 	<label class="desc" id="name_label" for="name_input">
 		Number of Travelers
-      <a href="#" rel="tooltip" class="why" title="This will be used to plan a road trip to better fit your traveler needs.">[What is this?]</a>  
-
 	</label>
   
-  <script> $('.why').tooltip() </script>
  
 
 	<select id="number" name="num_travelers">
@@ -111,10 +108,8 @@ function submit() {
 	<label class="desc" id="name_label" for="name_input">
 		Check the age ranges that apply to your travelers
 
-    <a href="#" rel="tooltip" class="why" title="This will be used to plan a road trip with age appropriate stops along the way.">[What is this?]</a> 
 	</label>
 
-  <script> $('.why').tooltip() </script>
 
 	<input id="age1" name="age1" type="checkbox" />
 	<label class="choice" for="age1">Less than 5 years old</label>
@@ -132,10 +127,8 @@ function submit() {
 	<label class="desc" id="name_label" for="name_input">
 		Check boxes that apply to your travelers:
 
-    <a href="#" rel="tooltip" class="why" title="This will be used to plan a road trip with different locations along the way.">[What is this?]</a> 
 	</label>
 
-  <script> $('.why').tooltip() </script>
 
 	<input id="aparks" name="aparks" type="checkbox" />
 	<label class="choice" for="aparks">Amusement Parks</label>
