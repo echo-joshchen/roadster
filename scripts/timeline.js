@@ -60,8 +60,8 @@ function stopNode(coord) {
   del.onclick = function() {cancelStop(node)};
   del.src = "images/cancel.png";
 
-  node.appendChild(text);
   node.appendChild(img);
+  node.appendChild(text);
   node.appendChild(del);
 
   return node;  
@@ -121,8 +121,9 @@ function updatePath() {
   var newPath = [];
   for (var i = 0; i < stops.length; i++) {
     for (var j = 0; j < path.length; j++) {
-      if (stops[i].children[0].innerHTML == path[j][2]) {
+      if (stops[i].id == path[j][2]) {
         newPath.push(path[j]);
+        break;
       }
     }
   }
@@ -141,6 +142,9 @@ function updateTimeline() {
   var total_dist= 0;
   var total_time = 0;
   for (var i = stops.length - 1; i >= 0; i--) {
+    if (stops[i].children[0] == undefined) {
+      continue;
+    }
     if (stops[i].children[0].className == "day") {
       // Process Day
 
@@ -171,7 +175,7 @@ function updateTimeline() {
       time = 0;
     } else {
       // Process stop
-      stops[i].children[1].src = markers[stop];
+      stops[i].children[0].src = markers[stop];
 
       // Calculate distance and time
       var dt = calcDistanceTime(get_pos(path[stop]), get_pos(loc))
@@ -237,15 +241,19 @@ function calcDistanceTime(loc1, loc2) {
   return dist_time;
 }
 
-function deleteNode(node) {
+function deleteNodeForDay(node) {
   var li = node.parentNode.parentNode;
   node.parentNode.parentNode.parentNode.removeChild(li)
+}
+
+function deleteNode(node) {
+  node.parentNode.removeChild(node)
 }
 
 // Remove a day from the Timeline.
 // Since nested in day, has to go up to the list to remove from the ul.
 function cancelDay(n){
-  deleteNode(n);
+  deleteNodeForDay(n);
   num_days-=1;
   updateTimeline()
 }

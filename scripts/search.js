@@ -66,16 +66,23 @@ function search(coord, value) {
           })
           var loc = [place.geometry.location.lat(), place.geometry.location.lng(), place.name]
           var li = document.createElement("li");
-          var add = document.createElement("button");
-          add.setAttribute('onclick', 'addPoint([' + loc[0] + ',' + loc[1] + ',"' + loc[2] + '"])');
-          var text = document.createTextNode("+");
-          add.appendChild(text);
-          li.appendChild(add);
-          text = document.createTextNode(place.name);
-          li.appendChild(text);
+          li.className = "search_result";
+
           var image = document.createElement("img");
+          image.className = "search_marker";
           image.setAttribute('src', searchMarkers[i]);
           li.appendChild(image);
+
+          var text = document.createTextNode(place.name);
+          li.appendChild(text);
+
+          var add = document.createElement("button");
+          add.className = "add_button";
+          add.setAttribute('onclick', 'addPoint([' + loc[0] + ',' + loc[1] + ',"' + loc[2] + '"])');
+          text = document.createTextNode("+");
+          add.appendChild(text);
+          li.appendChild(add);
+
           document.getElementById("searchResults").appendChild(li);
         }
       }

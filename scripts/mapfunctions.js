@@ -128,7 +128,8 @@ function renderStep(i) {
       strokeOpacity: 0.6,
       strokeWeight: 6
     });
-    renderStep(i+1);
+    setTimeout(function() {renderStep(i+1)}, 50);
+    //renderStep(i+1);
   } else if (i == path.length) {
     map.drawRoute({
       origin: path[i-1].slice(0, 2),
@@ -147,7 +148,8 @@ function renderStep(i) {
       strokeOpacity: 0.6,
       strokeWeight: 6
     });
-    renderStep(i+1);
+    setTimeout(function() {renderStep(i+1)}, 50);
+    //renderStep(i+1);
   }
 }
 
