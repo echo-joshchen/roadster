@@ -45,20 +45,18 @@
 #my-tab-content {
 	padding-top: 0px;
 	position: relative;
-	top: -20px;
 	height: 94%;
 	overflow: hidden;
 }
 
 #timeline {
-	position: relative;
 	width: 100%;
 	height: 100%;
 }
 
 .itinerary {
 	background-color: #FFC;
-	height: 70%;
+	height: 78%;
 	width: 96%;
 	border: 1px black solid;
 	padding: 5px;
@@ -87,17 +85,20 @@
 	height: 50px;
 	text-align: center;
 	position: relative;
-	left: 5%;
-	top: -10px;
+	left: 3%;
+	top: -14px;
+}
+
+#newStopList {
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	position: relative;
 }
 
 #searchResults li {
 	border: 1px solid black;
 	margin: 2px;
-}
-
-.tab-content {
-	height: 91%;
 }
 
 ul {
@@ -185,6 +186,7 @@ ul li.stop{
 	margin-top: 10px;
 	margin-right: 5px;
 	float: right;
+	cursor: default;
 }
 
 #switch {
@@ -209,14 +211,6 @@ ul li.stop{
 	border: 1px gray dotted;
 }
 
-#new {
-	position: absolute;
-	bottom: 10px;
-	height: 100px;
-	width: 100%;
-	border: 1px dotted gray;
-}
-
 .search_result {
 	padding-left: 10px;
 }
@@ -231,10 +225,32 @@ ul li.stop{
 }
 
 #newStop {
-	height: 50px;
-	border: 1px solid blue;
+	height: 75px;
+	border: 1px dotted blue;
+	overflow: default;
 }
 
+#dragText {
+	text-align: center;
+}
+
+#hideStopList {
+	float: right;
+	cursor: default;
+}
+
+#newStop ul {
+	margin-left: 0px;
+}
+
+#newStop li {
+	width: 90%;
+	text-align: left;
+}
+
+#tripDetails {
+	height:60px;
+}
 .calendar { width: 40px; font-size: 0.8em;
 -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;
 box-shadow: 0 0 5px #05587e; -moz-box-shadow: 0 0 5px #05587e; -webkit-box-shadow: 0 0 5px #05587e;

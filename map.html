@@ -41,20 +41,21 @@
         <li><a href="#search" data-toggle="tab">Search</a></li>
     </ul>
 
-
-    <div><b>Trip:</b> <span id="trip">12/5 - 12/6</span></div>
-    <div><b>Total Driving Distance:</b> <span id="total_dist">0 mi</span></div>
-    <div><b>Total Driving Time:</b> <span id="total_time">0 hrs</span></div>
-
-
     <div id="my-tab-content" class="tab-content">
 
       <div class="tab-pane active" id="timeline">
-        <div><b>Trip:</b> <span id="trip">12/5 - 12/6</span></div>
-        <div><b>Total Driving Distance:</b> <span id="total_dist">0 mi</span></div>
-        <div><b>Total Driving Time:</b> <span id="total_time">0 hrs</span></div>
+        <div id="tripDetails">
+          <div><b>Trip:</b> <span id="trip">12/5 - 12/6</span></div>
+          <div><b>Total Driving Distance:</b> <span id="total_dist">0 mi</span></div>
+          <div><b>Total Driving Time:</b> <span id="total_time">0 hrs</span></div>
+        </div>
 
         <div id="newStop">
+          <div id="dragText">
+            Drag New Stop to Add
+            <span id="hideStopList">[hide]</span>
+          </div>
+          <ul id="newStopList"></ul>
         </div>
 
         <div class="itinerary">
@@ -76,11 +77,8 @@
         </div>
 
         <div id ="addDay" class="addDay">
-          <div class="addText">
-            Add to New Day
-          </div>
-          <ul id ="addNew">
-          </ul>
+          <div class="addText">Add to New Day</div>
+          <ul id ="addNew"></ul>
         </div>
       </div>
 

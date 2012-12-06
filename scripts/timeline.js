@@ -32,10 +32,19 @@ function addPoint(coord) {
 
 // Adds a stop from coord
 function addStop(coord) {
-  var newSpot = document.getElementById("newStop");
-  newSpot.style.color="blue";
-  //document.getElementById("timeline").appendChild(node);
-  document.getElementById("stops").appendChild(stopNode(coord))
+  $("#newStop").show()
+
+  var stop_height = $('#newStop').height();
+
+  var new_height = old_height - stop_height;
+
+  alert(old_height.toString() + ", " + new_height.toString())
+
+  $('.itinerary').height(new_height);
+
+  var newStop = document.getElementById("newStop");
+  curr_stop = coord;
+  document.getElementById("newStopList").appendChild(stopNode(curr_stop));
 }
 
 // Creates a stop node
@@ -354,4 +363,10 @@ function cancelStop(n){
 
 function cancelStopMarker(name) {
   deleteNode(document.getElementById(name));
+}
+
+function replaceCurrStop() {
+  if (document.getElementById("newStopList").innerHTML == "") {
+    document.getElementById("newStopList").appendChild(stopNode(curr_stop));
+  }
 }

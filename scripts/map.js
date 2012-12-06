@@ -14,8 +14,12 @@ var markers = ['images/markerA.png', 'images/markerB.png', 'images/markerC.png',
                'images/markerK.png', 'images/markerL.png', 'images/markerM.png', 'images/markerN.png', 'images/markerO.png',
                'images/markerP.png', 'images/markerQ.png', 'images/markerR.png', 'images/markerS.png', 'images/markerT.png',
                'images/markerU.png', 'images/markerV.png', 'images/markerW.png', 'images/markerX.png', 'images/markerY.png', 'images/markerZ.png'];
+var curr_stop = null;
+var old_height = 800;
 
 $(document).ready(function(){
+  old_height = $(".itinerary").height();
+
   beforeCreateMap();
 
   // Refresh Timeline to get the time and distance info for the days
@@ -29,10 +33,11 @@ $(document).ready(function(){
   autocomplete = new google.maps.places.Autocomplete(search_location_input, options);
 
   // Add drag-drop functionality to lists.
-  $("#stops, #addNew").dragsort({
+  $("#stops, #addNew, #newStopList").dragsort({
     dragSelector: "li",
     dragBetween: true,
     dragEnd: function() {
+      replaceCurrStop();
       checkForNewDay();
       updatePath();
       updateTimeline();
@@ -41,6 +46,8 @@ $(document).ready(function(){
     placeHolderTemplate: "<li class='placeholder'></li>"
   });
 
+  $("#newStop").hide();
+
   // Adds search button event handler.
   $("#submit").click(function() {
     submit_search();
@@ -48,6 +55,12 @@ $(document).ready(function(){
 
   $(".active").click(function() {
     refreshMap();
+  });
+
+  $("#hideStopList").click(function() {
+    document.getElementById("newStopList").innerHTML = "";
+    $("#newStop").hide();
+    $(".itinerary").height(old_height);
   });
 
   var start = initialParams['start_date'];
