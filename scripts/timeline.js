@@ -169,7 +169,15 @@ function getCurrentDate(daynum){
   newStart[0] = parseInt(newStart[0])
   newStart[1] = parseInt(newStart[1])
   newStart[2] = parseInt(newStart[2])
-  newStart[1] = newStart[1] + (daynum - 1);
+  
+  var date = new Date(newStart[2], newStart[0] - 1, newStart[1]);
+  var numberOfDaysToAdd = daynum - 1;
+  date.setDate(date.getDate() + numberOfDaysToAdd); 
+  newStart[0] = date.getMonth() + 1; //Add 1 because January is set to 0 and Dec is 11
+  newStart[1] = date.getDate();
+  // var year = date.getFullYear();
+  // console.log(month + "/" + day + "/" + year);
+
   dateArray = []
   if (newStart[0] == 1)
     dateArray[0] = 'Jan'
@@ -195,6 +203,7 @@ function getCurrentDate(daynum){
     dateArray[0] = 'Nov'
   else if (newStart[0] == 12)
     dateArray[0] = 'Dec'
+
 
   dateArray[1] = newStart[1]
 
