@@ -33,12 +33,11 @@ function addPoint(coord) {
 // Adds a stop from coord
 function addStop(coord) {
   $("#newStop").show()
-
+  document.getElementById("newStopList").innerHTML = "";
+  
   var stop_height = $('#newStop').height();
 
   var new_height = old_height - stop_height;
-
-  alert(old_height.toString() + ", " + new_height.toString())
 
   $('.itinerary').height(new_height);
 
