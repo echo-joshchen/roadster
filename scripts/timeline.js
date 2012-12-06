@@ -91,8 +91,23 @@ function dayNode(daynum, dist, time) {
   var node = document.createElement("li");
   node.id = "day" + daynum.toString();
 
+
   var day = document.createElement("div");
   day.className = "day";
+
+
+  dateArray = getCurrentDate(daynum);
+
+  var calendar = document.createElement("div");
+  calendar.className = "calendar";
+  
+  var month = document.createElement("span");
+  month.className = "month";
+  month.innerHTML = dateArray[0];
+  
+  var calendarDay = document.createElement("span");
+  calendarDay.className = "calendarDay";
+  calendarDay.innerHTML = dateArray[1].toString();
 
   var title = document.createElement("span");
   title.className = "title";
@@ -107,6 +122,27 @@ function dayNode(daynum, dist, time) {
   del.setAttribute("onclick", "cancelDay(this)");
   del.innerHTML = "x"
 
+  var startDate = initialParams['start_date'];
+  var endDate = initialParams['end_date'];
+  if (startDate != '') {
+    dateArray = getCurrentDate(daynum);
+
+    var calendar = document.createElement("div");
+    calendar.className = "calendar";
+    
+    var month = document.createElement("span");
+    month.className = "month";
+    month.innerHTML = dateArray[0];
+    
+    var calendarDay = document.createElement("span");
+    calendarDay.className = "calendarDay";
+    calendarDay.innerHTML = dateArray[1].toString();
+
+    calendar.appendChild(month);
+    calendar.appendChild(calendarDay);
+  }
+
+  day.appendChild(calendar);
   day.appendChild(title);
   day.appendChild(dist_time);
   if (daynum > 1) {
@@ -114,6 +150,50 @@ function dayNode(daynum, dist, time) {
   }
   node.appendChild(day);
   return node
+
+}
+
+function getCurrentDate(daynum){
+
+  start = initialParams['start_date'];
+  end = initialParams['end_date'];
+  newStart = start.split('/')
+  newStart[0] = parseInt(newStart[0])
+  newStart[1] = parseInt(newStart[1])
+  newStart[2] = parseInt(newStart[2])
+  newStart[1] = newStart[1] + (daynum - 1);
+  dateArray = []
+  if (newStart[0] == 1)
+    dateArray[0] = 'Jan'
+  else if (newStart[0] == 2)
+    dateArray[0] = 'Feb'
+  else if (newStart[0] == 3)
+    dateArray[0] = 'March'
+  else if (newStart[0] == 4)
+    dateArray[0] = 'Apr'
+  else if (newStart[0] == 5)
+    dateArray[0] = 'May'
+  else if (newStart[0] == 6)
+    dateArray[0] = 'Jun'
+  else if (newStart[0] == 7)
+    dateArray[0] = 'Jul'
+  else if (newStart[0] == 8)
+    dateArray[0] = 'Aug'
+  else if (newStart[0] == 9)
+    dateArray[0] = 'Sep'
+  else if (newStart[0] == 10)
+    dateArray[0] = 'Oct'
+  else if (newStart[0] == 11)
+    dateArray[0] = 'Nov'
+  else if (newStart[0] == 12)
+    dateArray[0] = 'Dec'
+
+  dateArray[1] = newStart[1]
+
+
+
+  return dateArray
+
 }
 
 // Updates the path after reordering.

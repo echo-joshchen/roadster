@@ -18,6 +18,10 @@
 	padding-left: 0px;
 }
 
+.nav {
+	margin-bottom: 0px;
+}
+
 #mapCanvas img { 
   max-width: none;
 }
@@ -48,7 +52,7 @@
 
 .itinerary {
 	background-color: #FFC;
-	height: 85%;
+	height: 77%;
 	width: 97%;
 	border: 1px black solid;
 	padding: 5px;
@@ -117,16 +121,16 @@ ul li.stop{
 	position: relative;
 	border: solid;
 	border-color: #BBB;
-	margin-left: 0px;
-	height: 35px;
+	margin-left: -15px;
+	height: 40px;
 }
 
 .day .title {
-	padding-left:20px;
+	padding-left:100px;
 	font-weight:bold;
 	font-size: 16pt;
 	position: absolute;
-	top: 15%;
+	top: 25%;
 }
 
 .day .details {
@@ -134,14 +138,14 @@ ul li.stop{
 	font-size: 11pt;
 	float: right;
 	position: absolute;
-	top: 20%;
-	left: 40%;
+	top: 26%;
+	left: 65%;
 }
 
 .day_delete {
 	position: absolute;
 	right: 10px;
-	top: 0px;
+	top: 9px;
 	cursor: default;
 }
 
@@ -217,3 +221,30 @@ ul li.stop{
 	float: right;
 	vertical-align: middle;
 }
+
+	.calendar { width: 40px; font-size: 0.8em;
+-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;
+box-shadow: 0 0 5px #05587e; -moz-box-shadow: 0 0 5px #05587e; -webkit-box-shadow: 0 0 5px #05587e;
+}
+
+.calendar > span { display: block; }
+
+.calendar > .month { text-align: center; font-size: 1.5em;
+background: #6086a6; color: #fff; font-weight: bold;
+-webkit-border-top-left-radius: 5px; -moz-border-radius-topleft: 5px;
+-webkit-border-top-right-radius: 5px; -moz-border-radius-topright: 5px;
+text-shadow: 0 1px #000;
+background: -webkit-gradient(linear, left top, left bottom, from(#acc0d1), to(#6086a6));
+        background: -moz-linear-gradient(top, #acc0d1, #6086a6);
+}
+
+.calendar > .calendarDay { text-align: center; font-weight: bold; font-size: 1.3em;
+background: #fff;
+-webkit-border-bottom-left-radius: 5px;
+-moz-border-radius-bottomleft: 5px;
+-webkit-border-bottom-right-radius: 5px;
+-moz-border-radius-bottomright: 5px;
+background: -webkit-gradient(linear, left top, left bottom, from(#405b72), to(#e6e6e6), color-stop(.08,#f9f9f9));
+        background: -moz-linear-gradient(top, #f9f9f9, #e6e6e6);
+}
+
