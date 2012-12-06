@@ -2,15 +2,15 @@
 	width:75%;
 	height: 100%;
 	position: absolute;
-	left: 27%;
+	left: 25%;
 	top: 0%;
 }
 
 #sidebar {
 	position: absolute;
-	width:27%;
+	width:25%;
 	height:100%;
-	min-width: 300px;
+	min-width: 200px;
 	left: 0px;
 	top: 0px;
 	margin: 0px;
@@ -35,52 +35,60 @@
 }
 
 .addDay {
-	padding: 0px;
+	height: 50px;
 }
 
 .addDay ul {
 	margin-left: 0px;
 }
 
-#addNew {
-	height:100%;
+#my-tab-content {
+	padding-top: 0px;
+	position: relative;
+	top: -20px;
+	height: 94%;
+	overflow: hidden;
 }
 
 #timeline {
+	position: relative;
+	width: 100%;
 	height: 100%;
 }
 
 .itinerary {
 	background-color: #FFC;
-	height: 77%;
-	width: 97%;
+	height: 70%;
+	width: 96%;
 	border: 1px black solid;
 	padding: 5px;
 	overflow: auto;
 }
 
 #search {
+	width: 100%;
+	padding-top: 10px;
 	background-color:#DDF;
 	border-top: 1px gray solid;
 	text-align: center;
-	height: 99%;
+	height: 98%;
 }
 
 .addText {
 	width: 100%;
 	text-align: center;
-	position: absolute;
-	bottom:5%;
+	position:relative;
+	top: 20px;
 	font-size: 16pt;
 }
 
 #addNew {
-	left: 5%;
 	width: 100%;
-	height: 7%;
+	height: 50px;
 	text-align: center;
-	position: absolute;
-	bottom:1%;
+	position: relative;
+	left: 5%;
+	top: -10px;
 }
 
 #searchResults li {
@@ -138,8 +146,8 @@ ul li.stop{
 	font-size: 11pt;
 	float: right;
 	position: absolute;
-	top: 26%;
-	left: 65%;
+	top: 20%;
+	left: 60%;
 }
 
 .day_delete {
@@ -222,7 +230,12 @@ ul li.stop{
 	vertical-align: middle;
 }
 
-	.calendar { width: 40px; font-size: 0.8em;
+#newStop {
+	height: 50px;
+	border: 1px solid blue;
+}
+
+.calendar { width: 40px; font-size: 0.8em;
 -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;
 box-shadow: 0 0 5px #05587e; -moz-box-shadow: 0 0 5px #05587e; -webkit-box-shadow: 0 0 5px #05587e;
 }
