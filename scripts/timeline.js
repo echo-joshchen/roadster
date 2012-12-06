@@ -32,9 +32,8 @@ function addPoint(coord) {
 
 // Adds a stop from coord
 function addStop(coord) {
-  //var node = document.createElement("div");
-  //node.id = "new";
-  //node.appendChild(stopNode(coord));
+  var newSpot = document.getElementById("newStop");
+  newSpot.style.color="blue";
   //document.getElementById("timeline").appendChild(node);
   document.getElementById("stops").appendChild(stopNode(coord))
 }
@@ -200,6 +199,9 @@ function updateTimeline() {
 
 // Gets lat and long as a string from a coord
 function get_pos(coord) {
+  if (coord == undefined) {
+    return "";
+  }
   return coord[0].toString() + ", " + coord[1].toString();
 }
 
