@@ -1,14 +1,14 @@
 #map {
-	width:70%;
+	width:75%;
 	height: 100%;
 	position: absolute;
-	left: 30%;
+	left: 27%;
 	top: 0%;
 }
 
 #sidebar {
 	position: absolute;
-	width:30%;
+	width:27%;
 	height:100%;
 	min-width: 300px;
 	left: 0px;
